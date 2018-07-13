@@ -107,8 +107,8 @@ wire(mosi.O,        main.J3[2])
 bit_counter = Counter(4, has_ce=True, has_reset=True)
 wire(edge_r, bit_counter.CE)
 
-high = Decode(15, 4)(bit_counter.O)
-low = Decode(7, 4)(bit_counter.O)
+low = Decode(15, 4)(bit_counter.O)
+high = Decode(7, 4)(bit_counter.O)
 
 low_byte = PIPO(8, has_ce=True)
 high_byte = PIPO(8, has_ce=True)
@@ -126,8 +126,7 @@ r_val = uint(LSR(16,11)(px_bits & RMASK))
 g_val = uint(LSR(16,5)(px_bits & GMASK))
 b_val = uint(px_bits & BMASK)
 
-#px_val = r_val + g_val + b_val 
-px_val = high_byte.O
+px_val = r_val + g_val + b_val 
 
 #---------------------------UART TIMING-----------------------------#
 
@@ -149,13 +148,13 @@ wire(u_reset, bit_counter.RESET)
 u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
 u_counter(CE=edge_r, RESET=u_reset)
 #load = burst & rising(u_counter.COUT)
-load = burst & low
+load = burst & high
 
 uart = PISO(9, has_ce=True)
 uart(1, u_data, load)
 wire(baud, uart.CE)
 
 wire(u_reset, main.J3[3])
-wire(low, main.J3[4])
-wire(high, main.J3[5])
+wire(baud, main.J3[4])
+wire(load, main.J3[5])
 wire(uart, main.J3[6]) # change to main.TX to stream to UART
