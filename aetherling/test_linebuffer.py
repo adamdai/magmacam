@@ -8,7 +8,9 @@ from coreir.context import *
 from magma.simulator.coreir_simulator import CoreIRSimulator
 import coreir
 from magma.scope import Scope
+from mantle.coreir import DefineCoreirConst
 from mantle import CounterModM, Decode, SIPO
+from magma.frontend.coreir_ import GetCoreIRModule
 from mantle.coreir.arith import *
 
 
@@ -20,29 +22,33 @@ scope = Scope()
 inType = Array(1, Array(1, Array(8, BitIn)))
 outType = Array(2, Array(2, Array(8, Out(Bit))))
 imgType = Array(4, Array(4, Array(8, Out(Bit))))
-args = ['I', inType, 'O', outType] + ClockInterface(False, False)
 
-testcircuit = DefineCircuit('lb1_3_Test', *args)
-test_in = SIPO(8)
 
 # Reduce interface
 inType2 = In(Array(4, Array(8, BitIn)))
 outType2 = Out(Array(8, Bit))
 
+args = ['I', inType, 'O', outType2] + ClockInterface(False, False)
+
+testcircuit = DefineCircuit('lb1_3_Test', *args)
+
 # Line buffer declaration
 lb = Linebuffer(cirb, inType, outType, imgType, False)
-wire(lb.I[0][0], test_in.O)
+wire(lb.I, testcircuit.I)
 wire(1, lb.wen)
 
 # # Reduce declaration
 reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DefineAdd(8)))
-# coreirConst = DefineCoreirConst(8, 0)()
-# wire(reducePar.I.data[0], lb.out[0][0])
-# wire(reducePar.I.data[1], lb.out[0][1])
-# wire(reducePar.I.data[2], lb.out[1][0])
-# wire(reducePar.I.data[3], lb.out[1][1])
-# wire(reducePar.I.identity, coreirConst.out)
-#wire(testcircuit.O, reducePar.out)
+coreirConst = DefineCoreirConst(8, 0)()
+wire(reducePar.I.data[0], lb.out[0][0])
+wire(reducePar.I.data[1], lb.out[0][1])
+wire(reducePar.I.data[2], lb.out[1][0])
+wire(reducePar.I.data[3], lb.out[1][1])
+wire(reducePar.I.identity, coreirConst.out)
+wire(testcircuit.O, reducePar.out)
 
 
 EndCircuit()
+
+module = GetCoreIRModule(cirb, testcircuit)
+module.save_to_file("stencil.json")
