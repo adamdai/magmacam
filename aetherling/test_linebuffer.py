@@ -1,4 +1,5 @@
 from aetherling.modules.linebuffer import *
+from aetherling.modules.reduce import ReduceSequential, ReduceParallel, renameCircuitForReduce
 from magma import *
 from magma.clock import *
 from magma.backend.coreir_ import CoreIRBackend
@@ -8,6 +9,7 @@ from magma.simulator.coreir_simulator import CoreIRSimulator
 import coreir
 from magma.scope import Scope
 from mantle import CounterModM, Decode, SIPO
+from mantle.coreir.arith import *
 
 
 c = coreir.Context()
@@ -33,7 +35,7 @@ wire(lb.I[0][0], test_in.O)
 wire(1, lb.wen)
 
 # # Reduce declaration
-# reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DefineAdd(width)))
+reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DefineAdd(8)))
 # coreirConst = DefineCoreirConst(8, 0)()
 # wire(reducePar.I.data[0], lb.out[0][0])
 # wire(reducePar.I.data[1], lb.out[0][1])
