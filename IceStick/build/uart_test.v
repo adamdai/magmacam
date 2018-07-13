@@ -62,7 +62,7 @@ Mux2 inst7 (.I({I1[7],I0[7]}), .S(S), .O(inst7_O));
 assign O = {inst7_O,inst6_O,inst5_O,inst4_O,inst3_O,inst2_O,inst1_O,inst0_O};
 endmodule
 
-module Add8Cout (input [7:0] I0, input [7:0] I1, output [7:0] O, output  COUT);
+module Add8 (input [7:0] I0, input [7:0] I1, output [7:0] O);
 wire  inst0_O;
 wire  inst0_COUT;
 wire  inst1_O;
@@ -88,7 +88,6 @@ FullAdder inst5 (.I0(I0[5]), .I1(I1[5]), .CIN(inst4_COUT), .O(inst5_O), .COUT(in
 FullAdder inst6 (.I0(I0[6]), .I1(I1[6]), .CIN(inst5_COUT), .O(inst6_O), .COUT(inst6_COUT));
 FullAdder inst7 (.I0(I0[7]), .I1(I1[7]), .CIN(inst6_COUT), .O(inst7_O), .COUT(inst7_COUT));
 assign O = {inst7_O,inst6_O,inst5_O,inst4_O,inst3_O,inst2_O,inst1_O,inst0_O};
-assign COUT = inst7_COUT;
 endmodule
 
 module Register8R (input [7:0] I, output [7:0] O, input  CLK, input  RESET);
@@ -111,14 +110,12 @@ SB_DFFSR inst7 (.C(CLK), .R(RESET), .D(I[7]), .Q(inst7_Q));
 assign O = {inst7_Q,inst6_Q,inst5_Q,inst4_Q,inst3_Q,inst2_Q,inst1_Q,inst0_Q};
 endmodule
 
-module Counter8R (output [7:0] O, output  COUT, input  CLK, input  RESET);
+module Counter8R (output [7:0] O, input  CLK, input  RESET);
 wire [7:0] inst0_O;
-wire  inst0_COUT;
 wire [7:0] inst1_O;
-Add8Cout inst0 (.I0(inst1_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1}), .O(inst0_O), .COUT(inst0_COUT));
+Add8 inst0 (.I0(inst1_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1}), .O(inst0_O));
 Register8R inst1 (.I(inst0_O), .O(inst1_O), .CLK(CLK), .RESET(RESET));
 assign O = inst1_O;
-assign COUT = inst0_COUT;
 endmodule
 
 module EQ8 (input [7:0] I0, input [7:0] I1, output  O);
@@ -141,18 +138,17 @@ SB_LUT4 #(.LUT_INIT(16'h8282)) inst7 (.I0(inst6_O), .I1(I0[7]), .I2(I1[7]), .I3(
 assign O = inst7_O;
 endmodule
 
-module Decode158 (input [7:0] I, output  O);
+module Decode1028 (input [7:0] I, output  O);
 wire  inst0_O;
-EQ8 inst0 (.I0(I), .I1({1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1}), .O(inst0_O));
+EQ8 inst0 (.I0(I), .I1({1'b0,1'b1,1'b1,1'b0,1'b0,1'b1,1'b1,1'b0}), .O(inst0_O));
 assign O = inst0_O;
 endmodule
 
-module Counter8Mod16 (output [7:0] O, output  COUT, input  CLK);
+module Counter8Mod103COUT (output [7:0] O, output  COUT, input  CLK);
 wire [7:0] inst0_O;
-wire  inst0_COUT;
 wire  inst1_O;
-Counter8R inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLK), .RESET(inst1_O));
-Decode158 inst1 (.I(inst0_O), .O(inst1_O));
+Counter8R inst0 (.O(inst0_O), .CLK(CLK), .RESET(inst1_O));
+Decode1028 inst1 (.I(inst0_O), .O(inst1_O));
 assign O = inst0_O;
 assign COUT = inst1_O;
 endmodule
@@ -242,7 +238,7 @@ Register9CE inst9 (.I({inst8_O,inst7_O,inst6_O,inst5_O,inst4_O,inst3_O,inst2_O,i
 assign O = inst9_O[8];
 endmodule
 
-module main (output [1:0] J3, input  CLKIN, output  TX);
+module main (output [3:0] J3, input  CLKIN, output  TX);
 wire [1:0] inst0_O;
 wire  inst0_COUT;
 wire [7:0] inst1_O;
@@ -263,15 +259,15 @@ Counter2CE inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLKIN), .CE(inst12_O));
 Mux2x8 inst1 (.I0({1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b1,1'b0}), .I1({1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b1,1'b1}), .S(inst0_O[0]), .O(inst1_O));
 Mux2x8 inst2 (.I0({1'b0,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b0}), .I1({1'b0,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1}), .S(inst0_O[0]), .O(inst2_O));
 Mux2x8 inst3 (.I0(inst1_O), .I1(inst2_O), .S(inst0_O[1]), .O(inst3_O));
-Counter8Mod16 inst4 (.O(inst4_O), .COUT(inst4_COUT), .CLK(CLKIN));
+Counter8Mod103COUT inst4 (.O(inst4_O), .COUT(inst4_COUT), .CLK(CLKIN));
 Counter4CER inst5 (.O(inst5_O), .COUT(inst5_COUT), .CLK(CLKIN), .CE(inst4_COUT), .RESET(inst9_O));
 SB_LUT4 #(.LUT_INIT(16'h8000)) inst6 (.I0(inst5_O[0]), .I1(inst5_O[1]), .I2(inst5_O[2]), .I3(inst5_O[3]), .O(inst6_O));
 SB_DFFE inst7 (.C(CLKIN), .E(inst4_COUT), .D(inst8_O), .Q(inst7_Q));
 SB_LUT4 #(.LUT_INIT(16'h0054)) inst8 (.I0(inst6_O), .I1(1'b1), .I2(inst7_Q), .I3(1'b0), .O(inst8_O));
 SB_LUT4 #(.LUT_INIT(16'h2222)) inst9 (.I0(inst6_O), .I1(inst7_Q), .I2(1'b0), .I3(1'b0), .O(inst9_O));
-PISO9CE inst10 (.SI(1'b1), .PI({1'b0,inst3_O[0],inst3_O[1],inst3_O[2],inst3_O[3],inst3_O[4],inst3_O[5],inst3_O[6],inst3_O[7]}), .LOAD(inst11_O), .O(inst10_O), .CLK(CLKIN), .CE(inst4_COUT));
+PISO9CE inst10 (.SI(1'b1), .PI({1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b0}), .LOAD(inst11_O), .O(inst10_O), .CLK(CLKIN), .CE(inst4_COUT));
 SB_LUT4 #(.LUT_INIT(16'h2222)) inst11 (.I0(1'b1), .I1(inst7_Q), .I2(1'b0), .I3(1'b0), .O(inst11_O));
 SB_LUT4 #(.LUT_INIT(16'h4444)) inst12 (.I0(inst7_Q), .I1(inst4_COUT), .I2(1'b0), .I3(1'b0), .O(inst12_O));
-assign TX = inst10_O;
+assign J3 = {inst10_O,inst12_O,inst11_O,inst4_COUT};
 endmodule
 

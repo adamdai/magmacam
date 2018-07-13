@@ -1,10 +1,8 @@
-#NAME = baud
-#NAME = fsm
 #NAME = uart_test
-#NAME = ftdi
 #NAME = spi
-NAME = arducam_spi
+#NAME = arducam_spi
 #NAME = burst
+NAME = greyscale
 
 PCF = $(NAME).pcf
 

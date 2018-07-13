@@ -2,7 +2,7 @@
 
 .model main
 .inputs J1 CLKIN
-.outputs J3[0] J3[1] J3[2] J3[3] J3[4] J3[5] TX
+.outputs J3[0] J3[1] J3[2] J3[3] J3[4] J3[5] J3[6] TX
 .names $false
 .names $true
 1
@@ -1102,7 +1102,9 @@
 1 1
 .names inst45.inst0_O J3[5]
 1 1
-.names inst46.inst9.inst8_Q TX
+.names inst46.inst9.inst8_Q J3[6]
+1 1
+.names $undef TX
 1 1
 .names CLKIN inst0.CLK
 1 1

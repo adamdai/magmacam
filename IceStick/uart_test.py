@@ -7,7 +7,7 @@ from loam.boards.icestick import IceStick
 icestick = IceStick()
 icestick.Clock.on()
 icestick.TX.output().on()
-for i in range(2):
+for i in range(4):
     icestick.J3[i].output().on()
 
 main = icestick.main()
@@ -21,10 +21,12 @@ init = [array(int2seq(0x12, 8)), array(int2seq(0x13, 8)),
 printf = Counter(2, has_ce=True)
 rom = ROM8(2, init, printf.O)
 
-data = array([rom.O[7], rom.O[6], rom.O[5], rom.O[4],
-              rom.O[3], rom.O[2], rom.O[1], rom.O[0], 0] )
+byte = bits(0x55, 8)
 
-clock = CounterModM(16, 8)
+data = array([byte[7], byte[6], byte[5], byte[4],
+              byte[3], byte[2], byte[1], byte[0], 0] )
+
+clock = CounterModM(103, 8)
 baud = clock.COUT
 
 counter = Counter(4, has_ce=True, has_reset=True)
@@ -50,9 +52,9 @@ wire(ready, printf.CE)
 
 #wire(main.CLKIN, main.J3[0])
 wire(baud,       main.J3[0])
-#wire(run,        main.J3[2])
-#wire(done,       main.J3[3])
-wire(shift,      main.TX)
+wire(load,        main.J3[1])
+wire(ready,       main.J3[2])
+wire(shift,      main.J3[3])
 #wire(ready,      main.J3[5])
 #wire(valid,      main.J3[6])
 #wire(count,      main.J3[4:8])

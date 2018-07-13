@@ -9,7 +9,7 @@ from loam.boards.icestick import IceStick
 icestick = IceStick()
 icestick.Clock.on()
 icestick.TX.output().on()
-for i in range(6):
+for i in range(7):
     icestick.J3[i].output().on()
 
 icestick.J1[0].input().on()
@@ -123,4 +123,4 @@ wire(baud, uart.CE)
 wire(baud, main.J3[3])
 wire(burst, main.J3[4])
 wire(load, main.J3[5])
-wire(uart, main.TX) # change to main.TX to stream to UART
+wire(uart, main.J3[6]) # change to main.TX to stream to UART

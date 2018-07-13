@@ -449,7 +449,7 @@ Register9CE inst9 (.I({inst8_O,inst7_O,inst6_O,inst5_O,inst4_O,inst3_O,inst2_O,i
 assign O = inst9_O[8];
 endmodule
 
-module main (input  J1, output [5:0] J3, input  CLKIN, output  TX);
+module main (input  J1, output [6:0] J3, input  CLKIN, output  TX);
 wire [4:0] inst0_O;
 wire  inst0_COUT;
 wire  inst1_Q;
@@ -548,7 +548,6 @@ SB_DFF inst43 (.C(CLKIN), .D(inst42_COUT), .Q(inst43_Q));
 SB_LUT4 #(.LUT_INIT(16'h2222)) inst44 (.I0(inst42_COUT), .I1(inst43_Q), .I2(1'b0), .I3(1'b0), .O(inst44_O));
 And2 inst45 (.I({inst44_O,inst28_O}), .O(inst45_O));
 PISO9CE inst46 (.SI(1'b1), .PI({1'b0,inst32_O[0],inst32_O[1],inst32_O[2],inst32_O[3],inst32_O[4],inst32_O[5],inst32_O[6],inst32_O[7]}), .LOAD(inst45_O), .O(inst46_O), .CLK(CLKIN), .CE(inst39_O));
-assign J3 = {inst45_O,inst28_O,inst39_O,inst29_O,inst30_O,inst0_O[4]};
-assign TX = inst46_O;
+assign J3 = {inst46_O,inst45_O,inst28_O,inst39_O,inst29_O,inst30_O,inst0_O[4]};
 endmodule
 
