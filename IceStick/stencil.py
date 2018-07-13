@@ -18,6 +18,8 @@ for i in range(5):
 
 main = icestick.main()
 
+stencil = DefineFromVerilogFile('stencil.v')
+
 valid = 1
 
 RMASK = bits(0b1111100000000000, 16)
