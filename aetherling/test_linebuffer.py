@@ -32,14 +32,14 @@ lb = Linebuffer(cirb, inType, outType, imgType, False)
 wire(lb.I[0][0], test_in.O)
 wire(1, lb.wen)
 
-# Reduce declaration
-reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DefineAdd(width)))
-coreirConst = DefineCoreirConst(8, 0)()
-wire(reducePar.I.data[0], lb.out[0][0])
-wire(reducePar.I.data[1], lb.out[0][1])
-wire(reducePar.I.data[2], lb.out[1][0])
-wire(reducePar.I.data[3], lb.out[1][1])
-wire(reducePar.I.identity, coreirConst.out)
+# # Reduce declaration
+# reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DefineAdd(width)))
+# coreirConst = DefineCoreirConst(8, 0)()
+# wire(reducePar.I.data[0], lb.out[0][0])
+# wire(reducePar.I.data[1], lb.out[0][1])
+# wire(reducePar.I.data[2], lb.out[1][0])
+# wire(reducePar.I.data[3], lb.out[1][1])
+# wire(reducePar.I.identity, coreirConst.out)
 #wire(testcircuit.O, reducePar.out)
 
 
