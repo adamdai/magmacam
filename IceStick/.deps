@@ -1,12 +1,23 @@
 {
     ".deps_version": 2,
+    "magma -b icestick -d build arducam_greyscale": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/arducam_greyscale.cpython-36.pyc": "output-68b05c7324e149327b8c617175e79228",
+        "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
+        "arducam_greyscale.py": "input-151445b08f261de24bb63d3c01eaea85",
+        "build/arducam_greyscale.pcf": "output-aa8ecbc466a057bdab26fd413e3dcf55",
+        "build/arducam_greyscale.v": "output-f8ffdc5571501986bb97a6a4012b5cc7",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
+    },
     "magma -b icestick -d build arducam_spi": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
-        "__pycache__/arducam_spi.cpython-36.pyc": "input-4534c5644d38ae7bb4b12094303a0db5",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/arducam_spi.cpython-36.pyc": "output-f1c09f887fcc09c7bcac3dc99e7dda34",
         "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "arducam_spi.py": "input-aaecfe7cfd24dde3a62ec6b0ca79948b",
+        "arducam_spi.py": "input-668b3033a4f21d573ad76117d221e16d",
         "build/arducam_spi.pcf": "output-aa8ecbc466a057bdab26fd413e3dcf55",
-        "build/arducam_spi.v": "output-5c00555efcb35b76a197c53106460f19",
+        "build/arducam_spi.v": "output-eecbc6f4af28e348961e852de9c3b491",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
     },
     "magma -b icestick -d build greyscale": {

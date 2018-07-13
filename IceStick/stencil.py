@@ -98,9 +98,9 @@ u_data = array([px_val[7], px_val[6], px_val[5], px_val[4],
 
 uart = PISO(9, has_ce=True)
 #load = LUT2(I0&~I1)(valid,run)
-ff = FF(has_ce=True)
-load = ff(low)
-wire(baud, ff.CE)
+# ff = FF(has_ce=True)
+# load = ff(low)
+# wire(baud, ff.CE)
 uart(1, u_data, high)
 wire(baud, uart.CE)
 

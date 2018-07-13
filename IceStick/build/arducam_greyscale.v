@@ -513,12 +513,6 @@ module FixedLSR16_5 (input [15:0] I, output [15:0] O);
 assign O = {1'b0,1'b0,1'b0,1'b0,1'b0,I[15],I[14],I[13],I[12],I[11],I[10],I[9],I[8],I[7],I[6],I[5]};
 endmodule
 
-module Or2 (input [1:0] I, output  O);
-wire  inst0_O;
-SB_LUT4 #(.LUT_INIT(16'hEEEE)) inst0 (.I0(I[0]), .I1(I[1]), .I2(1'b0), .I3(1'b0), .O(inst0_O));
-assign O = inst0_O;
-endmodule
-
 module Add3 (input [2:0] I0, input [2:0] I1, output [2:0] O);
 wire  inst0_O;
 wire  inst0_COUT;
@@ -548,6 +542,12 @@ wire [2:0] inst1_O;
 Add3 inst0 (.I0(inst1_O), .I1({1'b0,1'b0,1'b1}), .O(inst0_O));
 Register3CER inst1 (.I(inst0_O), .O(inst1_O), .CLK(CLK), .CE(CE), .RESET(RESET));
 assign O = inst1_O;
+endmodule
+
+module Or2 (input [1:0] I, output  O);
+wire  inst0_O;
+SB_LUT4 #(.LUT_INIT(16'hEEEE)) inst0 (.I0(I[0]), .I1(I[1]), .I2(1'b0), .I3(1'b0), .O(inst0_O));
+assign O = inst0_O;
 endmodule
 
 module Counter3Mod8COUTCER (output [2:0] O, output  COUT, input  CLK, input  CE, input  RESET);
@@ -665,17 +665,12 @@ wire [15:0] inst47_O;
 wire [15:0] inst48_O;
 wire [15:0] inst49_O;
 wire [15:0] inst50_O;
-wire [15:0] inst51_O;
-wire [15:0] inst52_O;
-wire  inst53_O;
-wire  inst54_Q;
+wire  inst51_Q;
+wire  inst52_O;
+wire [2:0] inst53_O;
+wire  inst53_COUT;
+wire  inst54_O;
 wire  inst55_O;
-wire [2:0] inst56_O;
-wire  inst56_COUT;
-wire  inst57_Q;
-wire  inst58_O;
-wire  inst59_O;
-wire  inst60_O;
 Counter5 inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLKIN));
 SB_DFF inst1 (.C(CLKIN), .D(inst0_O[4]), .Q(inst1_Q));
 SB_LUT4 #(.LUT_INIT(16'h4444)) inst2 (.I0(inst0_O[4]), .I1(inst1_Q), .I2(1'b0), .I3(1'b0), .O(inst2_O));
@@ -715,11 +710,11 @@ SB_LUT4 #(.LUT_INIT(16'h0E0E)) inst35 (.I0(inst34_Q), .I1(inst36_O), .I2(1'b0), 
 EQ8 inst36 (.I0(inst32_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0}), .O(inst36_O));
 And2 inst37 (.I({inst4_O,inst30_O}), .O(inst37_O));
 SB_LUT4 #(.LUT_INIT(16'h00A8)) inst38 (.I0(inst26_O), .I1(inst27_O), .I2(inst34_Q), .I3(inst28_O), .O(inst38_O));
-Counter4CER inst39 (.O(inst39_O), .COUT(inst39_COUT), .CLK(CLKIN), .CE(inst4_O), .RESET(inst55_O));
-SB_LUT4 #(.LUT_INIT(16'h0001)) inst40 (.I0(inst39_O[0]), .I1(inst39_O[1]), .I2(inst39_O[2]), .I3(inst39_O[3]), .O(inst40_O));
-SB_LUT4 #(.LUT_INIT(16'h0100)) inst41 (.I0(inst39_O[0]), .I1(inst39_O[1]), .I2(inst39_O[2]), .I3(inst39_O[3]), .O(inst41_O));
-PIPO8CE inst42 (.SI(1'b0), .PI(inst32_O), .LOAD(inst40_O), .O(inst42_O), .CLK(CLKIN), .CE(inst40_O));
-PIPO8CE inst43 (.SI(1'b0), .PI(inst32_O), .LOAD(inst41_O), .O(inst43_O), .CLK(CLKIN), .CE(inst41_O));
+Counter4CER inst39 (.O(inst39_O), .COUT(inst39_COUT), .CLK(CLKIN), .CE(inst4_O), .RESET(inst52_O));
+SB_LUT4 #(.LUT_INIT(16'h8000)) inst40 (.I0(inst39_O[0]), .I1(inst39_O[1]), .I2(inst39_O[2]), .I3(inst39_O[3]), .O(inst40_O));
+SB_LUT4 #(.LUT_INIT(16'h0080)) inst41 (.I0(inst39_O[0]), .I1(inst39_O[1]), .I2(inst39_O[2]), .I3(inst39_O[3]), .O(inst41_O));
+PIPO8CE inst42 (.SI(1'b0), .PI(inst32_O), .LOAD(inst41_O), .O(inst42_O), .CLK(CLKIN), .CE(inst41_O));
+PIPO8CE inst43 (.SI(1'b0), .PI(inst32_O), .LOAD(inst40_O), .O(inst43_O), .CLK(CLKIN), .CE(inst40_O));
 FixedLSL16_8 inst44 (.I({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,inst43_O[7],inst43_O[6],inst43_O[5],inst43_O[4],inst43_O[3],inst43_O[2],inst43_O[1],inst43_O[0]}), .O(inst44_O));
 Add16 inst45 (.I0(inst44_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,inst42_O[7],inst42_O[6],inst42_O[5],inst42_O[4],inst42_O[3],inst42_O[2],inst42_O[1],inst42_O[0]}), .O(inst45_O));
 FixedLSR16_11 inst46 (.I(inst47_O), .O(inst46_O));
@@ -727,16 +722,11 @@ And2x16 inst47 (.I0(inst45_O), .I1({1'b1,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0
 FixedLSR16_5 inst48 (.I(inst49_O), .O(inst48_O));
 And2x16 inst49 (.I0(inst45_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0}), .O(inst49_O));
 And2x16 inst50 (.I0(inst45_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1}), .O(inst50_O));
-Add16 inst51 (.I0(inst46_O), .I1(inst48_O), .O(inst51_O));
-Add16 inst52 (.I0(inst51_O), .I1(inst50_O), .O(inst52_O));
-Or2 inst53 (.I({inst2_O,inst4_O}), .O(inst53_O));
-SB_DFFE inst54 (.C(CLKIN), .E(inst4_O), .D(inst28_O), .Q(inst54_Q));
-SB_LUT4 #(.LUT_INIT(16'h2222)) inst55 (.I0(inst28_O), .I1(inst54_Q), .I2(1'b0), .I3(1'b0), .O(inst55_O));
-Counter3Mod8COUTCER inst56 (.O(inst56_O), .COUT(inst56_COUT), .CLK(CLKIN), .CE(inst4_O), .RESET(inst55_O));
-SB_DFF inst57 (.C(CLKIN), .D(inst56_COUT), .Q(inst57_Q));
-SB_LUT4 #(.LUT_INIT(16'h2222)) inst58 (.I0(inst56_COUT), .I1(inst57_Q), .I2(1'b0), .I3(1'b0), .O(inst58_O));
-And2 inst59 (.I({inst58_O,inst28_O}), .O(inst59_O));
-PISO9CE inst60 (.SI(1'b1), .PI({1'b0,inst32_O[0],inst32_O[1],inst32_O[2],inst32_O[3],inst32_O[4],inst32_O[5],inst32_O[6],inst32_O[7]}), .LOAD(inst59_O), .O(inst60_O), .CLK(CLKIN), .CE(inst53_O));
-assign J3 = {inst60_O,inst41_O,inst40_O,inst59_O,inst29_O,inst30_O,inst0_O[4]};
+SB_DFFE inst51 (.C(CLKIN), .E(inst4_O), .D(inst28_O), .Q(inst51_Q));
+SB_LUT4 #(.LUT_INIT(16'h2222)) inst52 (.I0(inst28_O), .I1(inst51_Q), .I2(1'b0), .I3(1'b0), .O(inst52_O));
+Counter3Mod8COUTCER inst53 (.O(inst53_O), .COUT(inst53_COUT), .CLK(CLKIN), .CE(inst4_O), .RESET(inst52_O));
+And2 inst54 (.I({inst41_O,inst28_O}), .O(inst54_O));
+PISO9CE inst55 (.SI(1'b1), .PI({1'b0,inst42_O[0],inst42_O[1],inst42_O[2],inst42_O[3],inst42_O[4],inst42_O[5],inst42_O[6],inst42_O[7]}), .LOAD(inst54_O), .O(inst55_O), .CLK(CLKIN), .CE(inst4_O));
+assign J3 = {inst55_O,inst40_O,inst41_O,inst52_O,inst29_O,inst30_O,inst0_O[4]};
 endmodule
 

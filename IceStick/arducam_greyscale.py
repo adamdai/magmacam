@@ -18,6 +18,12 @@ main = icestick.main()
 
 trigger = 1 # maybe tie to GPIO later
 
+RMASK = bits(0b1111100000000000, 16)
+GMASK = bits(0b0000011111100000, 16)
+BMASK = bits(0b0000000000011111, 16)
+
+zeros = bits(0, 8)
+
 # Generate the SCLK signal (12 MHz/16 = 750 kHz)
 clk_counter = Counter(5)
 sclk = clk_counter.O[4]
@@ -96,16 +102,44 @@ wire(mosi.O,        main.J3[2])
 #wire(valid,      main.J3[4])
 #wire(valid,      main.J3[6])
 
-#---------------------------UART OUTPUT-----------------------------#
+#-----------------------CONVERT TO GREYSCALE------------------------#
+
+bit_counter = Counter(4, has_ce=True, has_reset=True)
+wire(edge_r, bit_counter.CE)
+
+high = Decode(15, 4)(bit_counter.O)
+low = Decode(7, 4)(bit_counter.O)
+
+low_byte = PIPO(8, has_ce=True)
+high_byte = PIPO(8, has_ce=True)
+
+low_byte(0, miso.O, low)
+high_byte(0, miso.O, high)
+
+wire(low, low_byte.CE)
+wire(high, high_byte.CE)
+
+px_bits = uint(LSL(16,8)(uint(concat(high_byte.O, zeros)))) + uint(concat(low_byte.O, zeros))
+
+# follow by right shift
+r_val = uint(LSR(16,11)(px_bits & RMASK))
+g_val = uint(LSR(16,5)(px_bits & GMASK))
+b_val = uint(px_bits & BMASK)
+
+#px_val = r_val + g_val + b_val 
+px_val = high_byte.O
+
+#---------------------------UART TIMING-----------------------------#
 
 u_valid = 1
 
-u_data = array([miso.O[7], miso.O[6], miso.O[5], miso.O[4],
-                miso.O[3], miso.O[2], miso.O[1], miso.O[0], 0])
+# u_data = array([miso.O[7], miso.O[6], miso.O[5], miso.O[4],
+#                 miso.O[3], miso.O[2], miso.O[1], miso.O[0], 0])
 
-#u_clock = CounterModM(16, 8)
-#baud = u_clock.COUT
-baud = edge_r | edge_f
+u_data = array([px_val[7], px_val[6], px_val[5], px_val[4],
+                px_val[3], px_val[2], px_val[1], px_val[0], 0])
+
+baud = edge_r #| edge_f
 
 ff = FF(has_ce=True)
 wire(edge_r, ff.CE)
@@ -114,14 +148,14 @@ wire(u_reset, bit_counter.RESET)
 
 u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
 u_counter(CE=edge_r, RESET=u_reset)
-load = burst & rising(u_counter.COUT)
+#load = burst & rising(u_counter.COUT)
+load = burst & low
 
 uart = PISO(9, has_ce=True)
-#load = LUT2(I0&~I1)(valid,run)
 uart(1, u_data, load)
 wire(baud, uart.CE)
 
-wire(baud, main.J3[3])
-wire(burst, main.J3[4])
-wire(load, main.J3[5])
+wire(u_reset, main.J3[3])
+wire(low, main.J3[4])
+wire(high, main.J3[5])
 wire(uart, main.J3[6]) # change to main.TX to stream to UART
