@@ -1,5 +1,4 @@
 from magma import *
-set_mantle_target("ice40")
 from magma.bitutils import int2seq
 from mantle import *
 from rom import ROM8
@@ -17,8 +16,6 @@ for i in range(5):
     icestick.J3[i].output().on()
 
 main = icestick.main()
-
-stencil = DefineFromVerilogFile('stencil.v')
 
 valid = 1
 
@@ -85,6 +82,29 @@ b_val = uint(px_bits & BMASK)
 
 px_val = r_val + g_val + b_val # 0 to 125 (2^5 -1 + 2^6 -1 + 2^5 - 1)
 #px_val = px_bits
+
+#---------------------------STENCILING-----------------------------#
+
+#stencil = DeclareFromVerilogFile('stencil.v')
+STEN = DeclareCircuit('STEN', 
+			"I", In(Array(1, Array(1, Array(8, Bit)))),
+			"O", Out(Array(8, Bit)))
+
+stencil = STEN()
+
+SB_LUT4 = DeclareCircuit('SB_LUT4',
+               "I0", In(Bit),
+               "I1", In(Bit),
+               "I2", In(Bit),
+               "I3", In(Bit),
+               "O",  Out(Bit))
+
+lut4 = SB_LUT4(LUT_INIT=0xffff)
+
+# p = Array(8, BitIn)
+# p = 
+
+wire(stencil.I[0][0], bits(px_val[:8]))
 
 #---------------------------UART OUTPUT-----------------------------#
 

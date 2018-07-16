@@ -128,6 +128,10 @@ b_val = uint(px_bits & BMASK)
 
 px_val = r_val + g_val + b_val 
 
+ff = FF(has_ce=True)
+wire(edge_r, ff.CE)
+px_bit = ff(UGE(16)(px_val, uint(63,16)))
+
 #---------------------------UART TIMING-----------------------------#
 
 u_valid = 1
@@ -155,6 +159,6 @@ uart(1, u_data, load)
 wire(baud, uart.CE)
 
 wire(u_reset, main.J3[3])
-wire(baud, main.J3[4])
+wire(px_bit, main.J3[4])
 wire(load, main.J3[5])
 wire(uart, main.J3[6]) # change to main.TX to stream to UART

@@ -7,7 +7,7 @@ BOARD = 'icestick'
 BUILD = 'build'
 GOLD = 'gold' 
 
-tests = ['arducam_greyscale.py', 'greyscale.py', 'uart_test.py']
+tests = ['arducam_greyscale.py', 'greyscale.py', 'stencil.py']
 
 def build():
     for test in tests:

@@ -12,6 +12,7 @@ from mantle.coreir import DefineCoreirConst
 from mantle import CounterModM, Decode, SIPO
 from magma.frontend.coreir_ import GetCoreIRModule
 from mantle.coreir.arith import *
+from mantle.primitives import DeclareAdd
 
 
 c = coreir.Context()
@@ -28,8 +29,8 @@ imgType = Array(4, Array(4, Array(8, Out(Bit))))
 inType2 = In(Array(4, Array(8, BitIn)))
 outType2 = Out(Array(8, Bit))
 
+# Test circuit has line buffer's input and reduce's output
 args = ['I', inType, 'O', outType2] + ClockInterface(False, False)
-
 testcircuit = DefineCircuit('lb1_3_Test', *args)
 
 # Line buffer declaration
@@ -38,7 +39,7 @@ wire(lb.I, testcircuit.I)
 wire(1, lb.wen)
 
 # # Reduce declaration
-reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DefineAdd(8)))
+reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DeclareAdd(8)))
 coreirConst = DefineCoreirConst(8, 0)()
 wire(reducePar.I.data[0], lb.out[0][0])
 wire(reducePar.I.data[1], lb.out[0][1])

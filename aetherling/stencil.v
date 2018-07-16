@@ -267,7 +267,7 @@ module Add8 (
 
 endmodule //Add8
 
-module renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___ (
+module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ (
   input [7:0] in0,
   input [7:0] in1,
   output [7:0] out
@@ -287,7 +287,7 @@ module renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___ (
   assign inst0__I1[7:0] = in1[7:0];
   assign out[7:0] = inst0__O[7:0];
 
-endmodule //renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___
+endmodule //renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___
 
 module reduceParallelPower2Inputs_U3 (
   input [7:0] in_0,
@@ -296,31 +296,31 @@ module reduceParallelPower2Inputs_U3 (
   input [7:0] in_3,
   output [7:0] out
 );
-  //Wire declarations for instance 'op_0_0' (Module renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___)
+  //Wire declarations for instance 'op_0_0' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
   wire [7:0] op_0_0__in0;
   wire [7:0] op_0_0__in1;
   wire [7:0] op_0_0__out;
-  renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___ op_0_0(
+  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_0_0(
     .in0(op_0_0__in0),
     .in1(op_0_0__in1),
     .out(op_0_0__out)
   );
 
-  //Wire declarations for instance 'op_1_0' (Module renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___)
+  //Wire declarations for instance 'op_1_0' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
   wire [7:0] op_1_0__in0;
   wire [7:0] op_1_0__in1;
   wire [7:0] op_1_0__out;
-  renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___ op_1_0(
+  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_1_0(
     .in0(op_1_0__in0),
     .in1(op_1_0__in1),
     .out(op_1_0__out)
   );
 
-  //Wire declarations for instance 'op_1_1' (Module renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___)
+  //Wire declarations for instance 'op_1_1' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
   wire [7:0] op_1_1__in0;
   wire [7:0] op_1_1__in1;
   wire [7:0] op_1_1__out;
-  renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___ op_1_1(
+  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_1_1(
     .in0(op_1_1__in0),
     .in1(op_1_1__in1),
     .out(op_1_1__out)

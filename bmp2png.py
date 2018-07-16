@@ -11,7 +11,7 @@ from PyQt5 import QtGui
 data = []
 
 # File should be 2x(320x240) = 153600 bytes long
-infile = open(os.path.expanduser("~/Documents/arducam_rgb_test_data.csv"), "r+")
+infile = open(os.path.expanduser("~/Documents/analyzerdata/greyscale_test_img.csv"), "r+")
 
 with infile as csvfile:
 	spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')

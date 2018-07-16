@@ -58,7 +58,7 @@
           },
           "inst1":{
             "genref":"aetherlinglib.reduceParallel",
-            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___"]}
+            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___"]}
           },
           "inst2":{
             "modref":"global.coreir_const80"
@@ -75,7 +75,7 @@
           ["self.O","inst1.out"]
         ]
       },
-      "renamedForReduce_opAdd8_I0-In_Bits_8__-I1-In_Bits_8__-O-Out_Bits_8___":{
+      "renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___":{
         "type":["Record",[
           ["in0",["Array",8,"BitIn"]],
           ["in1",["Array",8,"BitIn"]],

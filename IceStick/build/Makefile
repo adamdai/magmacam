@@ -1,9 +1,10 @@
 #NAME = uart_test
 #NAME = spi
 #NAME = arducam_spi
-NAME = arducam_greyscale
+#NAME = arducam_greyscale
 #NAME = burst
 #NAME = greyscale
+NAME = stencil
 
 PCF = $(NAME).pcf
 
