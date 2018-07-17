@@ -22,7 +22,7 @@ scope = Scope()
 # Line Buffer interface
 inType = Array(1, Array(1, Array(8, BitIn)))
 outType = Array(2, Array(2, Array(8, Out(Bit))))
-imgType = Array(4, Array(4, Array(8, Out(Bit))))
+imgType = Array(16, Array(16, Array(8, Out(Bit))))
 
 
 # Reduce interface
@@ -30,12 +30,13 @@ inType2 = In(Array(4, Array(8, BitIn)))
 outType2 = Out(Array(8, Bit))
 
 # Test circuit has line buffer's input and reduce's output
-args = ['I', inType, 'O', outType2] + ClockInterface(False, False)
-testcircuit = DefineCircuit('lb1_3_Test', *args)
+args = ['I', inType, 'O', outType2, 'CE', BitIn, 'V', Out(Bit), 'CLKOut', Out(Clock)] + ClockInterface(False, False)
+testcircuit = DefineCircuit('STEN', *args)
 
 # Line buffer declaration
-lb = Linebuffer(cirb, inType, outType, imgType, False)
+lb = Linebuffer(cirb, inType, outType, imgType, True)
 wire(lb.I, testcircuit.I)
+#wire(lb.wen, testcircuit.CE)
 wire(1, lb.wen)
 
 # # Reduce declaration
@@ -47,9 +48,11 @@ wire(reducePar.I.data[2], lb.out[1][0])
 wire(reducePar.I.data[3], lb.out[1][1])
 wire(reducePar.I.identity, coreirConst.out)
 wire(testcircuit.O, reducePar.out)
+wire(testcircuit.V, lb.valid)
+wire(testcircuit.CLKOut, testcircuit.CLK)
 
 
 EndCircuit()
 
 module = GetCoreIRModule(cirb, testcircuit)
-module.save_to_file("stencil.json")
+module.save_to_file("linebuffer.json")

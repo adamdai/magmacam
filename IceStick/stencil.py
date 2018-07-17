@@ -87,45 +87,41 @@ px_val = r_val + g_val + b_val # 0 to 125 (2^5 -1 + 2^6 -1 + 2^5 - 1)
 
 #stencil = DeclareFromVerilogFile('stencil.v')
 STEN = DeclareCircuit('STEN', 
-			"I", In(Array(1, Array(1, Array(8, Bit)))),
-			"O", Out(Array(8, Bit)))
+			"I_0_0", In(Array(1, Array(1, Array(8, Bit)))),
+			"O", Out(Array(8, Bit)),
+			"CE", In(Bit),
+			"V", Out(Bit)
+			"CLKOut", Out(Clock))
 
 stencil = STEN()
-
-SB_LUT4 = DeclareCircuit('SB_LUT4',
-               "I0", In(Bit),
-               "I1", In(Bit),
-               "I2", In(Bit),
-               "I3", In(Bit),
-               "O",  Out(Bit))
-
-lut4 = SB_LUT4(LUT_INIT=0xffff)
 
 # p = Array(8, BitIn)
 # p = 
 
-wire(stencil.I[0][0], bits(px_val[:8]))
+wire(stencil.I_0_0[0][0], bits(px_val[:8]))
+#wire(baud, stencil.CE)
 
 #---------------------------UART OUTPUT-----------------------------#
 
 u_valid = 1
 
-u_data = array([px_val[7], px_val[6], px_val[5], px_val[4],
-                px_val[3], px_val[2], px_val[1], px_val[0], 0])
+# u_data = array([px_val[7], px_val[6], px_val[5], px_val[4],
+#                 px_val[3], px_val[2], px_val[1], px_val[0], 0])
 
-# u_data = array([rom.O[7], rom.O[6], rom.O[5], rom.O[4],
-#               rom.O[3], rom.O[2], rom.O[1], rom.O[0], 0])
+u_data = array([stencil.O[7], stencil.O[6], stencil.O[5], stencil.O[4],
+              stencil.O[3], stencil.O[2], stencil.O[1], stencil.O[0], 0])
 
 uart = PISO(9, has_ce=True)
 #load = LUT2(I0&~I1)(valid,run)
 # ff = FF(has_ce=True)
 # load = ff(low)
 # wire(baud, ff.CE)
+load = high & stencil.V
 uart(1, u_data, high)
 wire(baud, uart.CE)
 
 wire(baud, main.J3[0])
 wire(low, main.J3[1])
 wire(high, main.J3[2])
-wire(increment, main.J3[3])
+wire(stencil.CLKOut, main.J3[3])
 wire(uart, main.J3[4]) # change to main.TX to stream to UART
