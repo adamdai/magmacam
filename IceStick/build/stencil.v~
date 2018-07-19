@@ -461,10 +461,7 @@ wire [15:0] inst46_O;
 wire [15:0] inst47_O;
 wire [15:0] inst48_O;
 wire [7:0] inst49_O;
-wire  inst49_V;
-wire  inst49_CLKOut;
 wire  inst50_O;
-wire  inst51_O;
 Counter5CE inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLKIN), .CE(inst39_O));
 Mux2x8 inst1 (.I0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1}), .S(inst0_O[0]), .O(inst1_O));
 Mux2x8 inst2 (.I0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0}), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1}), .S(inst0_O[0]), .O(inst2_O));
@@ -514,9 +511,8 @@ And2x16 inst45 (.I0(inst41_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1
 And2x16 inst46 (.I0(inst41_O), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1}), .O(inst46_O));
 Add16 inst47 (.I0(inst42_O), .I1(inst44_O), .O(inst47_O));
 Add16 inst48 (.I0(inst47_O), .I1(inst46_O), .O(inst48_O));
-STEN inst49 (.I_0_0({{{inst48_O[7],inst48_O[6],inst48_O[5],inst48_O[4],inst48_O[3],inst48_O[2],inst48_O[1],inst48_O[0]}}}), .O(inst49_O), .V(inst49_V), .CLK(CLKIN), .CLKOut(inst49_CLKOut));
-PISO9CE inst50 (.SI(1'b1), .PI({1'b0,inst49_O[0],inst49_O[1],inst49_O[2],inst49_O[3],inst49_O[4],inst49_O[5],inst49_O[6],inst49_O[7]}), .LOAD(inst35_O), .O(inst50_O), .CLK(CLKIN), .CE(inst32_COUT));
-And2 inst51 (.I({inst49_V,inst35_O}), .O(inst51_O));
-assign J3 = {inst50_O,inst49_CLKOut,inst35_O,inst34_O,inst32_COUT};
+STEN inst49 (.I({{{inst48_O[7],inst48_O[6],inst48_O[5],inst48_O[4],inst48_O[3],inst48_O[2],inst48_O[1],inst48_O[0]}}}), .O(inst49_O));
+PISO9CE inst50 (.SI(1'b1), .PI({1'b0,inst48_O[0],inst48_O[1],inst48_O[2],inst48_O[3],inst48_O[4],inst48_O[5],inst48_O[6],inst48_O[7]}), .LOAD(inst35_O), .O(inst50_O), .CLK(CLKIN), .CE(inst32_COUT));
+assign J3 = {inst50_O,inst39_O,inst35_O,inst34_O,inst32_COUT};
 endmodule
 

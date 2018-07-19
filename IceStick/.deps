@@ -1,5 +1,15 @@
 {
     ".deps_version": 2,
+    "magma -b icestick -d build arducam": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/arducam.cpython-36.pyc": "output-ee15a5aa8e6633d8d9d199be8d47dc5e",
+        "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
+        "arducam.py": "input-680e5332058c0e8e7ef5f28962e8d6be",
+        "build/arducam.pcf": "output-8a052a00f69b1eaf8dcbf0859fdc77c4",
+        "build/arducam.v": "output-f1d12ef600cafb77aa446a240da226f7",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
+    },
     "magma -b icestick -d build arducam_greyscale": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
@@ -13,11 +23,11 @@
     "magma -b icestick -d build arducam_spi": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/arducam_spi.cpython-36.pyc": "output-f1c09f887fcc09c7bcac3dc99e7dda34",
+        "__pycache__/arducam_spi.cpython-36.pyc": "output-f843f9565b93319e5e1adc22532ebc51",
         "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "arducam_spi.py": "input-668b3033a4f21d573ad76117d221e16d",
+        "arducam_spi.py": "input-0780ff523f05ab305955456e16836d7a",
         "build/arducam_spi.pcf": "output-aa8ecbc466a057bdab26fd413e3dcf55",
-        "build/arducam_spi.v": "output-eecbc6f4af28e348961e852de9c3b491",
+        "build/arducam_spi.v": "output-cfc8a3719bc7b4cca38cede450f333bf",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
     },
     "magma -b icestick -d build greyscale": {
@@ -30,22 +40,38 @@
         "greyscale.py": "input-d7a718fc87f10b1be35136e8a90eab3f",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
     },
+    "magma -b icestick -d build main": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/arducam.cpython-36.pyc": "input-a6371b11b39a66e0912ace7ad8656e0d",
+        "__pycache__/main.cpython-36.pyc": "output-d5e2f8392bc7501f7118bacbd906cf07",
+        "__pycache__/process.cpython-36.pyc": "output-e207198e4dc88c339d24b3efe4078070",
+        "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
+        "arducam.py": "input-ccbce017bef433262d8fa36d378b00fc",
+        "build/main.pcf": "output-e9a7f65eb83fe6320e9e77303208898c",
+        "build/main.v": "output-fafeeb74999e64c5bcf5aa1583a2ead0",
+        "main.py": "input-800ed17a2692010bf62c70d92f816cca",
+        "process.py": "input-b456d9adf6ad81d97dd90a238e9c7e4c",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
+    },
     "magma -b icestick -d build stencil": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "__pycache__/stencil.cpython-36.pyc": "input-31e50a7f74e0a7b9261bbf67a59e1487",
+        "__pycache__/stencil.cpython-36.pyc": "input-7ca66e5ea37634c8e10b87dc94c1bbef",
         "build/stencil.pcf": "output-df545852549b14b33f91f6ca167d2aa6",
-        "build/stencil.v": "output-83d085e08b42857758f47fee3d9efb33",
+        "build/stencil.v": "output-56057b6e5cf0525031f1cc55089baee0",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
-        "stencil.py": "input-b1483ab3e40c2d151b7a0bdd923e1db4"
+        "stencil.py": "input-c414c11990e006ec4b49da4fc475ba77"
     },
     "magma -b icestick -d build test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/test.cpython-36.pyc": "output-e562cda5f5f57804821604ece35b5dd9",
-        "build/test.pcf": "output-9bef0c8b2050e10d9f38bff7967df964",
-        "build/test.v": "output-df38eb27ff3977071c99592cae110f65",
-        "test.py": "input-47a0f0fb11e9068cd63628c8df1daf7d"
+        "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
+        "__pycache__/test.cpython-36.pyc": "output-3acd1152f81ac200ba02c79cb689aba5",
+        "build/test.pcf": "output-7366af5be01114ac5f5b453420ad4a18",
+        "build/test.v": "output-a75a4082718ba4e474de21ba2a2e7749",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
+        "test.py": "input-e1aa15f71274f6745ed1e476a82e84d5"
     },
     "magma -b icestick -d build uart_test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",

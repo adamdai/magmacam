@@ -90,7 +90,8 @@ STEN = DeclareCircuit('STEN',
 			"I_0_0", In(Array(1, Array(1, Array(8, Bit)))),
 			"O", Out(Array(8, Bit)),
 			"CE", In(Bit),
-			"V", Out(Bit)
+			"V", Out(Bit),
+			"CLK", In(Clock),
 			"CLKOut", Out(Clock))
 
 stencil = STEN()

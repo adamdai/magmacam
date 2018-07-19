@@ -87,14 +87,11 @@ wire(enable&edge_r, cap_done.CE)
 increment = LUT4(I0 & (I1 | I2) & ~I3)(ready, start, cap_done, burst)
 wire(increment, rom_index.CE)
 
-#wire(main.CLKIN,       main.J3[0])
+
 wire(sclk,        main.J3[0])
 wire(enable,      main.J3[1])
 wire(mosi.O,        main.J3[2])
-#wire(burst,        main.J3[3])
-#wire(done,      main.J3[3])
-#wire(valid,      main.J3[4])
-#wire(valid,      main.J3[6])
+
 
 #---------------------------UART OUTPUT-----------------------------#
 
@@ -110,7 +107,6 @@ baud = edge_r | edge_f
 ff = FF(has_ce=True)
 wire(edge_r, ff.CE)
 u_reset = LUT2(I0 & ~I1)(burst, ff(burst))
-wire(u_reset, bit_counter.RESET)
 
 u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
 u_counter(CE=edge_r, RESET=u_reset)
