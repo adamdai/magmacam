@@ -80,6 +80,7 @@ wire(valid, miso.CE)
 
 # Capture done state variable
 cap_done = SRFF(has_ce=True)
+check = EQ(8)(miso.O, bits(0x08, 8))
 cap_done(EQ(8)(miso.O, bits(0x08, 8)), 0)
 wire(enable&edge_r, cap_done.CE)
 
@@ -117,7 +118,7 @@ uart = PISO(9, has_ce=True)
 uart(1, u_data, load)
 wire(baud, uart.CE)
 
-wire(baud, main.J3[3])
-wire(burst, main.J3[4])
+wire(cap_done, main.J3[3])
+wire(check, main.J3[4])
 wire(load, main.J3[5])
 wire(uart, main.J3[6]) # change to main.TX to stream to UART

@@ -23,11 +23,11 @@
     "magma -b icestick -d build arducam_spi": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/arducam_spi.cpython-36.pyc": "output-f843f9565b93319e5e1adc22532ebc51",
+        "__pycache__/arducam_spi.cpython-36.pyc": "output-7acc6375d1c98787610ee18ba7a15a71",
         "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "arducam_spi.py": "input-0780ff523f05ab305955456e16836d7a",
+        "arducam_spi.py": "input-b6ab6f44f354bac9b93e15a9fb73fea6",
         "build/arducam_spi.pcf": "output-aa8ecbc466a057bdab26fd413e3dcf55",
-        "build/arducam_spi.v": "output-cfc8a3719bc7b4cca38cede450f333bf",
+        "build/arducam_spi.v": "output-6daeca3cfa3ac75b4ee946fffe53717b",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
     },
     "magma -b icestick -d build greyscale": {
@@ -43,14 +43,14 @@
     "magma -b icestick -d build main": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/arducam.cpython-36.pyc": "input-a6371b11b39a66e0912ace7ad8656e0d",
-        "__pycache__/main.cpython-36.pyc": "output-d5e2f8392bc7501f7118bacbd906cf07",
-        "__pycache__/process.cpython-36.pyc": "output-e207198e4dc88c339d24b3efe4078070",
+        "__pycache__/arducam.cpython-36.pyc": "output-f94a07577b16875f40458034d7385dcd",
+        "__pycache__/main.cpython-36.pyc": "input-cea6eb2aa41e431d6803ec7b585c7ec1",
+        "__pycache__/process.cpython-36.pyc": "input-e207198e4dc88c339d24b3efe4078070",
         "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "arducam.py": "input-ccbce017bef433262d8fa36d378b00fc",
+        "arducam.py": "input-f0bd513e2a8c7205cd3eba93c4f05924",
         "build/main.pcf": "output-e9a7f65eb83fe6320e9e77303208898c",
         "build/main.v": "output-fafeeb74999e64c5bcf5aa1583a2ead0",
-        "main.py": "input-800ed17a2692010bf62c70d92f816cca",
+        "main.py": "input-63fd9fa6ce78f8126b1d32222380eb4d",
         "process.py": "input-b456d9adf6ad81d97dd90a238e9c7e4c",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d"
     },
@@ -66,12 +66,15 @@
     "magma -b icestick -d build test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/pipeline.cpython-36.pyc": "output-0c171c3f7cdf6be689223ea42e15a5eb",
         "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "__pycache__/test.cpython-36.pyc": "output-3acd1152f81ac200ba02c79cb689aba5",
-        "build/test.pcf": "output-7366af5be01114ac5f5b453420ad4a18",
-        "build/test.v": "output-a75a4082718ba4e474de21ba2a2e7749",
+        "__pycache__/test.cpython-36.pyc": "output-6ac67518522dd297ce8d6f39abe1876a",
+        "build/test.pcf": "output-8e1761d18f26e35606ef5ac4cb362579",
+        "build/test.v": "output-3d6c434d8255e419f3616ce8ec89479d",
+        "nn_train/BNN.pkl": "input-a42ca71edd4072119d87d2b6cbc26377",
+        "pipeline.py": "input-9045a72b49a8444b5cb4999fcf2e45a4",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
-        "test.py": "input-e1aa15f71274f6745ed1e476a82e84d5"
+        "test.py": "input-f1c33227fa8cac1fd75bdda904e0fa51"
     },
     "magma -b icestick -d build uart_test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",

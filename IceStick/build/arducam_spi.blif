@@ -7,7 +7,7 @@
 .names $true
 1
 .names $undef
-.gate SB_LUT4 I0=inst42.inst0.inst0.inst1.I0 I1=inst42.inst0.inst0.inst0.I0 I2=$false I3=$false O=inst42.inst0.inst0.inst1.inst0_O
+.gate SB_LUT4 I0=inst43.inst0.inst0.inst1.I0 I1=inst43.inst0.inst0.inst0.I0 I2=$false I3=$false O=inst43.inst0.inst0.inst1.inst0_O
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:44"
 .param LUT_INIT 0110
 .gate SB_LUT4 I0=inst14.inst0.S I1=inst10.inst0.S I2=$false I3=$false O=inst5.inst0.inst1.inst0_O
@@ -20,1075 +20,1099 @@
 .attr src "/usr/local/bin/../share/yosys/ice40/cells_map.v:44"
 .param LUT_INIT 0110
 .gate SB_LUT4 I0=inst0.inst0.inst0.I0 I1=$true I2=$false I3=$false O=inst0.inst0.inst0.inst0_O
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:21|arducam_spi.v:4"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:21|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst0.inst0.inst0.I0 CO=inst0.inst0.inst1.inst1_CO I0=inst0.inst0.inst1.I0 I1=$false
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:22|arducam_spi.v:5"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:22|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst0.inst0.inst2.I0 I1=$false I2=inst0.inst0.inst1.inst1_CO I3=$false O=inst0.inst0.inst2.inst0_O
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:23|arducam_spi.v:4"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:23|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst0.inst0.inst1.inst1_CO CO=inst0.inst0.inst2.inst1_CO I0=inst0.inst0.inst2.I0 I1=$false
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:23|arducam_spi.v:5"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:23|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst0.inst0.inst3.I0 I1=$false I2=inst0.inst0.inst2.inst1_CO I3=$false O=inst0.inst0.inst3.inst0_O
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:24|arducam_spi.v:4"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:24|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst0.inst0.inst2.inst1_CO CO=inst0.inst0.inst3.inst1_CO I0=inst0.inst0.inst3.I0 I1=$false
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:24|arducam_spi.v:5"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:24|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst0.inst0.inst4.I0 I1=$false I2=inst0.inst0.inst3.inst1_CO I3=$false O=inst0.inst0.inst4.inst0_O
-.attr src "arducam_spi.v:500|arducam_spi.v:48|arducam_spi.v:25|arducam_spi.v:4"
+.attr src "arducam_spi.v:501|arducam_spi.v:48|arducam_spi.v:25|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst0.inst0_O Q=inst0.inst0.inst0.I0
-.attr src "arducam_spi.v:500|arducam_spi.v:49|arducam_spi.v:36"
+.attr src "arducam_spi.v:501|arducam_spi.v:49|arducam_spi.v:36"
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst1.inst0_O Q=inst0.inst0.inst1.I0
-.attr src "arducam_spi.v:500|arducam_spi.v:49|arducam_spi.v:37"
+.attr src "arducam_spi.v:501|arducam_spi.v:49|arducam_spi.v:37"
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst2.inst0_O Q=inst0.inst0.inst2.I0
-.attr src "arducam_spi.v:500|arducam_spi.v:49|arducam_spi.v:38"
+.attr src "arducam_spi.v:501|arducam_spi.v:49|arducam_spi.v:38"
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst3.inst0_O Q=inst0.inst0.inst3.I0
-.attr src "arducam_spi.v:500|arducam_spi.v:49|arducam_spi.v:39"
+.attr src "arducam_spi.v:501|arducam_spi.v:49|arducam_spi.v:39"
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst4.inst0_O Q=inst0.inst0.inst4.I0
-.attr src "arducam_spi.v:500|arducam_spi.v:49|arducam_spi.v:40"
+.attr src "arducam_spi.v:501|arducam_spi.v:49|arducam_spi.v:40"
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst4.I0 Q=inst1_Q
-.attr src "arducam_spi.v:501"
+.attr src "arducam_spi.v:502"
 .gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst0.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:116|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst1.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:117|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst10.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:126|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst11.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:127|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst12.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:128|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst13.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:129|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst14.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:130|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst15.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:131|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst2.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:118|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst3.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:119|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst4.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:120|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst5.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:121|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst6.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:122|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst7.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:123|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst8.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:124|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst9.inst0_O
-.attr src "arducam_spi.v:510|arducam_spi.v:125|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst0.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst1.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst1.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst10.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst10.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst11.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst11.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst12.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst12.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst13.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst13.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst14.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst14.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst15.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst15.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst2.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst2.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst3.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst3.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst4.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst4.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst5.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst5.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst6.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst6.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst7.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst7.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst8.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst8.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst9.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst10.inst9.inst0_O
 .attr src "arducam_spi.v:511|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst0.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst0.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst1.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst1.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst10.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst10.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst11.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst11.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst12.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst12.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst13.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst13.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst14.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst14.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst15.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst15.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst2.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst2.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst3.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst3.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst4.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst4.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst5.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst5.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst6.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst6.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst7.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst7.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst8.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst8.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst9.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst11.inst9.inst0_O
 .attr src "arducam_spi.v:512|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst0.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst0.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst1.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst1.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst10.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst10.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst11.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst11.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst12.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst12.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst13.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst13.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst14.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst14.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst15.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst15.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst2.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst2.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst3.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst3.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst4.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst4.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst5.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst5.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst6.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst6.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst7.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst7.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst8.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst8.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst9.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst12.inst9.inst0_O
 .attr src "arducam_spi.v:513|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst0.inst0_O I1=inst7.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst0.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst0.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst1.inst0_O I1=inst7.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst1.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst1.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst10.inst0_O I1=inst7.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst10.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst10.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst11.inst0_O I1=inst7.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst11.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst11.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst12.inst0_O I1=inst7.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst12.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst12.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst13.inst0_O I1=inst7.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst13.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst13.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst14.inst0_O I1=inst7.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst14.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst14.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst15.inst0_O I1=inst7.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst15.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst15.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst2.inst0_O I1=inst7.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst2.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst2.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst3.inst0_O I1=inst7.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst3.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst3.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst4.inst0_O I1=inst7.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst4.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst4.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst5.inst0_O I1=inst7.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst5.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst5.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst6.inst0_O I1=inst7.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst6.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst6.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst7.inst0_O I1=inst7.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst7.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst7.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst8.inst0_O I1=inst7.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst8.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst8.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst6.inst9.inst0_O I1=inst7.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst9.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst13.inst9.inst0_O
 .attr src "arducam_spi.v:514|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst0.inst0_O I1=inst9.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst0.inst0_O
+.gate SB_LUT4 I0=inst6.inst0.inst0_O I1=inst7.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst0.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst1.inst0_O I1=inst9.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst1.inst0_O
+.gate SB_LUT4 I0=inst6.inst1.inst0_O I1=inst7.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst1.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst10.inst0_O I1=inst9.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst10.inst0_O
+.gate SB_LUT4 I0=inst6.inst10.inst0_O I1=inst7.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst10.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst11.inst0_O I1=inst9.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst11.inst0_O
+.gate SB_LUT4 I0=inst6.inst11.inst0_O I1=inst7.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst11.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst12.inst0_O I1=inst9.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst12.inst0_O
+.gate SB_LUT4 I0=inst6.inst12.inst0_O I1=inst7.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst12.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst13.inst0_O I1=inst9.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst13.inst0_O
+.gate SB_LUT4 I0=inst6.inst13.inst0_O I1=inst7.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst13.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst14.inst0_O I1=inst9.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst14.inst0_O
+.gate SB_LUT4 I0=inst6.inst14.inst0_O I1=inst7.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst14.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst15.inst0_O I1=inst9.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst15.inst0_O
+.gate SB_LUT4 I0=inst6.inst15.inst0_O I1=inst7.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst15.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst2.inst0_O I1=inst9.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst2.inst0_O
+.gate SB_LUT4 I0=inst6.inst2.inst0_O I1=inst7.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst2.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst3.inst0_O I1=inst9.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst3.inst0_O
+.gate SB_LUT4 I0=inst6.inst3.inst0_O I1=inst7.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst3.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst4.inst0_O I1=inst9.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst4.inst0_O
+.gate SB_LUT4 I0=inst6.inst4.inst0_O I1=inst7.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst4.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst5.inst0_O I1=inst9.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst5.inst0_O
+.gate SB_LUT4 I0=inst6.inst5.inst0_O I1=inst7.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst5.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst6.inst0_O I1=inst9.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst6.inst0_O
+.gate SB_LUT4 I0=inst6.inst6.inst0_O I1=inst7.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst6.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst7.inst0_O I1=inst9.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst7.inst0_O
+.gate SB_LUT4 I0=inst6.inst7.inst0_O I1=inst7.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst7.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst8.inst0_O I1=inst9.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst8.inst0_O
+.gate SB_LUT4 I0=inst6.inst8.inst0_O I1=inst7.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst8.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst8.inst9.inst0_O I1=inst9.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst9.inst0_O
+.gate SB_LUT4 I0=inst6.inst9.inst0_O I1=inst7.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst14.inst9.inst0_O
 .attr src "arducam_spi.v:515|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst0.inst0_O I1=inst11.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst0.inst0_O
+.gate SB_LUT4 I0=inst8.inst0.inst0_O I1=inst9.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst0.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst1.inst0_O I1=inst11.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst1.inst0_O
+.gate SB_LUT4 I0=inst8.inst1.inst0_O I1=inst9.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst1.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst10.inst0_O I1=inst11.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst10.inst0_O
+.gate SB_LUT4 I0=inst8.inst10.inst0_O I1=inst9.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst10.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst11.inst0_O I1=inst11.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst11.inst0_O
+.gate SB_LUT4 I0=inst8.inst11.inst0_O I1=inst9.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst11.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst12.inst0_O I1=inst11.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst12.inst0_O
+.gate SB_LUT4 I0=inst8.inst12.inst0_O I1=inst9.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst12.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst13.inst0_O I1=inst11.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst13.inst0_O
+.gate SB_LUT4 I0=inst8.inst13.inst0_O I1=inst9.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst13.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst14.inst0_O I1=inst11.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst14.inst0_O
+.gate SB_LUT4 I0=inst8.inst14.inst0_O I1=inst9.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst14.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst15.inst0_O I1=inst11.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst15.inst0_O
+.gate SB_LUT4 I0=inst8.inst15.inst0_O I1=inst9.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst15.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst2.inst0_O I1=inst11.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst2.inst0_O
+.gate SB_LUT4 I0=inst8.inst2.inst0_O I1=inst9.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst2.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst3.inst0_O I1=inst11.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst3.inst0_O
+.gate SB_LUT4 I0=inst8.inst3.inst0_O I1=inst9.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst3.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst4.inst0_O I1=inst11.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst4.inst0_O
+.gate SB_LUT4 I0=inst8.inst4.inst0_O I1=inst9.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst4.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst5.inst0_O I1=inst11.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst5.inst0_O
+.gate SB_LUT4 I0=inst8.inst5.inst0_O I1=inst9.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst5.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst6.inst0_O I1=inst11.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst6.inst0_O
+.gate SB_LUT4 I0=inst8.inst6.inst0_O I1=inst9.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst6.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst7.inst0_O I1=inst11.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst7.inst0_O
+.gate SB_LUT4 I0=inst8.inst7.inst0_O I1=inst9.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst7.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst8.inst0_O I1=inst11.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst8.inst0_O
+.gate SB_LUT4 I0=inst8.inst8.inst0_O I1=inst9.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst8.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst10.inst9.inst0_O I1=inst11.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst9.inst0_O
+.gate SB_LUT4 I0=inst8.inst9.inst0_O I1=inst9.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst15.inst9.inst0_O
 .attr src "arducam_spi.v:516|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst0.inst0_O I1=inst13.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst0.inst0_O
+.gate SB_LUT4 I0=inst10.inst0.inst0_O I1=inst11.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst0.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst1.inst0_O I1=inst13.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst1.inst0_O
+.gate SB_LUT4 I0=inst10.inst1.inst0_O I1=inst11.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst1.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst10.inst0_O I1=inst13.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst10.inst0_O
+.gate SB_LUT4 I0=inst10.inst10.inst0_O I1=inst11.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst10.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst11.inst0_O I1=inst13.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst11.inst0_O
+.gate SB_LUT4 I0=inst10.inst11.inst0_O I1=inst11.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst11.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst12.inst0_O I1=inst13.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst12.inst0_O
+.gate SB_LUT4 I0=inst10.inst12.inst0_O I1=inst11.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst12.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst13.inst0_O I1=inst13.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst13.inst0_O
+.gate SB_LUT4 I0=inst10.inst13.inst0_O I1=inst11.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst13.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst14.inst0_O I1=inst13.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst14.inst0_O
+.gate SB_LUT4 I0=inst10.inst14.inst0_O I1=inst11.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst14.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst15.inst0_O I1=inst13.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst15.inst0_O
+.gate SB_LUT4 I0=inst10.inst15.inst0_O I1=inst11.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst15.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst2.inst0_O I1=inst13.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst2.inst0_O
+.gate SB_LUT4 I0=inst10.inst2.inst0_O I1=inst11.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst2.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst3.inst0_O I1=inst13.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst3.inst0_O
+.gate SB_LUT4 I0=inst10.inst3.inst0_O I1=inst11.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst3.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst4.inst0_O I1=inst13.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst4.inst0_O
+.gate SB_LUT4 I0=inst10.inst4.inst0_O I1=inst11.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst4.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst5.inst0_O I1=inst13.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst5.inst0_O
+.gate SB_LUT4 I0=inst10.inst5.inst0_O I1=inst11.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst5.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst6.inst0_O I1=inst13.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst6.inst0_O
+.gate SB_LUT4 I0=inst10.inst6.inst0_O I1=inst11.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst6.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst7.inst0_O I1=inst13.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst7.inst0_O
+.gate SB_LUT4 I0=inst10.inst7.inst0_O I1=inst11.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst7.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst8.inst0_O I1=inst13.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst8.inst0_O
+.gate SB_LUT4 I0=inst10.inst8.inst0_O I1=inst11.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst8.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst12.inst9.inst0_O I1=inst13.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst9.inst0_O
+.gate SB_LUT4 I0=inst10.inst9.inst0_O I1=inst11.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst16.inst9.inst0_O
 .attr src "arducam_spi.v:517|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst0.inst0_O I1=inst15.inst0.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst0.inst0_O
+.gate SB_LUT4 I0=inst12.inst0.inst0_O I1=inst13.inst0.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst0.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst1.inst0_O I1=inst15.inst1.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst1.inst0_O
+.gate SB_LUT4 I0=inst12.inst1.inst0_O I1=inst13.inst1.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst1.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst10.inst0_O I1=inst15.inst10.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst10.inst0_O
+.gate SB_LUT4 I0=inst12.inst10.inst0_O I1=inst13.inst10.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst10.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst11.inst0_O I1=inst15.inst11.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst11.inst0_O
+.gate SB_LUT4 I0=inst12.inst11.inst0_O I1=inst13.inst11.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst11.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst12.inst0_O I1=inst15.inst12.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst12.inst0_O
+.gate SB_LUT4 I0=inst12.inst12.inst0_O I1=inst13.inst12.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst12.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst13.inst0_O I1=inst15.inst13.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst13.inst0_O
+.gate SB_LUT4 I0=inst12.inst13.inst0_O I1=inst13.inst13.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst13.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst14.inst0_O I1=inst15.inst14.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst14.inst0_O
+.gate SB_LUT4 I0=inst12.inst14.inst0_O I1=inst13.inst14.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst14.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst15.inst0_O I1=inst15.inst15.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst15.inst0_O
+.gate SB_LUT4 I0=inst12.inst15.inst0_O I1=inst13.inst15.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst15.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst2.inst0_O I1=inst15.inst2.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst2.inst0_O
+.gate SB_LUT4 I0=inst12.inst2.inst0_O I1=inst13.inst2.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst2.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst3.inst0_O I1=inst15.inst3.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst3.inst0_O
+.gate SB_LUT4 I0=inst12.inst3.inst0_O I1=inst13.inst3.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst3.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst4.inst0_O I1=inst15.inst4.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst4.inst0_O
+.gate SB_LUT4 I0=inst12.inst4.inst0_O I1=inst13.inst4.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst4.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst5.inst0_O I1=inst15.inst5.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst5.inst0_O
+.gate SB_LUT4 I0=inst12.inst5.inst0_O I1=inst13.inst5.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst5.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst6.inst0_O I1=inst15.inst6.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst6.inst0_O
+.gate SB_LUT4 I0=inst12.inst6.inst0_O I1=inst13.inst6.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst6.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst7.inst0_O I1=inst15.inst7.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst7.inst0_O
+.gate SB_LUT4 I0=inst12.inst7.inst0_O I1=inst13.inst7.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst7.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst8.inst0_O I1=inst15.inst8.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst8.inst0_O
+.gate SB_LUT4 I0=inst12.inst8.inst0_O I1=inst13.inst8.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst8.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst14.inst9.inst0_O I1=inst15.inst9.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst9.inst0_O
+.gate SB_LUT4 I0=inst12.inst9.inst0_O I1=inst13.inst9.inst0_O I2=inst14.inst0.S I3=$false O=inst17.inst9.inst0_O
 .attr src "arducam_spi.v:518|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst0.inst0_O I1=inst17.inst0.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst0.inst0_O
+.gate SB_LUT4 I0=inst14.inst0.inst0_O I1=inst15.inst0.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst0.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst1.inst0_O I1=inst17.inst1.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst1.inst0_O
+.gate SB_LUT4 I0=inst14.inst1.inst0_O I1=inst15.inst1.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst1.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst10.inst0_O I1=inst17.inst10.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst10.inst0_O
+.gate SB_LUT4 I0=inst14.inst10.inst0_O I1=inst15.inst10.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst10.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst11.inst0_O I1=inst17.inst11.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst11.inst0_O
+.gate SB_LUT4 I0=inst14.inst11.inst0_O I1=inst15.inst11.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst11.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst12.inst0_O I1=inst17.inst12.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst12.inst0_O
+.gate SB_LUT4 I0=inst14.inst12.inst0_O I1=inst15.inst12.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst12.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst13.inst0_O I1=inst17.inst13.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst13.inst0_O
+.gate SB_LUT4 I0=inst14.inst13.inst0_O I1=inst15.inst13.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst13.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst14.inst0_O I1=inst17.inst14.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst14.inst0_O
+.gate SB_LUT4 I0=inst14.inst14.inst0_O I1=inst15.inst14.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst14.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst15.inst0_O I1=inst17.inst15.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst15.inst0_O
+.gate SB_LUT4 I0=inst14.inst15.inst0_O I1=inst15.inst15.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst15.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst2.inst0_O I1=inst17.inst2.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst2.inst0_O
+.gate SB_LUT4 I0=inst14.inst2.inst0_O I1=inst15.inst2.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst2.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst3.inst0_O I1=inst17.inst3.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst3.inst0_O
+.gate SB_LUT4 I0=inst14.inst3.inst0_O I1=inst15.inst3.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst3.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst4.inst0_O I1=inst17.inst4.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst4.inst0_O
+.gate SB_LUT4 I0=inst14.inst4.inst0_O I1=inst15.inst4.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst4.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst5.inst0_O I1=inst17.inst5.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst5.inst0_O
+.gate SB_LUT4 I0=inst14.inst5.inst0_O I1=inst15.inst5.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst5.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst6.inst0_O I1=inst17.inst6.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst6.inst0_O
+.gate SB_LUT4 I0=inst14.inst6.inst0_O I1=inst15.inst6.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst6.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst7.inst0_O I1=inst17.inst7.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst7.inst0_O
+.gate SB_LUT4 I0=inst14.inst7.inst0_O I1=inst15.inst7.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst7.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst8.inst0_O I1=inst17.inst8.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst8.inst0_O
+.gate SB_LUT4 I0=inst14.inst8.inst0_O I1=inst15.inst8.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst8.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst16.inst9.inst0_O I1=inst17.inst9.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst9.inst0_O
+.gate SB_LUT4 I0=inst14.inst9.inst0_O I1=inst15.inst9.inst0_O I2=inst18.inst0.S I3=$false O=inst18.inst9.inst0_O
 .attr src "arducam_spi.v:519|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst0.inst0.inst4.I0 I1=inst1_Q I2=$false I3=$false O=inst29.inst16.CE
-.attr src "arducam_spi.v:502"
-.param LUT_INIT 0100010001000100
-.gate SB_LUT4 I0=inst18.inst0.inst0_O I1=inst19.inst0.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst0.inst0_O
+.gate SB_LUT4 I0=inst16.inst0.inst0_O I1=inst17.inst0.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst0.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst1.inst0_O I1=inst19.inst1.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst1.inst0_O
+.gate SB_LUT4 I0=inst16.inst1.inst0_O I1=inst17.inst1.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst1.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst10.inst0_O I1=inst19.inst10.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst10.inst0_O
+.gate SB_LUT4 I0=inst16.inst10.inst0_O I1=inst17.inst10.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst10.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst11.inst0_O I1=inst19.inst11.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst11.inst0_O
+.gate SB_LUT4 I0=inst16.inst11.inst0_O I1=inst17.inst11.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst11.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst12.inst0_O I1=inst19.inst12.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst12.inst0_O
+.gate SB_LUT4 I0=inst16.inst12.inst0_O I1=inst17.inst12.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst12.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst13.inst0_O I1=inst19.inst13.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst13.inst0_O
+.gate SB_LUT4 I0=inst16.inst13.inst0_O I1=inst17.inst13.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst13.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst14.inst0_O I1=inst19.inst14.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst14.inst0_O
+.gate SB_LUT4 I0=inst16.inst14.inst0_O I1=inst17.inst14.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst14.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst15.inst0_O I1=inst19.inst15.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst15.inst0_O
+.gate SB_LUT4 I0=inst16.inst15.inst0_O I1=inst17.inst15.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst15.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst2.inst0_O I1=inst19.inst2.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst2.inst0_O
+.gate SB_LUT4 I0=inst16.inst2.inst0_O I1=inst17.inst2.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst2.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst3.inst0_O I1=inst19.inst3.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst3.inst0_O
+.gate SB_LUT4 I0=inst16.inst3.inst0_O I1=inst17.inst3.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst3.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst4.inst0_O I1=inst19.inst4.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst4.inst0_O
+.gate SB_LUT4 I0=inst16.inst4.inst0_O I1=inst17.inst4.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst4.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst5.inst0_O I1=inst19.inst5.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst5.inst0_O
+.gate SB_LUT4 I0=inst16.inst5.inst0_O I1=inst17.inst5.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst5.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst6.inst0_O I1=inst19.inst6.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst6.inst0_O
+.gate SB_LUT4 I0=inst16.inst6.inst0_O I1=inst17.inst6.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst6.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst7.inst0_O I1=inst19.inst7.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst7.inst0_O
+.gate SB_LUT4 I0=inst16.inst7.inst0_O I1=inst17.inst7.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst7.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst8.inst0_O I1=inst19.inst8.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst8.inst0_O
+.gate SB_LUT4 I0=inst16.inst8.inst0_O I1=inst17.inst8.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst8.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst18.inst9.inst0_O I1=inst19.inst9.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst9.inst0_O
+.gate SB_LUT4 I0=inst16.inst9.inst0_O I1=inst17.inst9.inst0_O I2=inst18.inst0.S I3=$false O=inst19.inst9.inst0_O
 .attr src "arducam_spi.v:520|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst0.inst0.inst4.I0 I1=inst1_Q I2=$false I3=$false O=inst29.inst16.CE
+.attr src "arducam_spi.v:503"
+.param LUT_INIT 0100010001000100
+.gate SB_LUT4 I0=inst18.inst0.inst0_O I1=inst19.inst0.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst0.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:116|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst1.inst0_O I1=inst19.inst1.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst1.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:117|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst10.inst0_O I1=inst19.inst10.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst10.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:126|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst11.inst0_O I1=inst19.inst11.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst11.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:127|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst12.inst0_O I1=inst19.inst12.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst12.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:128|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst13.inst0_O I1=inst19.inst13.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst13.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:129|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst14.inst0_O I1=inst19.inst14.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst14.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:130|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst15.inst0_O I1=inst19.inst15.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst15.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:131|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst2.inst0_O I1=inst19.inst2.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst2.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:118|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst3.inst0_O I1=inst19.inst3.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst3.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:119|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst4.inst0_O I1=inst19.inst4.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst4.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:120|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst5.inst0_O I1=inst19.inst5.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst5.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:121|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst6.inst0_O I1=inst19.inst6.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst6.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:122|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst7.inst0_O I1=inst19.inst7.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst7.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:123|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst8.inst0_O I1=inst19.inst8.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst8.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:124|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=inst18.inst9.inst0_O I1=inst19.inst9.inst0_O I2=inst20.inst0.S I3=$false O=inst20.inst9.inst0_O
+.attr src "arducam_spi.v:521|arducam_spi.v:125|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst21.inst0.inst0.I0 I1=$true I2=$false I3=$false O=inst21.inst0.inst0.inst0_O
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:21|arducam_spi.v:4"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:21|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst21.inst0.inst0.I0 CO=inst21.inst0.inst1.inst1_CO I0=inst21.inst0.inst1.I0 I1=$false
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:22|arducam_spi.v:5"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:22|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst21.inst0.inst2.I0 I1=$false I2=inst21.inst0.inst1.inst1_CO I3=$false O=inst21.inst0.inst2.inst0_O
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:23|arducam_spi.v:4"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:23|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst21.inst0.inst1.inst1_CO CO=inst21.inst0.inst2.inst1_CO I0=inst21.inst0.inst2.I0 I1=$false
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:23|arducam_spi.v:5"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:23|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst21.inst0.inst3.I0 I1=$false I2=inst21.inst0.inst2.inst1_CO I3=$false O=inst21.inst0.inst3.inst0_O
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:24|arducam_spi.v:4"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:24|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst21.inst0.inst2.inst1_CO CO=inst21.inst0.inst3.inst1_CO I0=inst21.inst0.inst3.I0 I1=$false
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:24|arducam_spi.v:5"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:24|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst21.inst0.inst4.I0 I1=$false I2=inst21.inst0.inst3.inst1_CO I3=$false O=inst21.inst0.inst4.inst0_O
-.attr src "arducam_spi.v:521|arducam_spi.v:153|arducam_spi.v:25|arducam_spi.v:4"
+.attr src "arducam_spi.v:522|arducam_spi.v:153|arducam_spi.v:25|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_DFFESR C=CLKIN D=inst21.inst0.inst0.inst0_O E=inst21.inst1.CE Q=inst21.inst0.inst0.I0 R=inst21.inst1.RESET
-.attr src "arducam_spi.v:521|arducam_spi.v:154|arducam_spi.v:141"
+.attr src "arducam_spi.v:522|arducam_spi.v:154|arducam_spi.v:141"
 .gate SB_DFFESR C=CLKIN D=inst21.inst0.inst1.inst0_O E=inst21.inst1.CE Q=inst21.inst0.inst1.I0 R=inst21.inst1.RESET
-.attr src "arducam_spi.v:521|arducam_spi.v:154|arducam_spi.v:142"
+.attr src "arducam_spi.v:522|arducam_spi.v:154|arducam_spi.v:142"
 .gate SB_DFFESR C=CLKIN D=inst21.inst0.inst2.inst0_O E=inst21.inst1.CE Q=inst21.inst0.inst2.I0 R=inst21.inst1.RESET
-.attr src "arducam_spi.v:521|arducam_spi.v:154|arducam_spi.v:143"
+.attr src "arducam_spi.v:522|arducam_spi.v:154|arducam_spi.v:143"
 .gate SB_DFFESR C=CLKIN D=inst21.inst0.inst3.inst0_O E=inst21.inst1.CE Q=inst21.inst0.inst3.I0 R=inst21.inst1.RESET
-.attr src "arducam_spi.v:521|arducam_spi.v:154|arducam_spi.v:144"
+.attr src "arducam_spi.v:522|arducam_spi.v:154|arducam_spi.v:144"
 .gate SB_DFFESR C=CLKIN D=inst21.inst0.inst4.inst0_O E=inst21.inst1.CE Q=inst21.inst0.inst4.I0 R=inst21.inst1.RESET
-.attr src "arducam_spi.v:521|arducam_spi.v:154|arducam_spi.v:145"
+.attr src "arducam_spi.v:522|arducam_spi.v:154|arducam_spi.v:145"
 .gate SB_LUT4 I0=$true I1=inst21.inst0.inst0.I0 I2=$false I3=$false O=inst22.inst0.inst0_O
-.attr src "arducam_spi.v:522|arducam_spi.v:175|arducam_spi.v:165"
+.attr src "arducam_spi.v:523|arducam_spi.v:175|arducam_spi.v:165"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst22.inst0.inst0_O I1=inst21.inst0.inst1.I0 I2=$false I3=$false O=inst22.inst0.inst1_O
-.attr src "arducam_spi.v:522|arducam_spi.v:175|arducam_spi.v:166"
+.attr src "arducam_spi.v:523|arducam_spi.v:175|arducam_spi.v:166"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst22.inst0.inst1_O I1=inst21.inst0.inst2.I0 I2=$false I3=$false O=inst22.inst0.inst2_O
-.attr src "arducam_spi.v:522|arducam_spi.v:175|arducam_spi.v:167"
+.attr src "arducam_spi.v:523|arducam_spi.v:175|arducam_spi.v:167"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst22.inst0.inst2_O I1=inst21.inst0.inst3.I0 I2=$false I3=$false O=inst22.inst0.inst3_O
-.attr src "arducam_spi.v:522|arducam_spi.v:175|arducam_spi.v:168"
+.attr src "arducam_spi.v:523|arducam_spi.v:175|arducam_spi.v:168"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst22.inst0.inst3_O I1=inst21.inst0.inst4.I0 I2=$true I3=$false O=inst22.inst0.inst4_O
-.attr src "arducam_spi.v:522|arducam_spi.v:175|arducam_spi.v:169"
+.attr src "arducam_spi.v:523|arducam_spi.v:175|arducam_spi.v:169"
 .param LUT_INIT 1000001010000010
 .gate SB_DFFE C=CLKIN D=inst24_O E=inst29.inst16.CE Q=inst23_Q
-.attr src "arducam_spi.v:523"
-.gate SB_LUT4 I0=inst22.inst0.inst4_O I1=$true I2=inst23_Q I3=$false O=inst24_O
 .attr src "arducam_spi.v:524"
+.gate SB_LUT4 I0=inst22.inst0.inst4_O I1=$true I2=inst23_Q I3=$false O=inst24_O
+.attr src "arducam_spi.v:525"
 .param LUT_INIT 0000000001010100
 .gate SB_LUT4 I0=inst22.inst0.inst4_O I1=inst23_Q I2=$false I3=$false O=inst21.inst1.RESET
-.attr src "arducam_spi.v:525"
+.attr src "arducam_spi.v:526"
 .param LUT_INIT 1011101110111011
 .gate SB_LUT4 I0=inst23_Q I1=inst29.inst16.CE I2=$false I3=$false O=inst26_O
-.attr src "arducam_spi.v:526"
+.attr src "arducam_spi.v:527"
 .param LUT_INIT 0100010001000100
 .gate SB_LUT4 I0=inst18.inst0.S I1=$false I2=$false I3=$false O=inst27.inst0.inst0.inst2_O
-.attr src "arducam_spi.v:527|arducam_spi.v:221|arducam_spi.v:212|arducam_spi.v:186"
+.attr src "arducam_spi.v:528|arducam_spi.v:221|arducam_spi.v:212|arducam_spi.v:186"
 .param LUT_INIT 0101010101010101
 .gate SB_LUT4 I0=inst20.inst0.S I1=$false I2=$false I3=$false O=inst27.inst0.inst0.inst3_O
-.attr src "arducam_spi.v:527|arducam_spi.v:221|arducam_spi.v:212|arducam_spi.v:187"
+.attr src "arducam_spi.v:528|arducam_spi.v:221|arducam_spi.v:212|arducam_spi.v:187"
 .param LUT_INIT 0101010101010101
 .gate SB_CARRY CI=inst27.inst0.inst0.inst2_O CO=inst27.inst0.inst1.inst3.inst1_CO I0=$false I1=inst27.inst0.inst0.inst3_O
-.attr src "arducam_spi.v:527|arducam_spi.v:221|arducam_spi.v:213|arducam_spi.v:203|arducam_spi.v:5"
+.attr src "arducam_spi.v:528|arducam_spi.v:221|arducam_spi.v:213|arducam_spi.v:203|arducam_spi.v:5"
 .gate SB_CARRY CI=inst10.inst0.S CO=inst28.inst0.inst1.inst1.inst1_CO I0=inst14.inst0.S I1=$true
-.attr src "arducam_spi.v:528|arducam_spi.v:228|arducam_spi.v:213|arducam_spi.v:201|arducam_spi.v:5"
+.attr src "arducam_spi.v:529|arducam_spi.v:228|arducam_spi.v:213|arducam_spi.v:201|arducam_spi.v:5"
 .gate SB_CARRY CI=inst28.inst0.inst1.inst1.inst1_CO CO=inst28.inst0.inst1.inst2.inst1_CO I0=inst18.inst0.S I1=$true
-.attr src "arducam_spi.v:528|arducam_spi.v:228|arducam_spi.v:213|arducam_spi.v:202|arducam_spi.v:5"
+.attr src "arducam_spi.v:529|arducam_spi.v:228|arducam_spi.v:213|arducam_spi.v:202|arducam_spi.v:5"
 .gate SB_CARRY CI=inst28.inst0.inst1.inst2.inst1_CO CO=inst28.inst0.inst1.inst3.inst1_CO I0=inst20.inst0.S I1=$false
-.attr src "arducam_spi.v:528|arducam_spi.v:228|arducam_spi.v:213|arducam_spi.v:203|arducam_spi.v:5"
+.attr src "arducam_spi.v:529|arducam_spi.v:228|arducam_spi.v:213|arducam_spi.v:203|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst31_O I1=inst20.inst0.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst0.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:286|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:286|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst0_Q I1=inst20.inst1.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst1.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:287|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:287|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst9_Q I1=inst20.inst10.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst10.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:296|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:296|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst10_Q I1=inst20.inst11.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst11.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:297|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:297|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst11_Q I1=inst20.inst12.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst12.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:298|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:298|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst12_Q I1=inst20.inst13.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst13.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:299|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:299|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst13_Q I1=inst20.inst14.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst14.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:300|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:300|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst14_Q I1=inst20.inst15.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst15.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:301|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:301|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_DFFE C=CLKIN D=inst29.inst0.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst0_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:249"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:249"
 .gate SB_DFFE C=CLKIN D=inst29.inst1.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst1_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:250"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:250"
 .gate SB_DFFE C=CLKIN D=inst29.inst10.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst10_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:259"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:259"
 .gate SB_DFFE C=CLKIN D=inst29.inst11.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst11_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:260"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:260"
 .gate SB_DFFE C=CLKIN D=inst29.inst12.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst12_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:261"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:261"
 .gate SB_DFFE C=CLKIN D=inst29.inst13.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst13_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:262"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:262"
 .gate SB_DFFE C=CLKIN D=inst29.inst14.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst14_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:263"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:263"
 .gate SB_DFFE C=CLKIN D=inst29.inst15.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst15_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:264"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:264"
 .gate SB_DFFE C=CLKIN D=inst29.inst2.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst2_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:251"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:251"
 .gate SB_DFFE C=CLKIN D=inst29.inst3.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst3_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:252"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:252"
 .gate SB_DFFE C=CLKIN D=inst29.inst4.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst4_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:253"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:253"
 .gate SB_DFFE C=CLKIN D=inst29.inst5.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst5_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:254"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:254"
 .gate SB_DFFE C=CLKIN D=inst29.inst6.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst6_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:255"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:255"
 .gate SB_DFFE C=CLKIN D=inst29.inst7.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst7_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:256"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:256"
 .gate SB_DFFE C=CLKIN D=inst29.inst8.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst8_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:257"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:257"
 .gate SB_DFFE C=CLKIN D=inst29.inst9.inst0_O E=inst29.inst16.CE Q=inst29.inst16.inst9_Q
-.attr src "arducam_spi.v:529|arducam_spi.v:302|arducam_spi.v:258"
+.attr src "arducam_spi.v:530|arducam_spi.v:302|arducam_spi.v:258"
 .gate SB_LUT4 I0=inst29.inst16.inst1_Q I1=inst20.inst2.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst2.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:288|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:288|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst2_Q I1=inst20.inst3.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst3.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:289|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:289|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst3_Q I1=inst20.inst4.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst4.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:290|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:290|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst4_Q I1=inst20.inst5.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst5.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:291|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:291|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst5_Q I1=inst20.inst6.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst6.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:292|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:292|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst6_Q I1=inst20.inst7.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst7.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:293|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:293|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst7_Q I1=inst20.inst8.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst8.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:294|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:294|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_LUT4 I0=inst29.inst16.inst8_Q I1=inst20.inst9.inst0_O I2=inst29.inst0.S I3=$false O=inst29.inst9.inst0_O
-.attr src "arducam_spi.v:529|arducam_spi.v:295|arducam_spi.v:95"
+.attr src "arducam_spi.v:530|arducam_spi.v:295|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .gate SB_DFF C=CLKIN D=inst0.inst0.inst4.I0 Q=inst3_Q
-.attr src "arducam_spi.v:503"
+.attr src "arducam_spi.v:504"
 .gate SB_LUT4 I0=$true I1=inst23_Q I2=inst28.inst0.inst1.inst3.inst1_CO I3=$false O=inst29.inst0.S
-.attr src "arducam_spi.v:530"
+.attr src "arducam_spi.v:531"
 .param LUT_INIT 0000001000000010
 .gate SB_LUT4 I0=inst28.inst0.inst1.inst3.inst1_CO I1=$false I2=$false I3=$false O=inst31_O
-.attr src "arducam_spi.v:531"
+.attr src "arducam_spi.v:532"
 .param LUT_INIT 0101010101010101
 .gate SB_DFFE C=CLKIN D=J1 E=inst32.CE Q=inst32.inst0_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:315"
+.attr src "arducam_spi.v:533|arducam_spi.v:315"
 .gate SB_DFFE C=CLKIN D=inst32.inst0_Q E=inst32.CE Q=inst32.inst1_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:316"
+.attr src "arducam_spi.v:533|arducam_spi.v:316"
 .gate SB_DFFE C=CLKIN D=inst32.inst1_Q E=inst32.CE Q=inst32.inst2_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:317"
+.attr src "arducam_spi.v:533|arducam_spi.v:317"
 .gate SB_DFFE C=CLKIN D=inst32.inst2_Q E=inst32.CE Q=inst32.inst3_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:318"
+.attr src "arducam_spi.v:533|arducam_spi.v:318"
 .gate SB_DFFE C=CLKIN D=inst32.inst3_Q E=inst32.CE Q=inst32.inst4_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:319"
+.attr src "arducam_spi.v:533|arducam_spi.v:319"
 .gate SB_DFFE C=CLKIN D=inst32.inst4_Q E=inst32.CE Q=inst32.inst5_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:320"
+.attr src "arducam_spi.v:533|arducam_spi.v:320"
 .gate SB_DFFE C=CLKIN D=inst32.inst5_Q E=inst32.CE Q=inst32.inst6_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:321"
+.attr src "arducam_spi.v:533|arducam_spi.v:321"
 .gate SB_DFFE C=CLKIN D=inst32.inst6_Q E=inst32.CE Q=inst32.inst7_Q
-.attr src "arducam_spi.v:532|arducam_spi.v:322"
+.attr src "arducam_spi.v:533|arducam_spi.v:322"
 .gate SB_LUT4 I0=inst29.inst0.S I1=inst21.inst1.CE I2=$false I3=$false O=inst32.CE
-.attr src "arducam_spi.v:533"
-.param LUT_INIT 0100010001000100
-.gate SB_DFFE C=CLKIN D=inst35_O E=inst37.inst0_O Q=inst34_Q
 .attr src "arducam_spi.v:534"
-.gate SB_LUT4 I0=inst34_Q I1=inst36.inst7_O I2=$false I3=$false O=inst35_O
+.param LUT_INIT 0100010001000100
+.gate SB_DFFE C=CLKIN D=inst35_O E=inst38.inst0_O Q=inst34_Q
 .attr src "arducam_spi.v:535"
+.gate SB_LUT4 I0=inst34_Q I1=inst37.inst7_O I2=$false I3=$false O=inst35_O
+.attr src "arducam_spi.v:536"
 .param LUT_INIT 0000111000001110
 .gate SB_LUT4 I0=$true I1=inst32.inst0_Q I2=$false I3=$false O=inst36.inst0_O
-.attr src "arducam_spi.v:536|arducam_spi.v:335"
+.attr src "arducam_spi.v:537|arducam_spi.v:335"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst0_O I1=inst32.inst1_Q I2=$false I3=$false O=inst36.inst1_O
-.attr src "arducam_spi.v:536|arducam_spi.v:336"
+.attr src "arducam_spi.v:537|arducam_spi.v:336"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst1_O I1=inst32.inst2_Q I2=$false I3=$false O=inst36.inst2_O
-.attr src "arducam_spi.v:536|arducam_spi.v:337"
+.attr src "arducam_spi.v:537|arducam_spi.v:337"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst2_O I1=inst32.inst3_Q I2=$true I3=$false O=inst36.inst3_O
-.attr src "arducam_spi.v:536|arducam_spi.v:338"
+.attr src "arducam_spi.v:537|arducam_spi.v:338"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst3_O I1=inst32.inst4_Q I2=$false I3=$false O=inst36.inst4_O
-.attr src "arducam_spi.v:536|arducam_spi.v:339"
+.attr src "arducam_spi.v:537|arducam_spi.v:339"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst4_O I1=inst32.inst5_Q I2=$false I3=$false O=inst36.inst5_O
-.attr src "arducam_spi.v:536|arducam_spi.v:340"
+.attr src "arducam_spi.v:537|arducam_spi.v:340"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst5_O I1=inst32.inst6_Q I2=$false I3=$false O=inst36.inst6_O
-.attr src "arducam_spi.v:536|arducam_spi.v:341"
+.attr src "arducam_spi.v:537|arducam_spi.v:341"
 .param LUT_INIT 1000001010000010
 .gate SB_LUT4 I0=inst36.inst6_O I1=inst32.inst7_Q I2=$false I3=$false O=inst36.inst7_O
-.attr src "arducam_spi.v:536|arducam_spi.v:342"
+.attr src "arducam_spi.v:537|arducam_spi.v:342"
 .param LUT_INIT 1000001010000010
-.gate SB_LUT4 I0=inst29.inst0.S I1=inst21.inst1.CE I2=$false I3=$false O=inst37.inst0_O
-.attr src "arducam_spi.v:537|arducam_spi.v:348"
+.gate SB_LUT4 I0=$true I1=inst32.inst0_Q I2=$false I3=$false O=inst37.inst0_O
+.attr src "arducam_spi.v:538|arducam_spi.v:335"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst0_O I1=inst32.inst1_Q I2=$false I3=$false O=inst37.inst1_O
+.attr src "arducam_spi.v:538|arducam_spi.v:336"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst1_O I1=inst32.inst2_Q I2=$false I3=$false O=inst37.inst2_O
+.attr src "arducam_spi.v:538|arducam_spi.v:337"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst2_O I1=inst32.inst3_Q I2=$true I3=$false O=inst37.inst3_O
+.attr src "arducam_spi.v:538|arducam_spi.v:338"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst3_O I1=inst32.inst4_Q I2=$false I3=$false O=inst37.inst4_O
+.attr src "arducam_spi.v:538|arducam_spi.v:339"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst4_O I1=inst32.inst5_Q I2=$false I3=$false O=inst37.inst5_O
+.attr src "arducam_spi.v:538|arducam_spi.v:340"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst5_O I1=inst32.inst6_Q I2=$false I3=$false O=inst37.inst6_O
+.attr src "arducam_spi.v:538|arducam_spi.v:341"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst37.inst6_O I1=inst32.inst7_Q I2=$false I3=$false O=inst37.inst7_O
+.attr src "arducam_spi.v:538|arducam_spi.v:342"
+.param LUT_INIT 1000001010000010
+.gate SB_LUT4 I0=inst29.inst0.S I1=inst21.inst1.CE I2=$false I3=$false O=inst38.inst0_O
+.attr src "arducam_spi.v:539|arducam_spi.v:348"
 .param LUT_INIT 1000100010001000
-.gate SB_LUT4 I0=inst26_O I1=inst27.inst0.inst1.inst3.inst1_CO I2=inst34_Q I3=inst28.inst0.inst1.inst3.inst1_CO O=inst38_O
-.attr src "arducam_spi.v:538"
-.param LUT_INIT 0000000010101000
-.gate SB_LUT4 I0=inst21.inst1.CE I1=inst29.inst16.CE I2=$false I3=$false O=inst39.inst0_O
-.attr src "arducam_spi.v:539|arducam_spi.v:354"
-.param LUT_INIT 1110111011101110
-.gate SB_LUT4 I0=inst0.inst0.inst4.I0 I1=inst3_Q I2=$false I3=$false O=inst21.inst1.CE
-.attr src "arducam_spi.v:504"
-.param LUT_INIT 0010001000100010
-.gate SB_DFFE C=CLKIN D=inst28.inst0.inst1.inst3.inst1_CO E=inst21.inst1.CE Q=inst40_Q
+.gate SB_LUT4 I0=inst26_O I1=inst27.inst0.inst1.inst3.inst1_CO I2=inst34_Q I3=inst28.inst0.inst1.inst3.inst1_CO O=inst39_O
 .attr src "arducam_spi.v:540"
-.gate SB_LUT4 I0=inst28.inst0.inst1.inst3.inst1_CO I1=inst40_Q I2=$false I3=$false O=inst41_O
-.attr src "arducam_spi.v:541"
+.param LUT_INIT 0000000010101000
+.gate SB_LUT4 I0=inst0.inst0.inst4.I0 I1=inst3_Q I2=$false I3=$false O=inst21.inst1.CE
+.attr src "arducam_spi.v:505"
 .param LUT_INIT 0010001000100010
-.gate SB_LUT4 I0=inst42.inst0.inst0.inst0.I0 I1=$true I2=$false I3=$false O=inst42.inst0.inst0.inst0.inst0_O
-.attr src "arducam_spi.v:542|arducam_spi.v:394|arducam_spi.v:384|arducam_spi.v:365|arducam_spi.v:4"
-.param LUT_INIT 1001011010010110
-.gate SB_CARRY CI=inst42.inst0.inst0.inst0.I0 CO=inst42.inst0.inst0.inst1.inst1_CO I0=inst42.inst0.inst0.inst1.I0 I1=$false
-.attr src "arducam_spi.v:542|arducam_spi.v:394|arducam_spi.v:384|arducam_spi.v:366|arducam_spi.v:5"
-.gate SB_LUT4 I0=inst42.inst0.inst0.inst2.I0 I1=$false I2=inst42.inst0.inst0.inst1.inst1_CO I3=$false O=inst42.inst0.inst0.inst2.inst0_O
-.attr src "arducam_spi.v:542|arducam_spi.v:394|arducam_spi.v:384|arducam_spi.v:367|arducam_spi.v:4"
-.param LUT_INIT 1001011010010110
-.gate SB_DFFESR C=CLKIN D=inst42.inst0.inst0.inst0.inst0_O E=inst21.inst1.CE Q=inst42.inst0.inst0.inst0.I0 R=inst42.inst0.inst1.RESET
-.attr src "arducam_spi.v:542|arducam_spi.v:394|arducam_spi.v:385|arducam_spi.v:375"
-.gate SB_DFFESR C=CLKIN D=inst42.inst0.inst0.inst1.inst0_O E=inst21.inst1.CE Q=inst42.inst0.inst0.inst1.I0 R=inst42.inst0.inst1.RESET
-.attr src "arducam_spi.v:542|arducam_spi.v:394|arducam_spi.v:385|arducam_spi.v:376"
-.gate SB_DFFESR C=CLKIN D=inst42.inst0.inst0.inst2.inst0_O E=inst21.inst1.CE Q=inst42.inst0.inst0.inst2.I0 R=inst42.inst0.inst1.RESET
-.attr src "arducam_spi.v:542|arducam_spi.v:394|arducam_spi.v:385|arducam_spi.v:377"
-.gate SB_LUT4 I0=inst42.inst0.inst0.inst0.I0 I1=inst42.inst0.inst0.inst1.I0 I2=inst42.inst0.inst0.inst2.I0 I3=$false O=inst42.inst1_O
-.attr src "arducam_spi.v:542|arducam_spi.v:395"
-.param LUT_INIT 0000000010000000
-.gate SB_LUT4 I0=inst42.inst1_O I1=inst41_O I2=$false I3=$false O=inst42.inst2.inst0_O
-.attr src "arducam_spi.v:542|arducam_spi.v:396|arducam_spi.v:354"
+.gate SB_LUT4 I0=inst21.inst1.CE I1=inst29.inst16.CE I2=$false I3=$false O=inst40.inst0_O
+.attr src "arducam_spi.v:541|arducam_spi.v:354"
 .param LUT_INIT 1110111011101110
-.gate SB_LUT4 I0=inst42.inst2.inst0_O I1=inst21.inst1.CE I2=$false I3=$false O=inst42.inst0.inst1.RESET
-.attr src "arducam_spi.v:542|arducam_spi.v:397|arducam_spi.v:348"
-.param LUT_INIT 1000100010001000
-.gate SB_DFF C=CLKIN D=inst42.inst0.inst1.RESET Q=inst43_Q
+.gate SB_DFFE C=CLKIN D=inst28.inst0.inst1.inst3.inst1_CO E=inst21.inst1.CE Q=inst41_Q
+.attr src "arducam_spi.v:542"
+.gate SB_LUT4 I0=inst28.inst0.inst1.inst3.inst1_CO I1=inst41_Q I2=$false I3=$false O=inst42_O
 .attr src "arducam_spi.v:543"
-.gate SB_LUT4 I0=inst42.inst0.inst1.RESET I1=inst43_Q I2=$false I3=$false O=inst44_O
-.attr src "arducam_spi.v:544"
 .param LUT_INIT 0010001000100010
-.gate SB_LUT4 I0=inst28.inst0.inst1.inst3.inst1_CO I1=inst44_O I2=$false I3=$false O=inst45.inst0_O
-.attr src "arducam_spi.v:545|arducam_spi.v:348"
+.gate SB_LUT4 I0=inst43.inst0.inst0.inst0.I0 I1=$true I2=$false I3=$false O=inst43.inst0.inst0.inst0.inst0_O
+.attr src "arducam_spi.v:544|arducam_spi.v:394|arducam_spi.v:384|arducam_spi.v:365|arducam_spi.v:4"
+.param LUT_INIT 1001011010010110
+.gate SB_CARRY CI=inst43.inst0.inst0.inst0.I0 CO=inst43.inst0.inst0.inst1.inst1_CO I0=inst43.inst0.inst0.inst1.I0 I1=$false
+.attr src "arducam_spi.v:544|arducam_spi.v:394|arducam_spi.v:384|arducam_spi.v:366|arducam_spi.v:5"
+.gate SB_LUT4 I0=inst43.inst0.inst0.inst2.I0 I1=$false I2=inst43.inst0.inst0.inst1.inst1_CO I3=$false O=inst43.inst0.inst0.inst2.inst0_O
+.attr src "arducam_spi.v:544|arducam_spi.v:394|arducam_spi.v:384|arducam_spi.v:367|arducam_spi.v:4"
+.param LUT_INIT 1001011010010110
+.gate SB_DFFESR C=CLKIN D=inst43.inst0.inst0.inst0.inst0_O E=inst21.inst1.CE Q=inst43.inst0.inst0.inst0.I0 R=inst43.inst0.inst1.RESET
+.attr src "arducam_spi.v:544|arducam_spi.v:394|arducam_spi.v:385|arducam_spi.v:375"
+.gate SB_DFFESR C=CLKIN D=inst43.inst0.inst0.inst1.inst0_O E=inst21.inst1.CE Q=inst43.inst0.inst0.inst1.I0 R=inst43.inst0.inst1.RESET
+.attr src "arducam_spi.v:544|arducam_spi.v:394|arducam_spi.v:385|arducam_spi.v:376"
+.gate SB_DFFESR C=CLKIN D=inst43.inst0.inst0.inst2.inst0_O E=inst21.inst1.CE Q=inst43.inst0.inst0.inst2.I0 R=inst43.inst0.inst1.RESET
+.attr src "arducam_spi.v:544|arducam_spi.v:394|arducam_spi.v:385|arducam_spi.v:377"
+.gate SB_LUT4 I0=inst43.inst0.inst0.inst0.I0 I1=inst43.inst0.inst0.inst1.I0 I2=inst43.inst0.inst0.inst2.I0 I3=$false O=inst43.inst1_O
+.attr src "arducam_spi.v:544|arducam_spi.v:395"
+.param LUT_INIT 0000000010000000
+.gate SB_LUT4 I0=inst43.inst1_O I1=inst42_O I2=$false I3=$false O=inst43.inst2.inst0_O
+.attr src "arducam_spi.v:544|arducam_spi.v:396|arducam_spi.v:354"
+.param LUT_INIT 1110111011101110
+.gate SB_LUT4 I0=inst43.inst2.inst0_O I1=inst21.inst1.CE I2=$false I3=$false O=inst43.inst0.inst1.RESET
+.attr src "arducam_spi.v:544|arducam_spi.v:397|arducam_spi.v:348"
 .param LUT_INIT 1000100010001000
-.gate SB_LUT4 I0=$true I1=inst32.inst7_Q I2=inst45.inst0_O I3=$false O=inst46.inst0.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:435|arducam_spi.v:95"
+.gate SB_DFF C=CLKIN D=inst43.inst0.inst1.RESET Q=inst44_Q
+.attr src "arducam_spi.v:545"
+.gate SB_LUT4 I0=inst43.inst0.inst1.RESET I1=inst44_Q I2=$false I3=$false O=inst45_O
+.attr src "arducam_spi.v:546"
+.param LUT_INIT 0010001000100010
+.gate SB_LUT4 I0=inst28.inst0.inst1.inst3.inst1_CO I1=inst45_O I2=$false I3=$false O=inst46.inst0_O
+.attr src "arducam_spi.v:547|arducam_spi.v:348"
+.param LUT_INIT 1000100010001000
+.gate SB_LUT4 I0=$true I1=inst32.inst7_Q I2=inst46.inst0_O I3=$false O=inst47.inst0.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:435|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst0_Q I1=inst32.inst6_Q I2=inst45.inst0_O I3=$false O=inst46.inst1.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:436|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst0_Q I1=inst32.inst6_Q I2=inst46.inst0_O I3=$false O=inst47.inst1.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:436|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst1_Q I1=inst32.inst5_Q I2=inst45.inst0_O I3=$false O=inst46.inst2.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:437|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst1_Q I1=inst32.inst5_Q I2=inst46.inst0_O I3=$false O=inst47.inst2.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:437|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst2_Q I1=inst32.inst4_Q I2=inst45.inst0_O I3=$false O=inst46.inst3.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:438|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst2_Q I1=inst32.inst4_Q I2=inst46.inst0_O I3=$false O=inst47.inst3.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:438|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst3_Q I1=inst32.inst3_Q I2=inst45.inst0_O I3=$false O=inst46.inst4.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:439|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst3_Q I1=inst32.inst3_Q I2=inst46.inst0_O I3=$false O=inst47.inst4.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:439|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst4_Q I1=inst32.inst2_Q I2=inst45.inst0_O I3=$false O=inst46.inst5.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:440|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst4_Q I1=inst32.inst2_Q I2=inst46.inst0_O I3=$false O=inst47.inst5.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:440|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst5_Q I1=inst32.inst1_Q I2=inst45.inst0_O I3=$false O=inst46.inst6.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:441|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst5_Q I1=inst32.inst1_Q I2=inst46.inst0_O I3=$false O=inst47.inst6.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:441|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst6_Q I1=inst32.inst0_Q I2=inst45.inst0_O I3=$false O=inst46.inst7.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:442|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst6_Q I1=inst32.inst0_Q I2=inst46.inst0_O I3=$false O=inst47.inst7.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:442|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=inst46.inst9.inst7_Q I1=$false I2=inst45.inst0_O I3=$false O=inst46.inst8.inst0_O
-.attr src "arducam_spi.v:546|arducam_spi.v:443|arducam_spi.v:95"
+.gate SB_LUT4 I0=inst47.inst9.inst7_Q I1=$false I2=inst46.inst0_O I3=$false O=inst47.inst8.inst0_O
+.attr src "arducam_spi.v:548|arducam_spi.v:443|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_DFFE C=CLKIN D=inst46.inst0.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst0_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:412"
-.gate SB_DFFE C=CLKIN D=inst46.inst1.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst1_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:413"
-.gate SB_DFFE C=CLKIN D=inst46.inst2.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst2_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:414"
-.gate SB_DFFE C=CLKIN D=inst46.inst3.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst3_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:415"
-.gate SB_DFFE C=CLKIN D=inst46.inst4.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst4_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:416"
-.gate SB_DFFE C=CLKIN D=inst46.inst5.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst5_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:417"
-.gate SB_DFFE C=CLKIN D=inst46.inst6.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst6_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:418"
-.gate SB_DFFE C=CLKIN D=inst46.inst7.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst7_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:419"
-.gate SB_DFFE C=CLKIN D=inst46.inst8.inst0_O E=inst39.inst0_O Q=inst46.inst9.inst8_Q
-.attr src "arducam_spi.v:546|arducam_spi.v:444|arducam_spi.v:420"
+.gate SB_DFFE C=CLKIN D=inst47.inst0.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst0_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:412"
+.gate SB_DFFE C=CLKIN D=inst47.inst1.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst1_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:413"
+.gate SB_DFFE C=CLKIN D=inst47.inst2.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst2_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:414"
+.gate SB_DFFE C=CLKIN D=inst47.inst3.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst3_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:415"
+.gate SB_DFFE C=CLKIN D=inst47.inst4.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst4_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:416"
+.gate SB_DFFE C=CLKIN D=inst47.inst5.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst5_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:417"
+.gate SB_DFFE C=CLKIN D=inst47.inst6.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst6_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:418"
+.gate SB_DFFE C=CLKIN D=inst47.inst7.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst7_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:419"
+.gate SB_DFFE C=CLKIN D=inst47.inst8.inst0_O E=inst40.inst0_O Q=inst47.inst9.inst8_Q
+.attr src "arducam_spi.v:548|arducam_spi.v:444|arducam_spi.v:420"
 .gate SB_LUT4 I0=inst10.inst0.S I1=$true I2=$false I3=$false O=inst5.inst0.inst0.inst0_O
-.attr src "arducam_spi.v:505|arducam_spi.v:87|arducam_spi.v:63|arducam_spi.v:4"
+.attr src "arducam_spi.v:506|arducam_spi.v:87|arducam_spi.v:63|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst10.inst0.S CO=inst5.inst0.inst1.inst1_CO I0=inst14.inst0.S I1=$false
-.attr src "arducam_spi.v:505|arducam_spi.v:87|arducam_spi.v:64|arducam_spi.v:5"
+.attr src "arducam_spi.v:506|arducam_spi.v:87|arducam_spi.v:64|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst18.inst0.S I1=$false I2=inst5.inst0.inst1.inst1_CO I3=$false O=inst5.inst0.inst2.inst0_O
-.attr src "arducam_spi.v:505|arducam_spi.v:87|arducam_spi.v:65|arducam_spi.v:4"
+.attr src "arducam_spi.v:506|arducam_spi.v:87|arducam_spi.v:65|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
 .gate SB_CARRY CI=inst5.inst0.inst1.inst1_CO CO=inst5.inst0.inst2.inst1_CO I0=inst18.inst0.S I1=$false
-.attr src "arducam_spi.v:505|arducam_spi.v:87|arducam_spi.v:65|arducam_spi.v:5"
+.attr src "arducam_spi.v:506|arducam_spi.v:87|arducam_spi.v:65|arducam_spi.v:5"
 .gate SB_LUT4 I0=inst20.inst0.S I1=$false I2=inst5.inst0.inst2.inst1_CO I3=$false O=inst5.inst0.inst3.inst0_O
-.attr src "arducam_spi.v:505|arducam_spi.v:87|arducam_spi.v:66|arducam_spi.v:4"
+.attr src "arducam_spi.v:506|arducam_spi.v:87|arducam_spi.v:66|arducam_spi.v:4"
 .param LUT_INIT 1001011010010110
-.gate SB_DFFE C=CLKIN D=inst5.inst0.inst0.inst0_O E=inst38_O Q=inst10.inst0.S
-.attr src "arducam_spi.v:505|arducam_spi.v:88|arducam_spi.v:76"
-.gate SB_DFFE C=CLKIN D=inst5.inst0.inst1.inst0_O E=inst38_O Q=inst14.inst0.S
-.attr src "arducam_spi.v:505|arducam_spi.v:88|arducam_spi.v:77"
-.gate SB_DFFE C=CLKIN D=inst5.inst0.inst2.inst0_O E=inst38_O Q=inst18.inst0.S
-.attr src "arducam_spi.v:505|arducam_spi.v:88|arducam_spi.v:78"
-.gate SB_DFFE C=CLKIN D=inst5.inst0.inst3.inst0_O E=inst38_O Q=inst20.inst0.S
-.attr src "arducam_spi.v:505|arducam_spi.v:88|arducam_spi.v:79"
+.gate SB_DFFE C=CLKIN D=inst5.inst0.inst0.inst0_O E=inst39_O Q=inst10.inst0.S
+.attr src "arducam_spi.v:506|arducam_spi.v:88|arducam_spi.v:76"
+.gate SB_DFFE C=CLKIN D=inst5.inst0.inst1.inst0_O E=inst39_O Q=inst14.inst0.S
+.attr src "arducam_spi.v:506|arducam_spi.v:88|arducam_spi.v:77"
+.gate SB_DFFE C=CLKIN D=inst5.inst0.inst2.inst0_O E=inst39_O Q=inst18.inst0.S
+.attr src "arducam_spi.v:506|arducam_spi.v:88|arducam_spi.v:78"
+.gate SB_DFFE C=CLKIN D=inst5.inst0.inst3.inst0_O E=inst39_O Q=inst20.inst0.S
+.attr src "arducam_spi.v:506|arducam_spi.v:88|arducam_spi.v:79"
 .gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst6.inst0.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:116|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst1.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:117|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst6.inst10.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:126|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst11.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:127|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst12.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:128|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst13.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:129|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst14.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:130|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst6.inst15.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:131|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst2.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:118|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst3.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:119|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst4.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:120|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst5.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:121|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst6.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:122|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst7.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:123|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst8.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:124|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst9.inst0_O
-.attr src "arducam_spi.v:506|arducam_spi.v:125|arducam_spi.v:95"
-.param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst0.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst7.inst1.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst1.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst7.inst10.inst0_O
+.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst6.inst10.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst11.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst11.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst12.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst12.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst13.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst13.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst14.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst14.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst7.inst15.inst0_O
+.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst6.inst15.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst2.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst2.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst3.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst3.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst4.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst4.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst5.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst5.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst6.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst6.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst7.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst7.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst8.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst8.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst9.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst6.inst9.inst0_O
 .attr src "arducam_spi.v:507|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst0.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst0.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst1.inst0_O
+.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst7.inst1.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst10.inst0_O
+.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst7.inst10.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst11.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst11.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst12.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst12.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst13.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst13.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst8.inst14.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst14.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst15.inst0_O
+.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst7.inst15.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst2.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst2.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst3.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst3.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst4.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst4.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst5.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst5.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst6.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst6.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst7.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst7.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst8.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst8.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst8.inst9.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst7.inst9.inst0_O
 .attr src "arducam_spi.v:508|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst0.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst0.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:116|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst1.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst1.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:117|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst9.inst10.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst10.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:126|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst11.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst11.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:127|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst12.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst12.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:128|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst13.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst13.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:129|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst9.inst14.inst0_O
+.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst8.inst14.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:130|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst15.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst15.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:131|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst2.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst2.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:118|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst3.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst3.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:119|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst4.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst4.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:120|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst5.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst5.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:121|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst6.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst6.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:122|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst7.inst0_O
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst7.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:123|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst8.inst0_O
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst8.inst8.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:124|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
-.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst9.inst0_O
+.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst8.inst9.inst0_O
 .attr src "arducam_spi.v:509|arducam_spi.v:125|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst0.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:116|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst1.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:117|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$true I2=inst10.inst0.S I3=$false O=inst9.inst10.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:126|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst11.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:127|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst12.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:128|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst13.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:129|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$true I1=$true I2=inst10.inst0.S I3=$false O=inst9.inst14.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:130|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst15.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:131|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst2.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:118|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst3.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:119|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst4.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:120|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst5.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:121|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst6.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:122|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$false I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst7.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:123|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst8.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:124|arducam_spi.v:95"
+.param LUT_INIT 1100101011001010
+.gate SB_LUT4 I0=$true I1=$false I2=inst10.inst0.S I3=$false O=inst9.inst9.inst0_O
+.attr src "arducam_spi.v:510|arducam_spi.v:125|arducam_spi.v:95"
 .param LUT_INIT 1100101011001010
 .names inst0.inst0.inst4.I0 J3[0]
 1 1
@@ -1096,13 +1120,13 @@
 1 1
 .names inst29.inst16.inst15_Q J3[2]
 1 1
-.names inst39.inst0_O J3[3]
+.names inst34_Q J3[3]
 1 1
-.names inst28.inst0.inst1.inst3.inst1_CO J3[4]
+.names inst36.inst7_O J3[4]
 1 1
-.names inst45.inst0_O J3[5]
+.names inst46.inst0_O J3[5]
 1 1
-.names inst46.inst9.inst8_Q J3[6]
+.names inst47.inst9.inst8_Q J3[6]
 1 1
 .names $undef TX
 1 1
@@ -4596,337 +4620,357 @@
 1 1
 .names inst36.inst7_O inst36_O
 1 1
-.names inst29.inst0.S inst37.I[0]
+.names inst32.inst0_Q inst37.I0[0]
 1 1
-.names inst21.inst1.CE inst37.I[1]
+.names inst32.inst1_Q inst37.I0[1]
 1 1
-.names inst37.inst0_O inst37.O
+.names inst32.inst2_Q inst37.I0[2]
 1 1
-.names inst37.inst0_O inst37_O
+.names inst32.inst3_Q inst37.I0[3]
 1 1
-.names inst21.inst1.CE inst39.I[0]
+.names inst32.inst4_Q inst37.I0[4]
 1 1
-.names inst29.inst16.CE inst39.I[1]
+.names inst32.inst5_Q inst37.I0[5]
 1 1
-.names inst39.inst0_O inst39.O
+.names inst32.inst6_Q inst37.I0[6]
 1 1
-.names inst39.inst0_O inst39_O
+.names inst32.inst7_Q inst37.I0[7]
 1 1
-.names inst21.inst1.CE inst42.CE
+.names inst37.inst7_O inst37.O
 1 1
-.names CLKIN inst42.CLK
+.names inst37.inst7_O inst37_O
 1 1
-.names inst42.inst0.inst1.RESET inst42.COUT
+.names inst29.inst0.S inst38.I[0]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.O[0]
+.names inst21.inst1.CE inst38.I[1]
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.O[1]
+.names inst38.inst0_O inst38.O
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.O[2]
+.names inst38.inst0_O inst38_O
 1 1
-.names inst41_O inst42.RESET
+.names inst21.inst1.CE inst40.I[0]
 1 1
-.names inst21.inst1.CE inst42.inst0.CE
+.names inst29.inst16.CE inst40.I[1]
 1 1
-.names CLKIN inst42.inst0.CLK
+.names inst40.inst0_O inst40.O
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.O[0]
+.names inst40.inst0_O inst40_O
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.inst0.O[1]
+.names inst21.inst1.CE inst43.CE
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.inst0.O[2]
+.names CLKIN inst43.CLK
 1 1
-.names inst42.inst0.inst1.RESET inst42.inst0.RESET
+.names inst43.inst0.inst1.RESET inst43.COUT
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst0.I0[0]
+.names inst43.inst0.inst0.inst0.I0 inst43.O[0]
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.inst0.inst0.I0[1]
+.names inst43.inst0.inst0.inst1.I0 inst43.O[1]
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.inst0.inst0.I0[2]
+.names inst43.inst0.inst0.inst2.I0 inst43.O[2]
 1 1
-.names inst42.inst0.inst0.inst0.inst0_O inst42.inst0.inst0.O[0]
+.names inst42_O inst43.RESET
 1 1
-.names inst42.inst0.inst0.inst1.inst0_O inst42.inst0.inst0.O[1]
+.names inst21.inst1.CE inst43.inst0.CE
 1 1
-.names inst42.inst0.inst0.inst2.inst0_O inst42.inst0.inst0.O[2]
+.names CLKIN inst43.inst0.CLK
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst0.inst0.COUT
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.O[0]
 1 1
-.names inst42.inst0.inst0.inst0.inst0_O inst42.inst0.inst0.inst0.O
+.names inst43.inst0.inst0.inst1.I0 inst43.inst0.O[1]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst0.inst0.inst1_CO
+.names inst43.inst0.inst0.inst2.I0 inst43.inst0.O[2]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst0.inst0_COUT
+.names inst43.inst0.inst1.RESET inst43.inst0.RESET
 1 1
-.names inst42.inst0.inst0.inst0.inst0_O inst42.inst0.inst0.inst0_O
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst0.I0[0]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst0.inst1.CIN
+.names inst43.inst0.inst0.inst1.I0 inst43.inst0.inst0.I0[1]
 1 1
-.names inst42.inst0.inst0.inst1.inst1_CO inst42.inst0.inst0.inst1.COUT
+.names inst43.inst0.inst0.inst2.I0 inst43.inst0.inst0.I0[2]
 1 1
-.names inst42.inst0.inst0.inst1.inst0_O inst42.inst0.inst0.inst1.O
+.names inst43.inst0.inst0.inst0.inst0_O inst43.inst0.inst0.O[0]
 1 1
-.names inst42.inst0.inst0.inst1.inst1_CO inst42.inst0.inst0.inst1_COUT
+.names inst43.inst0.inst0.inst1.inst0_O inst43.inst0.inst0.O[1]
 1 1
-.names inst42.inst0.inst0.inst1.inst0_O inst42.inst0.inst0.inst1_O
+.names inst43.inst0.inst0.inst2.inst0_O inst43.inst0.inst0.O[2]
 1 1
-.names inst42.inst0.inst0.inst1.inst1_CO inst42.inst0.inst0.inst2.CIN
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst0.inst0.COUT
 1 1
-.names inst42.inst0.inst0.inst2.inst0_O inst42.inst0.inst0.inst2.O
+.names inst43.inst0.inst0.inst0.inst0_O inst43.inst0.inst0.inst0.O
 1 1
-.names inst42.inst0.inst0.inst2.inst0_O inst42.inst0.inst0.inst2_O
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst0.inst0.inst1_CO
 1 1
-.names inst42.inst0.inst0.inst0.inst0_O inst42.inst0.inst0_O[0]
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst0.inst0_COUT
 1 1
-.names inst42.inst0.inst0.inst1.inst0_O inst42.inst0.inst0_O[1]
+.names inst43.inst0.inst0.inst0.inst0_O inst43.inst0.inst0.inst0_O
 1 1
-.names inst42.inst0.inst0.inst2.inst0_O inst42.inst0.inst0_O[2]
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst0.inst1.CIN
 1 1
-.names inst21.inst1.CE inst42.inst0.inst1.CE
+.names inst43.inst0.inst0.inst1.inst1_CO inst43.inst0.inst0.inst1.COUT
 1 1
-.names CLKIN inst42.inst0.inst1.CLK
+.names inst43.inst0.inst0.inst1.inst0_O inst43.inst0.inst0.inst1.O
 1 1
-.names inst42.inst0.inst0.inst0.inst0_O inst42.inst0.inst1.I[0]
+.names inst43.inst0.inst0.inst1.inst1_CO inst43.inst0.inst0.inst1_COUT
 1 1
-.names inst42.inst0.inst0.inst1.inst0_O inst42.inst0.inst1.I[1]
+.names inst43.inst0.inst0.inst1.inst0_O inst43.inst0.inst0.inst1_O
 1 1
-.names inst42.inst0.inst0.inst2.inst0_O inst42.inst0.inst1.I[2]
+.names inst43.inst0.inst0.inst1.inst1_CO inst43.inst0.inst0.inst2.CIN
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst1.O[0]
+.names inst43.inst0.inst0.inst2.inst0_O inst43.inst0.inst0.inst2.O
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.inst0.inst1.O[1]
+.names inst43.inst0.inst0.inst2.inst0_O inst43.inst0.inst0.inst2_O
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.inst0.inst1.O[2]
+.names inst43.inst0.inst0.inst0.inst0_O inst43.inst0.inst0_O[0]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst1.inst0_Q
+.names inst43.inst0.inst0.inst1.inst0_O inst43.inst0.inst0_O[1]
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.inst0.inst1.inst1_Q
+.names inst43.inst0.inst0.inst2.inst0_O inst43.inst0.inst0_O[2]
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.inst0.inst1.inst2_Q
+.names inst21.inst1.CE inst43.inst0.inst1.CE
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0.inst1_O[0]
+.names CLKIN inst43.inst0.inst1.CLK
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.inst0.inst1_O[1]
+.names inst43.inst0.inst0.inst0.inst0_O inst43.inst0.inst1.I[0]
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.inst0.inst1_O[2]
+.names inst43.inst0.inst0.inst1.inst0_O inst43.inst0.inst1.I[1]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42.inst0_O[0]
+.names inst43.inst0.inst0.inst2.inst0_O inst43.inst0.inst1.I[2]
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42.inst0_O[1]
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst1.O[0]
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42.inst0_O[2]
+.names inst43.inst0.inst0.inst1.I0 inst43.inst0.inst1.O[1]
 1 1
-.names inst42.inst1_O inst42.inst2.I[0]
+.names inst43.inst0.inst0.inst2.I0 inst43.inst0.inst1.O[2]
 1 1
-.names inst41_O inst42.inst2.I[1]
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst1.inst0_Q
 1 1
-.names inst42.inst2.inst0_O inst42.inst2.O
+.names inst43.inst0.inst0.inst1.I0 inst43.inst0.inst1.inst1_Q
 1 1
-.names inst42.inst2.inst0_O inst42.inst2_O
+.names inst43.inst0.inst0.inst2.I0 inst43.inst0.inst1.inst2_Q
 1 1
-.names inst42.inst2.inst0_O inst42.inst3.I[0]
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0.inst1_O[0]
 1 1
-.names inst21.inst1.CE inst42.inst3.I[1]
+.names inst43.inst0.inst0.inst1.I0 inst43.inst0.inst1_O[1]
 1 1
-.names inst42.inst0.inst1.RESET inst42.inst3.O
+.names inst43.inst0.inst0.inst2.I0 inst43.inst0.inst1_O[2]
 1 1
-.names inst42.inst0.inst1.RESET inst42.inst3.inst0_O
+.names inst43.inst0.inst0.inst0.I0 inst43.inst0_O[0]
 1 1
-.names inst42.inst0.inst1.RESET inst42.inst3_O
+.names inst43.inst0.inst0.inst1.I0 inst43.inst0_O[1]
 1 1
-.names inst42.inst0.inst1.RESET inst42_COUT
+.names inst43.inst0.inst0.inst2.I0 inst43.inst0_O[2]
 1 1
-.names inst42.inst0.inst0.inst0.I0 inst42_O[0]
+.names inst43.inst1_O inst43.inst2.I[0]
 1 1
-.names inst42.inst0.inst0.inst1.I0 inst42_O[1]
+.names inst42_O inst43.inst2.I[1]
 1 1
-.names inst42.inst0.inst0.inst2.I0 inst42_O[2]
+.names inst43.inst2.inst0_O inst43.inst2.O
 1 1
-.names inst28.inst0.inst1.inst3.inst1_CO inst45.I[0]
+.names inst43.inst2.inst0_O inst43.inst2_O
 1 1
-.names inst44_O inst45.I[1]
+.names inst43.inst2.inst0_O inst43.inst3.I[0]
 1 1
-.names inst45.inst0_O inst45.O
+.names inst21.inst1.CE inst43.inst3.I[1]
 1 1
-.names inst45.inst0_O inst45_O
+.names inst43.inst0.inst1.RESET inst43.inst3.O
 1 1
-.names inst39.inst0_O inst46.CE
+.names inst43.inst0.inst1.RESET inst43.inst3.inst0_O
 1 1
-.names CLKIN inst46.CLK
+.names inst43.inst0.inst1.RESET inst43.inst3_O
 1 1
-.names inst45.inst0_O inst46.LOAD
+.names inst43.inst0.inst1.RESET inst43_COUT
 1 1
-.names inst46.inst9.inst8_Q inst46.O
+.names inst43.inst0.inst0.inst0.I0 inst43_O[0]
 1 1
-.names inst32.inst7_Q inst46.PI[0]
+.names inst43.inst0.inst0.inst1.I0 inst43_O[1]
 1 1
-.names inst32.inst6_Q inst46.PI[1]
+.names inst43.inst0.inst0.inst2.I0 inst43_O[2]
 1 1
-.names inst32.inst5_Q inst46.PI[2]
+.names inst28.inst0.inst1.inst3.inst1_CO inst46.I[0]
 1 1
-.names inst32.inst4_Q inst46.PI[3]
+.names inst45_O inst46.I[1]
 1 1
-.names inst32.inst3_Q inst46.PI[4]
+.names inst46.inst0_O inst46.O
 1 1
-.names inst32.inst2_Q inst46.PI[5]
+.names inst46.inst0_O inst46_O
 1 1
-.names inst32.inst1_Q inst46.PI[6]
+.names inst40.inst0_O inst47.CE
 1 1
-.names inst32.inst0_Q inst46.PI[7]
+.names CLKIN inst47.CLK
 1 1
-.names $true inst46.inst0.I[0]
+.names inst46.inst0_O inst47.LOAD
 1 1
-.names inst32.inst7_Q inst46.inst0.I[1]
+.names inst47.inst9.inst8_Q inst47.O
 1 1
-.names inst46.inst0.inst0_O inst46.inst0.O
+.names inst32.inst7_Q inst47.PI[0]
 1 1
-.names inst45.inst0_O inst46.inst0.S
+.names inst32.inst6_Q inst47.PI[1]
 1 1
-.names inst46.inst0.inst0_O inst46.inst0_O
+.names inst32.inst5_Q inst47.PI[2]
 1 1
-.names inst46.inst9.inst0_Q inst46.inst1.I[0]
+.names inst32.inst4_Q inst47.PI[3]
 1 1
-.names inst32.inst6_Q inst46.inst1.I[1]
+.names inst32.inst3_Q inst47.PI[4]
 1 1
-.names inst46.inst1.inst0_O inst46.inst1.O
+.names inst32.inst2_Q inst47.PI[5]
 1 1
-.names inst45.inst0_O inst46.inst1.S
+.names inst32.inst1_Q inst47.PI[6]
 1 1
-.names inst46.inst1.inst0_O inst46.inst1_O
+.names inst32.inst0_Q inst47.PI[7]
 1 1
-.names inst46.inst9.inst1_Q inst46.inst2.I[0]
+.names $true inst47.inst0.I[0]
 1 1
-.names inst32.inst5_Q inst46.inst2.I[1]
+.names inst32.inst7_Q inst47.inst0.I[1]
 1 1
-.names inst46.inst2.inst0_O inst46.inst2.O
+.names inst47.inst0.inst0_O inst47.inst0.O
 1 1
-.names inst45.inst0_O inst46.inst2.S
+.names inst46.inst0_O inst47.inst0.S
 1 1
-.names inst46.inst2.inst0_O inst46.inst2_O
+.names inst47.inst0.inst0_O inst47.inst0_O
 1 1
-.names inst46.inst9.inst2_Q inst46.inst3.I[0]
+.names inst47.inst9.inst0_Q inst47.inst1.I[0]
 1 1
-.names inst32.inst4_Q inst46.inst3.I[1]
+.names inst32.inst6_Q inst47.inst1.I[1]
 1 1
-.names inst46.inst3.inst0_O inst46.inst3.O
+.names inst47.inst1.inst0_O inst47.inst1.O
 1 1
-.names inst45.inst0_O inst46.inst3.S
+.names inst46.inst0_O inst47.inst1.S
 1 1
-.names inst46.inst3.inst0_O inst46.inst3_O
+.names inst47.inst1.inst0_O inst47.inst1_O
 1 1
-.names inst46.inst9.inst3_Q inst46.inst4.I[0]
+.names inst47.inst9.inst1_Q inst47.inst2.I[0]
 1 1
-.names inst32.inst3_Q inst46.inst4.I[1]
+.names inst32.inst5_Q inst47.inst2.I[1]
 1 1
-.names inst46.inst4.inst0_O inst46.inst4.O
+.names inst47.inst2.inst0_O inst47.inst2.O
 1 1
-.names inst45.inst0_O inst46.inst4.S
+.names inst46.inst0_O inst47.inst2.S
 1 1
-.names inst46.inst4.inst0_O inst46.inst4_O
+.names inst47.inst2.inst0_O inst47.inst2_O
 1 1
-.names inst46.inst9.inst4_Q inst46.inst5.I[0]
+.names inst47.inst9.inst2_Q inst47.inst3.I[0]
 1 1
-.names inst32.inst2_Q inst46.inst5.I[1]
+.names inst32.inst4_Q inst47.inst3.I[1]
 1 1
-.names inst46.inst5.inst0_O inst46.inst5.O
+.names inst47.inst3.inst0_O inst47.inst3.O
 1 1
-.names inst45.inst0_O inst46.inst5.S
+.names inst46.inst0_O inst47.inst3.S
 1 1
-.names inst46.inst5.inst0_O inst46.inst5_O
+.names inst47.inst3.inst0_O inst47.inst3_O
 1 1
-.names inst46.inst9.inst5_Q inst46.inst6.I[0]
+.names inst47.inst9.inst3_Q inst47.inst4.I[0]
 1 1
-.names inst32.inst1_Q inst46.inst6.I[1]
+.names inst32.inst3_Q inst47.inst4.I[1]
 1 1
-.names inst46.inst6.inst0_O inst46.inst6.O
+.names inst47.inst4.inst0_O inst47.inst4.O
 1 1
-.names inst45.inst0_O inst46.inst6.S
+.names inst46.inst0_O inst47.inst4.S
 1 1
-.names inst46.inst6.inst0_O inst46.inst6_O
+.names inst47.inst4.inst0_O inst47.inst4_O
 1 1
-.names inst46.inst9.inst6_Q inst46.inst7.I[0]
+.names inst47.inst9.inst4_Q inst47.inst5.I[0]
 1 1
-.names inst32.inst0_Q inst46.inst7.I[1]
+.names inst32.inst2_Q inst47.inst5.I[1]
 1 1
-.names inst46.inst7.inst0_O inst46.inst7.O
+.names inst47.inst5.inst0_O inst47.inst5.O
 1 1
-.names inst45.inst0_O inst46.inst7.S
+.names inst46.inst0_O inst47.inst5.S
 1 1
-.names inst46.inst7.inst0_O inst46.inst7_O
+.names inst47.inst5.inst0_O inst47.inst5_O
 1 1
-.names inst46.inst9.inst7_Q inst46.inst8.I[0]
+.names inst47.inst9.inst5_Q inst47.inst6.I[0]
 1 1
-.names $false inst46.inst8.I[1]
+.names inst32.inst1_Q inst47.inst6.I[1]
 1 1
-.names inst46.inst8.inst0_O inst46.inst8.O
+.names inst47.inst6.inst0_O inst47.inst6.O
 1 1
-.names inst45.inst0_O inst46.inst8.S
+.names inst46.inst0_O inst47.inst6.S
 1 1
-.names inst46.inst8.inst0_O inst46.inst8_O
+.names inst47.inst6.inst0_O inst47.inst6_O
 1 1
-.names inst39.inst0_O inst46.inst9.CE
+.names inst47.inst9.inst6_Q inst47.inst7.I[0]
 1 1
-.names CLKIN inst46.inst9.CLK
+.names inst32.inst0_Q inst47.inst7.I[1]
 1 1
-.names inst46.inst0.inst0_O inst46.inst9.I[0]
+.names inst47.inst7.inst0_O inst47.inst7.O
 1 1
-.names inst46.inst1.inst0_O inst46.inst9.I[1]
+.names inst46.inst0_O inst47.inst7.S
 1 1
-.names inst46.inst2.inst0_O inst46.inst9.I[2]
+.names inst47.inst7.inst0_O inst47.inst7_O
 1 1
-.names inst46.inst3.inst0_O inst46.inst9.I[3]
+.names inst47.inst9.inst7_Q inst47.inst8.I[0]
 1 1
-.names inst46.inst4.inst0_O inst46.inst9.I[4]
+.names $false inst47.inst8.I[1]
 1 1
-.names inst46.inst5.inst0_O inst46.inst9.I[5]
+.names inst47.inst8.inst0_O inst47.inst8.O
 1 1
-.names inst46.inst6.inst0_O inst46.inst9.I[6]
+.names inst46.inst0_O inst47.inst8.S
 1 1
-.names inst46.inst7.inst0_O inst46.inst9.I[7]
+.names inst47.inst8.inst0_O inst47.inst8_O
 1 1
-.names inst46.inst8.inst0_O inst46.inst9.I[8]
+.names inst40.inst0_O inst47.inst9.CE
 1 1
-.names inst46.inst9.inst0_Q inst46.inst9.O[0]
+.names CLKIN inst47.inst9.CLK
 1 1
-.names inst46.inst9.inst1_Q inst46.inst9.O[1]
+.names inst47.inst0.inst0_O inst47.inst9.I[0]
 1 1
-.names inst46.inst9.inst2_Q inst46.inst9.O[2]
+.names inst47.inst1.inst0_O inst47.inst9.I[1]
 1 1
-.names inst46.inst9.inst3_Q inst46.inst9.O[3]
+.names inst47.inst2.inst0_O inst47.inst9.I[2]
 1 1
-.names inst46.inst9.inst4_Q inst46.inst9.O[4]
+.names inst47.inst3.inst0_O inst47.inst9.I[3]
 1 1
-.names inst46.inst9.inst5_Q inst46.inst9.O[5]
+.names inst47.inst4.inst0_O inst47.inst9.I[4]
 1 1
-.names inst46.inst9.inst6_Q inst46.inst9.O[6]
+.names inst47.inst5.inst0_O inst47.inst9.I[5]
 1 1
-.names inst46.inst9.inst7_Q inst46.inst9.O[7]
+.names inst47.inst6.inst0_O inst47.inst9.I[6]
 1 1
-.names inst46.inst9.inst8_Q inst46.inst9.O[8]
+.names inst47.inst7.inst0_O inst47.inst9.I[7]
 1 1
-.names inst46.inst9.inst0_Q inst46.inst9_O[0]
+.names inst47.inst8.inst0_O inst47.inst9.I[8]
 1 1
-.names inst46.inst9.inst1_Q inst46.inst9_O[1]
+.names inst47.inst9.inst0_Q inst47.inst9.O[0]
 1 1
-.names inst46.inst9.inst2_Q inst46.inst9_O[2]
+.names inst47.inst9.inst1_Q inst47.inst9.O[1]
 1 1
-.names inst46.inst9.inst3_Q inst46.inst9_O[3]
+.names inst47.inst9.inst2_Q inst47.inst9.O[2]
 1 1
-.names inst46.inst9.inst4_Q inst46.inst9_O[4]
+.names inst47.inst9.inst3_Q inst47.inst9.O[3]
 1 1
-.names inst46.inst9.inst5_Q inst46.inst9_O[5]
+.names inst47.inst9.inst4_Q inst47.inst9.O[4]
 1 1
-.names inst46.inst9.inst6_Q inst46.inst9_O[6]
+.names inst47.inst9.inst5_Q inst47.inst9.O[5]
 1 1
-.names inst46.inst9.inst7_Q inst46.inst9_O[7]
+.names inst47.inst9.inst6_Q inst47.inst9.O[6]
 1 1
-.names inst46.inst9.inst8_Q inst46.inst9_O[8]
+.names inst47.inst9.inst7_Q inst47.inst9.O[7]
 1 1
-.names inst46.inst9.inst8_Q inst46_O
+.names inst47.inst9.inst8_Q inst47.inst9.O[8]
+1 1
+.names inst47.inst9.inst0_Q inst47.inst9_O[0]
+1 1
+.names inst47.inst9.inst1_Q inst47.inst9_O[1]
+1 1
+.names inst47.inst9.inst2_Q inst47.inst9_O[2]
+1 1
+.names inst47.inst9.inst3_Q inst47.inst9_O[3]
+1 1
+.names inst47.inst9.inst4_Q inst47.inst9_O[4]
+1 1
+.names inst47.inst9.inst5_Q inst47.inst9_O[5]
+1 1
+.names inst47.inst9.inst6_Q inst47.inst9_O[6]
+1 1
+.names inst47.inst9.inst7_Q inst47.inst9_O[7]
+1 1
+.names inst47.inst9.inst8_Q inst47.inst9_O[8]
+1 1
+.names inst47.inst9.inst8_Q inst47_O
 1 1
 .names inst21.inst1.CE inst4_O
 1 1
-.names inst38_O inst5.CE
+.names inst39_O inst5.CE
 1 1
 .names CLKIN inst5.CLK
 1 1
@@ -5006,7 +5050,7 @@
 1 1
 .names inst5.inst0.inst3.inst0_O inst5.inst0_O[3]
 1 1
-.names inst38_O inst5.inst1.CE
+.names inst39_O inst5.inst1.CE
 1 1
 .names CLKIN inst5.inst1.CLK
 1 1

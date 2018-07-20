@@ -1,11 +1,11 @@
-NAME = main
+#NAME = main
 #NAME = spi
-#NAME = arducam
+#NAME = arducam_spi
 #NAME = arducam_greyscale
 #NAME = burst
 #NAME = greyscale
 #NAME = stencil
-#NAME = test
+NAME = test
 
 PCF = $(NAME).pcf
 

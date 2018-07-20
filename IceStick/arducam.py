@@ -62,10 +62,9 @@ class ArduCAM(Circuit):
 
         # Shit register to read in 8-bit data 
         miso = SIPO(8, has_ce=True)
-        #data_out = Register(16)
         miso(cam.MISO)
         valid = LUT2(~I0 & I1)(enable, edge_r)
-        wire(valid, miso.CE)
+        wire(valid, miso.CE)    
 
         # Capture done state variable
         cap_done = SRFF(has_ce=True)
