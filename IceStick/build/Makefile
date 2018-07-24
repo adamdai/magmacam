@@ -4,8 +4,8 @@
 #NAME = arducam_greyscale
 #NAME = burst
 #NAME = greyscale
-#NAME = stencil
-NAME = test
+NAME = stencil
+#NAME = test
 
 PCF = $(NAME).pcf
 

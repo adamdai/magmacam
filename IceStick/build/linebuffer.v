@@ -2,14 +2,6 @@
 //Module: pullresistor defined externally
 
 
-module corebit_ibuf (
-  inout in,
-  output out
-);
-  assign out = in;
-
-endmodule //corebit_ibuf
-
 module bitopn_U18 (
   input [0:0] in,
   output  out
@@ -19,12 +11,14 @@ module bitopn_U18 (
 
 endmodule //bitopn_U18
 
-module coreir_const #(parameter value=1, parameter width=1) (
-  output [width-1:0] out
+module corebit_tribuf (
+  input in,
+  input en,
+  inout out
 );
-  assign out = value;
+  assign out = en ? in : 1'bz;
 
-endmodule //coreir_const
+endmodule //corebit_tribuf
 
 module corebit_and (
   input in0,
@@ -105,22 +99,29 @@ module corebit_concat (
 
 endmodule //corebit_concat
 
-module coreir_mux #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  input sel,
-  output [width-1:0] out
-);
-  assign out = sel ? in1 : in0;
-
-endmodule //coreir_mux
-
 module corebit_const #(parameter value=1) (
   output out
 );
   assign out = value;
 
 endmodule //corebit_const
+
+module coreir_add #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output [width-1:0] out
+);
+  assign out = in0 + in1;
+
+endmodule //coreir_add
+
+module corebit_ibuf (
+  inout in,
+  output out
+);
+  assign out = in;
+
+endmodule //corebit_ibuf
 
 module corebit_mux (
   input in0,
@@ -140,6 +141,16 @@ module corebit_not (
 
 endmodule //corebit_not
 
+module coreir_mux #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  input sel,
+  output [width-1:0] out
+);
+  assign out = sel ? in1 : in0;
+
+endmodule //coreir_mux
+
 module corebit_or (
   input in0,
   input in1,
@@ -148,15 +159,6 @@ module corebit_or (
   assign out = in0 | in1;
 
 endmodule //corebit_or
-
-module coreir_ule #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output out
-);
-  assign out = in0 <= in1;
-
-endmodule //coreir_ule
 
 module corebit_reg #(parameter clk_posedge=1, parameter init=1) (
   input clk,
@@ -190,14 +192,6 @@ assign out = outReg;
 
 endmodule //corebit_reg_arst
 
-module coreir_zext #(parameter width_in=1, parameter width_out=1) (
-  input [width_in-1:0] in,
-  output [width_out-1:0] out
-);
-  assign out = {{(width_out-width_in){1'b0}},in};
-
-endmodule //coreir_zext
-
 module corebit_term (
   input in
 );
@@ -205,32 +199,14 @@ module corebit_term (
 
 endmodule //corebit_term
 
-module corebit_tribuf (
-  input in,
-  input en,
-  inout out
+module coreir_ult #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output out
 );
-  assign out = en ? in : 1'bz;
+  assign out = in0 < in1;
 
-endmodule //corebit_tribuf
-
-module coreir_mem #(parameter depth=1, parameter has_init=1, parameter width=1) (
-  input clk,
-  input [width-1:0] wdata,
-  input [$clog2(depth)-1:0] waddr,
-  input wen,
-  output [width-1:0] rdata,
-  input [$clog2(depth)-1:0] raddr
-);
-reg [width-1:0] data[depth-1:0];
-always @(posedge clk) begin
-  if (wen) begin
-    data[waddr] <= wdata;
-  end
-end
-assign rdata = data[raddr];
-
-endmodule //coreir_mem
+endmodule //coreir_ult
 
 module corebit_wire (
   input in,
@@ -249,32 +225,12 @@ module corebit_xor (
 
 endmodule //corebit_xor
 
-module coreir_add #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
+module coreir_const #(parameter value=1, parameter width=1) (
   output [width-1:0] out
 );
-  assign out = in0 + in1;
+  assign out = value;
 
-endmodule //coreir_add
-
-module coreir_eq #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output out
-);
-  assign out = in0 == in1;
-
-endmodule //coreir_eq
-
-module coreir_ult #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output out
-);
-  assign out = in0 < in1;
-
-endmodule //coreir_ult
+endmodule //coreir_const
 
 module coreir_reg #(parameter clk_posedge=1, parameter init=1, parameter width=1) (
   input clk,
@@ -291,26 +247,40 @@ assign out = outReg;
 
 endmodule //coreir_reg
 
-module coreir_const80 (
-  output [7:0] out
+module coreir_eq #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output out
 );
-  //Wire declarations for instance 'bit_const_GND' (Module corebit_const)
-  wire  bit_const_GND__out;
-  corebit_const #(.value(0)) bit_const_GND(
-    .out(bit_const_GND__out)
-  );
+  assign out = in0 == in1;
 
-  //All the connections
-  assign out[0] = bit_const_GND__out;
-  assign out[1] = bit_const_GND__out;
-  assign out[2] = bit_const_GND__out;
-  assign out[3] = bit_const_GND__out;
-  assign out[4] = bit_const_GND__out;
-  assign out[5] = bit_const_GND__out;
-  assign out[6] = bit_const_GND__out;
-  assign out[7] = bit_const_GND__out;
+endmodule //coreir_eq
 
-endmodule //coreir_const80
+module coreir_zext #(parameter width_in=1, parameter width_out=1) (
+  input [width_in-1:0] in,
+  output [width_out-1:0] out
+);
+  assign out = {{(width_out-width_in){1'b0}},in};
+
+endmodule //coreir_zext
+
+module coreir_mem #(parameter depth=1, parameter has_init=1, parameter width=1) (
+  input clk,
+  input [width-1:0] wdata,
+  input [$clog2(depth)-1:0] waddr,
+  input wen,
+  output [width-1:0] rdata,
+  input [$clog2(depth)-1:0] raddr
+);
+reg [width-1:0] data[depth-1:0];
+always @(posedge clk) begin
+  if (wen) begin
+    data[waddr] <= wdata;
+  end
+end
+assign rdata = data[raddr];
+
+endmodule //coreir_mem
 
 module coreir_or #(parameter width=1) (
   input [width-1:0] in0,
@@ -349,227 +319,6 @@ module linebuffer_U3 (
   assign out_1[7:0] = in_0[7:0];
 
 endmodule //linebuffer_U3
-
-module reg_U11 #(parameter init=1) (
-  input  clk,
-  input  clr,
-  input  en,
-  input [4:0] in,
-  output [4:0] out
-);
-  //Wire declarations for instance 'c0' (Module coreir_const)
-  wire [4:0] c0__out;
-  coreir_const #(.value(5'b00000),.width(5)) c0(
-    .out(c0__out)
-  );
-
-  //Wire declarations for instance 'clrMux' (Module coreir_mux)
-  wire [4:0] clrMux__in0;
-  wire [4:0] clrMux__in1;
-  wire [4:0] clrMux__out;
-  wire  clrMux__sel;
-  coreir_mux #(.width(5)) clrMux(
-    .in0(clrMux__in0),
-    .in1(clrMux__in1),
-    .out(clrMux__out),
-    .sel(clrMux__sel)
-  );
-
-  //Wire declarations for instance 'enMux' (Module coreir_mux)
-  wire [4:0] enMux__in0;
-  wire [4:0] enMux__in1;
-  wire [4:0] enMux__out;
-  wire  enMux__sel;
-  coreir_mux #(.width(5)) enMux(
-    .in0(enMux__in0),
-    .in1(enMux__in1),
-    .out(enMux__out),
-    .sel(enMux__sel)
-  );
-
-  //Wire declarations for instance 'reg0' (Module coreir_reg)
-  wire  reg0__clk;
-  wire [4:0] reg0__in;
-  wire [4:0] reg0__out;
-  coreir_reg #(.clk_posedge(1),.init(init),.width(5)) reg0(
-    .clk(reg0__clk),
-    .in(reg0__in),
-    .out(reg0__out)
-  );
-
-  //All the connections
-  assign reg0__in[4:0] = enMux__out[4:0];
-  assign out[4:0] = reg0__out[4:0];
-  assign enMux__in0[4:0] = reg0__out[4:0];
-  assign reg0__clk = clk;
-  assign enMux__sel = en;
-  assign enMux__in1[4:0] = clrMux__out[4:0];
-  assign clrMux__in1[4:0] = c0__out[4:0];
-  assign clrMux__sel = clr;
-  assign clrMux__in0[4:0] = in[4:0];
-
-endmodule //reg_U11
-
-module reg_U12 #(parameter init=1) (
-  input  clk,
-  input  clr,
-  input  en,
-  input [0:0] in,
-  output [0:0] out
-);
-  //Wire declarations for instance 'c0' (Module coreir_const)
-  wire [0:0] c0__out;
-  coreir_const #(.value(1'b0),.width(1)) c0(
-    .out(c0__out)
-  );
-
-  //Wire declarations for instance 'clrMux' (Module coreir_mux)
-  wire [0:0] clrMux__in0;
-  wire [0:0] clrMux__in1;
-  wire [0:0] clrMux__out;
-  wire  clrMux__sel;
-  coreir_mux #(.width(1)) clrMux(
-    .in0(clrMux__in0),
-    .in1(clrMux__in1),
-    .out(clrMux__out),
-    .sel(clrMux__sel)
-  );
-
-  //Wire declarations for instance 'enMux' (Module coreir_mux)
-  wire [0:0] enMux__in0;
-  wire [0:0] enMux__in1;
-  wire [0:0] enMux__out;
-  wire  enMux__sel;
-  coreir_mux #(.width(1)) enMux(
-    .in0(enMux__in0),
-    .in1(enMux__in1),
-    .out(enMux__out),
-    .sel(enMux__sel)
-  );
-
-  //Wire declarations for instance 'reg0' (Module coreir_reg)
-  wire  reg0__clk;
-  wire [0:0] reg0__in;
-  wire [0:0] reg0__out;
-  coreir_reg #(.clk_posedge(1),.init(init),.width(1)) reg0(
-    .clk(reg0__clk),
-    .in(reg0__in),
-    .out(reg0__out)
-  );
-
-  //All the connections
-  assign reg0__in[0:0] = enMux__out[0:0];
-  assign out[0:0] = reg0__out[0:0];
-  assign enMux__in0[0:0] = reg0__out[0:0];
-  assign reg0__clk = clk;
-  assign enMux__sel = en;
-  assign enMux__in1[0:0] = clrMux__out[0:0];
-  assign clrMux__in1[0:0] = c0__out[0:0];
-  assign clrMux__sel = clr;
-  assign clrMux__in0[0:0] = in[0:0];
-
-endmodule //reg_U12
-
-module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ (
-  input [7:0] in0,
-  input [7:0] in1,
-  output [7:0] out
-);
-  //Wire declarations for instance 'inst0' (Module Add8)
-  wire [7:0] inst0__I0;
-  wire [7:0] inst0__I1;
-  wire [7:0] inst0__O;
-  Add8 inst0(
-    .I0(inst0__I0),
-    .I1(inst0__I1),
-    .O(inst0__O)
-  );
-
-  //All the connections
-  assign inst0__I0[7:0] = in0[7:0];
-  assign inst0__I1[7:0] = in1[7:0];
-  assign out[7:0] = inst0__O[7:0];
-
-endmodule //renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___
-
-module reduceParallelPower2Inputs_U2 (
-  input [7:0] in_0,
-  input [7:0] in_1,
-  input [7:0] in_2,
-  input [7:0] in_3,
-  output [7:0] out
-);
-  //Wire declarations for instance 'op_0_0' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
-  wire [7:0] op_0_0__in0;
-  wire [7:0] op_0_0__in1;
-  wire [7:0] op_0_0__out;
-  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_0_0(
-    .in0(op_0_0__in0),
-    .in1(op_0_0__in1),
-    .out(op_0_0__out)
-  );
-
-  //Wire declarations for instance 'op_1_0' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
-  wire [7:0] op_1_0__in0;
-  wire [7:0] op_1_0__in1;
-  wire [7:0] op_1_0__out;
-  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_1_0(
-    .in0(op_1_0__in0),
-    .in1(op_1_0__in1),
-    .out(op_1_0__out)
-  );
-
-  //Wire declarations for instance 'op_1_1' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
-  wire [7:0] op_1_1__in0;
-  wire [7:0] op_1_1__in1;
-  wire [7:0] op_1_1__out;
-  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_1_1(
-    .in0(op_1_1__in0),
-    .in1(op_1_1__in1),
-    .out(op_1_1__out)
-  );
-
-  //All the connections
-  assign op_1_0__in1[7:0] = in_1[7:0];
-  assign out[7:0] = op_0_0__out[7:0];
-  assign op_1_0__in0[7:0] = in_0[7:0];
-  assign op_0_0__in0[7:0] = op_1_0__out[7:0];
-  assign op_1_1__in0[7:0] = in_2[7:0];
-  assign op_1_1__in1[7:0] = in_3[7:0];
-  assign op_0_0__in1[7:0] = op_1_1__out[7:0];
-
-endmodule //reduceParallelPower2Inputs_U2
-
-module reduceParallel_U1 (
-  input [7:0] in_data_0,
-  input [7:0] in_data_1,
-  input [7:0] in_data_2,
-  input [7:0] in_data_3,
-  input [7:0] in_identity,
-  output [7:0] out
-);
-  //Wire declarations for instance 'reducer' (Module reduceParallelPower2Inputs_U2)
-  wire [7:0] reducer__in_0;
-  wire [7:0] reducer__in_1;
-  wire [7:0] reducer__in_2;
-  wire [7:0] reducer__in_3;
-  wire [7:0] reducer__out;
-  reduceParallelPower2Inputs_U2 reducer(
-    .in_0(reducer__in_0),
-    .in_1(reducer__in_1),
-    .in_2(reducer__in_2),
-    .in_3(reducer__in_3),
-    .out(reducer__out)
-  );
-
-  //All the connections
-  assign out[7:0] = reducer__out[7:0];
-  assign reducer__in_1[7:0] = in_data_1[7:0];
-  assign reducer__in_0[7:0] = in_data_0[7:0];
-  assign reducer__in_2[7:0] = in_data_2[7:0];
-  assign reducer__in_3[7:0] = in_data_3[7:0];
-
-endmodule //reduceParallel_U1
 
 module reg_U19 #(parameter init=1) (
   input  clk,
@@ -670,7 +419,7 @@ module counter_U7 (
 
   //Wire declarations for instance 'max' (Module coreir_const)
   wire [7:0] max__out;
-  coreir_const #(.value(8'b00001111),.width(8)) max(
+  coreir_const #(.value(8'b00000011),.width(8)) max(
     .out(max__out)
   );
 
@@ -710,25 +459,156 @@ module counter_U7 (
 
 endmodule //counter_U7
 
-module reg_U24 #(parameter init=1) (
+module coreir_ule #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output out
+);
+  assign out = in0 <= in1;
+
+endmodule //coreir_ule
+
+module coreir_const80 (
+  output [7:0] out
+);
+  //Wire declarations for instance 'bit_const_GND' (Module corebit_const)
+  wire  bit_const_GND__out;
+  corebit_const #(.value(0)) bit_const_GND(
+    .out(bit_const_GND__out)
+  );
+
+  //All the connections
+  assign out[0] = bit_const_GND__out;
+  assign out[1] = bit_const_GND__out;
+  assign out[2] = bit_const_GND__out;
+  assign out[3] = bit_const_GND__out;
+  assign out[4] = bit_const_GND__out;
+  assign out[5] = bit_const_GND__out;
+  assign out[6] = bit_const_GND__out;
+  assign out[7] = bit_const_GND__out;
+
+endmodule //coreir_const80
+
+module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ (
+  input [7:0] in0,
+  input [7:0] in1,
+  output [7:0] out
+);
+  //Wire declarations for instance 'inst0' (Module Add8)
+  wire [7:0] inst0__I0;
+  wire [7:0] inst0__I1;
+  wire [7:0] inst0__O;
+  Add8 inst0(
+    .I0(inst0__I0),
+    .I1(inst0__I1),
+    .O(inst0__O)
+  );
+
+  //All the connections
+  assign inst0__I0[7:0] = in0[7:0];
+  assign inst0__I1[7:0] = in1[7:0];
+  assign out[7:0] = inst0__O[7:0];
+
+endmodule //renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___
+
+module reduceParallelPower2Inputs_U2 (
+  input [7:0] in_0,
+  input [7:0] in_1,
+  input [7:0] in_2,
+  input [7:0] in_3,
+  output [7:0] out
+);
+  //Wire declarations for instance 'op_0_0' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
+  wire [7:0] op_0_0__in0;
+  wire [7:0] op_0_0__in1;
+  wire [7:0] op_0_0__out;
+  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_0_0(
+    .in0(op_0_0__in0),
+    .in1(op_0_0__in1),
+    .out(op_0_0__out)
+  );
+
+  //Wire declarations for instance 'op_1_0' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
+  wire [7:0] op_1_0__in0;
+  wire [7:0] op_1_0__in1;
+  wire [7:0] op_1_0__out;
+  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_1_0(
+    .in0(op_1_0__in0),
+    .in1(op_1_0__in1),
+    .out(op_1_0__out)
+  );
+
+  //Wire declarations for instance 'op_1_1' (Module renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___)
+  wire [7:0] op_1_1__in0;
+  wire [7:0] op_1_1__in1;
+  wire [7:0] op_1_1__out;
+  renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___ op_1_1(
+    .in0(op_1_1__in0),
+    .in1(op_1_1__in1),
+    .out(op_1_1__out)
+  );
+
+  //All the connections
+  assign op_1_1__in1[7:0] = in_3[7:0];
+  assign op_0_0__in0[7:0] = op_1_0__out[7:0];
+  assign op_0_0__in1[7:0] = op_1_1__out[7:0];
+  assign op_1_0__in1[7:0] = in_1[7:0];
+  assign op_1_1__in0[7:0] = in_2[7:0];
+  assign op_1_0__in0[7:0] = in_0[7:0];
+  assign out[7:0] = op_0_0__out[7:0];
+
+endmodule //reduceParallelPower2Inputs_U2
+
+module reduceParallel_U1 (
+  input [7:0] in_data_0,
+  input [7:0] in_data_1,
+  input [7:0] in_data_2,
+  input [7:0] in_data_3,
+  input [7:0] in_identity,
+  output [7:0] out
+);
+  //Wire declarations for instance 'reducer' (Module reduceParallelPower2Inputs_U2)
+  wire [7:0] reducer__in_0;
+  wire [7:0] reducer__in_1;
+  wire [7:0] reducer__in_2;
+  wire [7:0] reducer__in_3;
+  wire [7:0] reducer__out;
+  reduceParallelPower2Inputs_U2 reducer(
+    .in_0(reducer__in_0),
+    .in_1(reducer__in_1),
+    .in_2(reducer__in_2),
+    .in_3(reducer__in_3),
+    .out(reducer__out)
+  );
+
+  //All the connections
+  assign out[7:0] = reducer__out[7:0];
+  assign reducer__in_2[7:0] = in_data_2[7:0];
+  assign reducer__in_0[7:0] = in_data_0[7:0];
+  assign reducer__in_1[7:0] = in_data_1[7:0];
+  assign reducer__in_3[7:0] = in_data_3[7:0];
+
+endmodule //reduceParallel_U1
+
+module reg_U11 #(parameter init=1) (
   input  clk,
   input  clr,
   input  en,
-  input [3:0] in,
-  output [3:0] out
+  input [2:0] in,
+  output [2:0] out
 );
   //Wire declarations for instance 'c0' (Module coreir_const)
-  wire [3:0] c0__out;
-  coreir_const #(.value(4'b0000),.width(4)) c0(
+  wire [2:0] c0__out;
+  coreir_const #(.value(3'b000),.width(3)) c0(
     .out(c0__out)
   );
 
   //Wire declarations for instance 'clrMux' (Module coreir_mux)
-  wire [3:0] clrMux__in0;
-  wire [3:0] clrMux__in1;
-  wire [3:0] clrMux__out;
+  wire [2:0] clrMux__in0;
+  wire [2:0] clrMux__in1;
+  wire [2:0] clrMux__out;
   wire  clrMux__sel;
-  coreir_mux #(.width(4)) clrMux(
+  coreir_mux #(.width(3)) clrMux(
     .in0(clrMux__in0),
     .in1(clrMux__in1),
     .out(clrMux__out),
@@ -736,11 +616,11 @@ module reg_U24 #(parameter init=1) (
   );
 
   //Wire declarations for instance 'enMux' (Module coreir_mux)
-  wire [3:0] enMux__in0;
-  wire [3:0] enMux__in1;
-  wire [3:0] enMux__out;
+  wire [2:0] enMux__in0;
+  wire [2:0] enMux__in1;
+  wire [2:0] enMux__out;
   wire  enMux__sel;
-  coreir_mux #(.width(4)) enMux(
+  coreir_mux #(.width(3)) enMux(
     .in0(enMux__in0),
     .in1(enMux__in1),
     .out(enMux__out),
@@ -749,77 +629,197 @@ module reg_U24 #(parameter init=1) (
 
   //Wire declarations for instance 'reg0' (Module coreir_reg)
   wire  reg0__clk;
-  wire [3:0] reg0__in;
-  wire [3:0] reg0__out;
-  coreir_reg #(.clk_posedge(1),.init(init),.width(4)) reg0(
+  wire [2:0] reg0__in;
+  wire [2:0] reg0__out;
+  coreir_reg #(.clk_posedge(1),.init(init),.width(3)) reg0(
     .clk(reg0__clk),
     .in(reg0__in),
     .out(reg0__out)
   );
 
   //All the connections
-  assign reg0__in[3:0] = enMux__out[3:0];
-  assign out[3:0] = reg0__out[3:0];
-  assign enMux__in0[3:0] = reg0__out[3:0];
+  assign reg0__in[2:0] = enMux__out[2:0];
+  assign out[2:0] = reg0__out[2:0];
+  assign enMux__in0[2:0] = reg0__out[2:0];
   assign reg0__clk = clk;
   assign enMux__sel = en;
-  assign enMux__in1[3:0] = clrMux__out[3:0];
-  assign clrMux__in1[3:0] = c0__out[3:0];
+  assign enMux__in1[2:0] = clrMux__out[2:0];
+  assign clrMux__in1[2:0] = c0__out[2:0];
   assign clrMux__sel = clr;
-  assign clrMux__in0[3:0] = in[3:0];
+  assign clrMux__in0[2:0] = in[2:0];
+
+endmodule //reg_U11
+
+module reg_U12 #(parameter init=1) (
+  input  clk,
+  input  clr,
+  input  en,
+  input [0:0] in,
+  output [0:0] out
+);
+  //Wire declarations for instance 'c0' (Module coreir_const)
+  wire [0:0] c0__out;
+  coreir_const #(.value(1'b0),.width(1)) c0(
+    .out(c0__out)
+  );
+
+  //Wire declarations for instance 'clrMux' (Module coreir_mux)
+  wire [0:0] clrMux__in0;
+  wire [0:0] clrMux__in1;
+  wire [0:0] clrMux__out;
+  wire  clrMux__sel;
+  coreir_mux #(.width(1)) clrMux(
+    .in0(clrMux__in0),
+    .in1(clrMux__in1),
+    .out(clrMux__out),
+    .sel(clrMux__sel)
+  );
+
+  //Wire declarations for instance 'enMux' (Module coreir_mux)
+  wire [0:0] enMux__in0;
+  wire [0:0] enMux__in1;
+  wire [0:0] enMux__out;
+  wire  enMux__sel;
+  coreir_mux #(.width(1)) enMux(
+    .in0(enMux__in0),
+    .in1(enMux__in1),
+    .out(enMux__out),
+    .sel(enMux__sel)
+  );
+
+  //Wire declarations for instance 'reg0' (Module coreir_reg)
+  wire  reg0__clk;
+  wire [0:0] reg0__in;
+  wire [0:0] reg0__out;
+  coreir_reg #(.clk_posedge(1),.init(init),.width(1)) reg0(
+    .clk(reg0__clk),
+    .in(reg0__in),
+    .out(reg0__out)
+  );
+
+  //All the connections
+  assign reg0__in[0:0] = enMux__out[0:0];
+  assign out[0:0] = reg0__out[0:0];
+  assign enMux__in0[0:0] = reg0__out[0:0];
+  assign reg0__clk = clk;
+  assign enMux__sel = en;
+  assign enMux__in1[0:0] = clrMux__out[0:0];
+  assign clrMux__in1[0:0] = c0__out[0:0];
+  assign clrMux__sel = clr;
+  assign clrMux__in0[0:0] = in[0:0];
+
+endmodule //reg_U12
+
+module reg_U24 #(parameter init=1) (
+  input  clk,
+  input  clr,
+  input  en,
+  input [1:0] in,
+  output [1:0] out
+);
+  //Wire declarations for instance 'c0' (Module coreir_const)
+  wire [1:0] c0__out;
+  coreir_const #(.value(2'b00),.width(2)) c0(
+    .out(c0__out)
+  );
+
+  //Wire declarations for instance 'clrMux' (Module coreir_mux)
+  wire [1:0] clrMux__in0;
+  wire [1:0] clrMux__in1;
+  wire [1:0] clrMux__out;
+  wire  clrMux__sel;
+  coreir_mux #(.width(2)) clrMux(
+    .in0(clrMux__in0),
+    .in1(clrMux__in1),
+    .out(clrMux__out),
+    .sel(clrMux__sel)
+  );
+
+  //Wire declarations for instance 'enMux' (Module coreir_mux)
+  wire [1:0] enMux__in0;
+  wire [1:0] enMux__in1;
+  wire [1:0] enMux__out;
+  wire  enMux__sel;
+  coreir_mux #(.width(2)) enMux(
+    .in0(enMux__in0),
+    .in1(enMux__in1),
+    .out(enMux__out),
+    .sel(enMux__sel)
+  );
+
+  //Wire declarations for instance 'reg0' (Module coreir_reg)
+  wire  reg0__clk;
+  wire [1:0] reg0__in;
+  wire [1:0] reg0__out;
+  coreir_reg #(.clk_posedge(1),.init(init),.width(2)) reg0(
+    .clk(reg0__clk),
+    .in(reg0__in),
+    .out(reg0__out)
+  );
+
+  //All the connections
+  assign reg0__in[1:0] = enMux__out[1:0];
+  assign out[1:0] = reg0__out[1:0];
+  assign enMux__in0[1:0] = reg0__out[1:0];
+  assign reg0__clk = clk;
+  assign enMux__sel = en;
+  assign enMux__in1[1:0] = clrMux__out[1:0];
+  assign clrMux__in1[1:0] = c0__out[1:0];
+  assign clrMux__sel = clr;
+  assign clrMux__in0[1:0] = in[1:0];
 
 endmodule //reg_U24
 
 module counter_U10 #(parameter init=1, parameter max=1) (
   input  clk,
   input  en,
-  output [3:0] out,
+  output [1:0] out,
   input  srst
 );
   //Wire declarations for instance 'add' (Module coreir_add)
-  wire [3:0] add__in0;
-  wire [3:0] add__in1;
-  wire [3:0] add__out;
-  coreir_add #(.width(4)) add(
+  wire [1:0] add__in0;
+  wire [1:0] add__in1;
+  wire [1:0] add__out;
+  coreir_add #(.width(2)) add(
     .in0(add__in0),
     .in1(add__in1),
     .out(add__out)
   );
 
   //Wire declarations for instance 'c0' (Module coreir_const)
-  wire [3:0] c0__out;
-  coreir_const #(.value(4'b0000),.width(4)) c0(
+  wire [1:0] c0__out;
+  coreir_const #(.value(2'b00),.width(2)) c0(
     .out(c0__out)
   );
 
   //Wire declarations for instance 'c1' (Module coreir_const)
-  wire [3:0] c1__out;
-  coreir_const #(.value(4'b0001),.width(4)) c1(
+  wire [1:0] c1__out;
+  coreir_const #(.value(2'b01),.width(2)) c1(
     .out(c1__out)
   );
 
   //Wire declarations for instance 'eq' (Module coreir_eq)
-  wire [3:0] eq__in0;
-  wire [3:0] eq__in1;
+  wire [1:0] eq__in0;
+  wire [1:0] eq__in1;
   wire  eq__out;
-  coreir_eq #(.width(4)) eq(
+  coreir_eq #(.width(2)) eq(
     .in0(eq__in0),
     .in1(eq__in1),
     .out(eq__out)
   );
 
   //Wire declarations for instance 'maxval' (Module coreir_const)
-  wire [3:0] maxval__out;
-  coreir_const #(.value(max),.width(4)) maxval(
+  wire [1:0] maxval__out;
+  coreir_const #(.value(max),.width(2)) maxval(
     .out(maxval__out)
   );
 
   //Wire declarations for instance 'mux' (Module coreir_mux)
-  wire [3:0] mux__in0;
-  wire [3:0] mux__in1;
-  wire [3:0] mux__out;
+  wire [1:0] mux__in0;
+  wire [1:0] mux__in1;
+  wire [1:0] mux__out;
   wire  mux__sel;
-  coreir_mux #(.width(4)) mux(
+  coreir_mux #(.width(2)) mux(
     .in0(mux__in0),
     .in1(mux__in1),
     .out(mux__out),
@@ -830,8 +830,8 @@ module counter_U10 #(parameter init=1, parameter max=1) (
   wire  r__clk;
   wire  r__clr;
   wire  r__en;
-  wire [3:0] r__in;
-  wire [3:0] r__out;
+  wire [1:0] r__in;
+  wire [1:0] r__out;
   reg_U24 #(.init(init)) r(
     .clk(r__clk),
     .clr(r__clr),
@@ -844,15 +844,15 @@ module counter_U10 #(parameter init=1, parameter max=1) (
   assign r__clk = clk;
   assign r__en = en;
   assign r__clr = srst;
-  assign add__in1[3:0] = c1__out[3:0];
-  assign add__in0[3:0] = r__out[3:0];
-  assign out[3:0] = r__out[3:0];
-  assign eq__in0[3:0] = r__out[3:0];
+  assign add__in1[1:0] = c1__out[1:0];
+  assign add__in0[1:0] = r__out[1:0];
+  assign out[1:0] = r__out[1:0];
+  assign eq__in0[1:0] = r__out[1:0];
   assign mux__sel = eq__out;
-  assign eq__in1[3:0] = maxval__out[3:0];
-  assign mux__in0[3:0] = add__out[3:0];
-  assign mux__in1[3:0] = c0__out[3:0];
-  assign r__in[3:0] = mux__out[3:0];
+  assign eq__in1[1:0] = maxval__out[1:0];
+  assign mux__in0[1:0] = add__out[1:0];
+  assign mux__in1[1:0] = c0__out[1:0];
+  assign r__in[1:0] = mux__out[1:0];
 
 endmodule //counter_U10
 
@@ -865,10 +865,10 @@ module rowbuffer_U4 (
   input  wen
 );
   //Wire declarations for instance 'add_wen' (Module coreir_add)
-  wire [4:0] add_wen__in0;
-  wire [4:0] add_wen__in1;
-  wire [4:0] add_wen__out;
-  coreir_add #(.width(5)) add_wen(
+  wire [2:0] add_wen__in0;
+  wire [2:0] add_wen__in1;
+  wire [2:0] add_wen__out;
+  coreir_add #(.width(3)) add_wen(
     .in0(add_wen__in0),
     .in1(add_wen__in1),
     .out(add_wen__out)
@@ -884,9 +884,9 @@ module rowbuffer_U4 (
   wire  cnt__clk;
   wire  cnt__clr;
   wire  cnt__en;
-  wire [4:0] cnt__in;
-  wire [4:0] cnt__out;
-  reg_U11 #(.init(5'b00000)) cnt(
+  wire [2:0] cnt__in;
+  wire [2:0] cnt__out;
+  reg_U11 #(.init(3'b000)) cnt(
     .clk(cnt__clk),
     .clr(cnt__clr),
     .en(cnt__en),
@@ -895,16 +895,16 @@ module rowbuffer_U4 (
   );
 
   //Wire declarations for instance 'depth_m1' (Module coreir_const)
-  wire [4:0] depth_m1__out;
-  coreir_const #(.value(5'b10000),.width(5)) depth_m1(
+  wire [2:0] depth_m1__out;
+  coreir_const #(.value(3'b100),.width(3)) depth_m1(
     .out(depth_m1__out)
   );
 
   //Wire declarations for instance 'eq_depth' (Module coreir_eq)
-  wire [4:0] eq_depth__in0;
-  wire [4:0] eq_depth__in1;
+  wire [2:0] eq_depth__in0;
+  wire [2:0] eq_depth__in1;
   wire  eq_depth__out;
-  coreir_eq #(.width(5)) eq_depth(
+  coreir_eq #(.width(3)) eq_depth(
     .in0(eq_depth__in0),
     .in1(eq_depth__in1),
     .out(eq_depth__out)
@@ -912,12 +912,12 @@ module rowbuffer_U4 (
 
   //Wire declarations for instance 'mem' (Module coreir_mem)
   wire  mem__clk;
-  wire [3:0] mem__raddr;
+  wire [1:0] mem__raddr;
   wire [7:0] mem__rdata;
-  wire [3:0] mem__waddr;
+  wire [1:0] mem__waddr;
   wire [7:0] mem__wdata;
   wire  mem__wen;
-  coreir_mem #(.depth(16),.has_init(0),.width(8)) mem(
+  coreir_mem #(.depth(4),.has_init(0),.width(8)) mem(
     .clk(mem__clk),
     .raddr(mem__raddr),
     .rdata(mem__rdata),
@@ -939,9 +939,9 @@ module rowbuffer_U4 (
   //Wire declarations for instance 'raddr' (Module counter_U10)
   wire  raddr__clk;
   wire  raddr__en;
-  wire [3:0] raddr__out;
+  wire [1:0] raddr__out;
   wire  raddr__srst;
-  counter_U10 #(.init(4'b0000),.max(4'b1111)) raddr(
+  counter_U10 #(.init(2'b00),.max(2'b11)) raddr(
     .clk(raddr__clk),
     .en(raddr__en),
     .out(raddr__out),
@@ -973,9 +973,9 @@ module rowbuffer_U4 (
   //Wire declarations for instance 'waddr' (Module counter_U10)
   wire  waddr__clk;
   wire  waddr__en;
-  wire [3:0] waddr__out;
+  wire [1:0] waddr__out;
   wire  waddr__srst;
-  counter_U10 #(.init(4'b0000),.max(4'b1111)) waddr(
+  counter_U10 #(.init(2'b00),.max(2'b11)) waddr(
     .clk(waddr__clk),
     .en(waddr__en),
     .out(waddr__out),
@@ -984,8 +984,8 @@ module rowbuffer_U4 (
 
   //Wire declarations for instance 'wen_ext' (Module coreir_zext)
   wire [0:0] wen_ext__in;
-  wire [4:0] wen_ext__out;
-  coreir_zext #(.width_in(1),.width_out(5)) wen_ext(
+  wire [2:0] wen_ext__out;
+  coreir_zext #(.width_in(1),.width_out(3)) wen_ext(
     .in(wen_ext__in),
     .out(wen_ext__out)
   );
@@ -996,8 +996,8 @@ module rowbuffer_U4 (
   assign raddr__clk = clk;
   assign waddr__clk = clk;
   assign state__clk = clk;
-  assign mem__raddr[3:0] = raddr__out[3:0];
-  assign mem__waddr[3:0] = waddr__out[3:0];
+  assign mem__raddr[1:0] = raddr__out[1:0];
+  assign mem__waddr[1:0] = waddr__out[1:0];
   assign rdata[7:0] = mem__rdata[7:0];
   assign mem__wdata[7:0] = wdata[7:0];
   assign mem__wen = wen;
@@ -1013,11 +1013,11 @@ module rowbuffer_U4 (
   assign cnt__clr = flush;
   assign state__clr = flush;
   assign cnt__en = state0__out;
-  assign add_wen__in0[4:0] = wen_ext__out[4:0];
-  assign add_wen__in1[4:0] = cnt__out[4:0];
-  assign cnt__in[4:0] = add_wen__out[4:0];
-  assign eq_depth__in1[4:0] = add_wen__out[4:0];
-  assign eq_depth__in0[4:0] = depth_m1__out[4:0];
+  assign add_wen__in0[2:0] = wen_ext__out[2:0];
+  assign add_wen__in1[2:0] = cnt__out[2:0];
+  assign cnt__in[2:0] = add_wen__out[2:0];
+  assign eq_depth__in1[2:0] = add_wen__out[2:0];
+  assign eq_depth__in0[2:0] = depth_m1__out[2:0];
   assign state__en = eq_depth__out;
   assign state__in[0] = c1__out;
 
@@ -1174,20 +1174,20 @@ module linebuffer_U0 (
 
   //All the connections
   assign lb1d_1__in_0[7:0] = lbmem_1_0__rdata[7:0];
-  assign valcounter_1__reset = valcounter_1_reset__out;
-  assign valcompare_0__in0[7:0] = const_stencil0__out[7:0];
-  assign lbmem_1_0__flush = lbmem_1_0_flush__out;
-  assign lbmem_1_0__wen = wen;
   assign valid_chain = lbmem_1_0__valid;
-  assign valcounter_1__en = valcounter_0__overflow;
-  assign valcounter_0__reset = valcounter_0_reset__out;
+  assign lbmem_1_0__wen = wen;
   assign lbmem_1_0__wdata[7:0] = in_0_0[7:0];
-  assign valcompare_0__in1[7:0] = valcounter_0__out[7:0];
   assign valcounter_0__en = wen;
   assign valid_andr__in[0] = wen;
   assign lb1d_0__wen = wen;
   assign lb1d_1__wen = wen;
+  assign valcompare_0__in1[7:0] = valcounter_0__out[7:0];
+  assign valcompare_0__in0[7:0] = const_stencil0__out[7:0];
+  assign lbmem_1_0__flush = lbmem_1_0_flush__out;
+  assign valcounter_0__reset = valcounter_0_reset__out;
   assign valid = valid_andr__out;
+  assign valcounter_1__reset = valcounter_1_reset__out;
+  assign valcounter_1__en = valcounter_0__overflow;
   assign valcompare_1__in0[7:0] = const_stencil1__out[7:0];
   assign valcompare_1__in1[7:0] = valcounter_1__out[7:0];
   assign valid_andr__in[1] = valcompare_0__out;
@@ -1206,19 +1206,17 @@ module linebuffer_U0 (
 endmodule //linebuffer_U0
 
 module STEN (
-  input  CE,
   input  CLK,
   output  CLKOut,
   input [7:0] I_0_0,
+  output [7:0] L00,
+  output [7:0] L01,
+  output [7:0] L10,
+  output [7:0] L11,
   output [7:0] O,
-  output  V
+  output  V,
+  input  WE
 );
-  //Wire declarations for instance 'bit_const_VCC' (Module corebit_const)
-  wire  bit_const_VCC__out;
-  corebit_const #(.value(1)) bit_const_VCC(
-    .out(bit_const_VCC__out)
-  );
-
   //Wire declarations for instance 'inst0' (Module linebuffer_U0)
   wire  inst0__clk;
   wire [7:0] inst0__in_0_0;
@@ -1264,16 +1262,20 @@ module STEN (
   );
 
   //All the connections
+  assign inst0__in_0_0[7:0] = I_0_0[7:0];
+  assign L00[7:0] = inst0__out_0_0[7:0];
+  assign inst1__in_data_0[7:0] = inst0__out_0_0[7:0];
+  assign L10[7:0] = inst0__out_1_0[7:0];
   assign inst1__in_data_2[7:0] = inst0__out_1_0[7:0];
-  assign inst0__wen = bit_const_VCC__out;
-  assign inst1__in_data_3[7:0] = inst0__out_1_1[7:0];
+  assign L01[7:0] = inst0__out_0_1[7:0];
+  assign L11[7:0] = inst0__out_1_1[7:0];
   assign V = inst0__valid;
+  assign inst0__wen = WE;
   assign inst1__in_identity[7:0] = inst2__out[7:0];
   assign O[7:0] = inst1__out[7:0];
   assign CLKOut = CLK;
   assign inst0__clk = CLK;
-  assign inst1__in_data_0[7:0] = inst0__out_0_0[7:0];
   assign inst1__in_data_1[7:0] = inst0__out_0_1[7:0];
-  assign inst0__in_0_0[7:0] = I_0_0[7:0];
+  assign inst1__in_data_3[7:0] = inst0__out_1_1[7:0];
 
 endmodule //STEN

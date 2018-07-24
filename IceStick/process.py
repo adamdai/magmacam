@@ -46,7 +46,11 @@ class Process(Circuit):
       wire(edge_r, ff.CE)
       px_bit = ff(UGE(8)(px_val, uint(63,8)))
 
-      #---------------------------UART TIMING-----------------------------#
+      #-------------------------DATA FORMATTING---------------------------#
+
+
+
+      #---------------------------UART OUTPUT-----------------------------#
 
       u_data = array([px_val[7], px_val[6], px_val[5], px_val[4],
                       px_val[3], px_val[2], px_val[1], px_val[0], 0])

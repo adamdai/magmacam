@@ -1,5 +1,5 @@
 set_io J1 112
-set_io D1 99
+set_io J3[6] 45
 set_io J3[5] 47
 set_io J3[4] 48
 set_io J3[3] 56

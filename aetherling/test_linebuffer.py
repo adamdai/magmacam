@@ -19,25 +19,28 @@ c = coreir.Context()
 cirb = CoreIRBackend(c)
 scope = Scope()
 
+TIN = Array(8, BitIn)
+TOUT = Array(8, Out(Bit))
+
 # Line Buffer interface
-inType = Array(1, Array(1, Array(8, BitIn)))
-outType = Array(2, Array(2, Array(8, Out(Bit))))
-imgType = Array(16, Array(16, Array(8, Out(Bit))))
+inType = Array(1, Array(1, TIN))
+outType = Array(2, Array(2, TOUT))
+imgType = Array(4, Array(4, TIN))
 
 
 # Reduce interface
-inType2 = In(Array(4, Array(8, BitIn)))
+inType2 = In(Array(4, TIN))
 outType2 = Out(Array(8, Bit))
 
 # Test circuit has line buffer's input and reduce's output
-args = ['I', inType, 'O', outType2, 'CE', BitIn, 'V', Out(Bit), 'CLKOut', Out(Clock)] + ClockInterface(False, False)
+args = ['I', inType, 'O', outType2, 'WE', BitIn, 'V', Out(Bit), 'CLKOut', Out(Clock),
+        'L00', TOUT, 'L01', TOUT, 'L10', TOUT, 'L11', TOUT] + ClockInterface(False, False)
 testcircuit = DefineCircuit('STEN', *args)
 
 # Line buffer declaration
 lb = Linebuffer(cirb, inType, outType, imgType, True)
 wire(lb.I, testcircuit.I)
-#wire(lb.wen, testcircuit.CE)
-wire(1, lb.wen)
+wire(lb.wen, testcircuit.WE)
 
 # # Reduce declaration
 reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DeclareAdd(8)))
@@ -51,8 +54,15 @@ wire(testcircuit.O, reducePar.out)
 wire(testcircuit.V, lb.valid)
 wire(testcircuit.CLKOut, testcircuit.CLK)
 
+wire(lb.out[0][0], testcircuit.L00)
+wire(lb.out[0][1], testcircuit.L01)
+wire(lb.out[1][0], testcircuit.L10)
+wire(lb.out[1][1], testcircuit.L11)
+
 
 EndCircuit()
 
 module = GetCoreIRModule(cirb, testcircuit)
 module.save_to_file("linebuffer.json")
+
+print("done")

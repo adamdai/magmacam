@@ -13,19 +13,19 @@
         "type":["Record",[
           ["I",["Array",1,["Array",1,["Array",8,"BitIn"]]]],
           ["O",["Array",8,"Bit"]],
-          ["CE","BitIn"],
+          ["WE","BitIn"],
           ["V","Bit"],
           ["CLKOut",["Named","coreir.clk"]],
+          ["L00",["Array",8,"Bit"]],
+          ["L01",["Array",8,"Bit"]],
+          ["L10",["Array",8,"Bit"]],
+          ["L11",["Array",8,"Bit"]],
           ["CLK",["Named","coreir.clkIn"]]
         ]],
         "instances":{
-          "bit_const_VCC":{
-            "modref":"corebit.const",
-            "modargs":{"value":["Bool",true]}
-          },
           "inst0":{
             "genref":"commonlib.linebuffer",
-            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",16,["Array",16,["Array",8,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",8,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",2,["Array",2,["Array",8,"Bit"]]]]}
+            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",4,["Array",4,["Array",8,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",8,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",2,["Array",2,["Array",8,"Bit"]]]]}
           },
           "inst1":{
             "genref":"aetherlinglib.reduceParallel",
@@ -36,13 +36,17 @@
           }
         },
         "connections":[
-          ["inst0.wen","bit_const_VCC.out"],
           ["self.I","inst0.in"],
           ["inst1.in.data.0","inst0.out.0.0"],
+          ["self.L00","inst0.out.0.0"],
           ["inst1.in.data.1","inst0.out.0.1"],
+          ["self.L01","inst0.out.0.1"],
           ["inst1.in.data.2","inst0.out.1.0"],
+          ["self.L10","inst0.out.1.0"],
           ["inst1.in.data.3","inst0.out.1.1"],
+          ["self.L11","inst0.out.1.1"],
           ["self.V","inst0.valid"],
+          ["self.WE","inst0.wen"],
           ["inst2.out","inst1.in.identity"],
           ["self.O","inst1.out"],
           ["self.CLKOut","self.CLK"]

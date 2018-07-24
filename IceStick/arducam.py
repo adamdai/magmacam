@@ -22,7 +22,7 @@ init = [array(int2seq(0x8200,16)), 							  # Change MCU mode
 class ArduCAM(Circuit):
     name = "ArduCAM"
     IO = ['CLK', In(Clock), 'SCK', In(Bit), 'MISO', In(Bit),
-          'EN', Out(Bit), 'MOSI', Out(Bit), 'DATA', Out(Bits(8)), 'VALID', Out(Bit), 'UART', Out(Bit)]
+          'EN', Out(Bit), 'MOSI', Out(Bit), 'DATA', Out(Bits(8)), 'VALID', Out(Bit), 'UART', Out(Bit), 'DONE', Out(Bit)]
     @classmethod
     def definition(cam):
         edge_f = falling(cam.SCK)
@@ -80,7 +80,7 @@ class ArduCAM(Circuit):
         wire(miso.O,  cam.DATA)
         wire(burst,   cam.VALID)
 
-        # UART output
+        #---------------------------UART OUTPUT-----------------------------#
 
         u_data = array([miso.O[7], miso.O[6], miso.O[5], miso.O[4],
                 miso.O[3], miso.O[2], miso.O[1], miso.O[0], 0])
@@ -95,9 +95,16 @@ class ArduCAM(Circuit):
         u_counter(CE=edge_r, RESET=u_reset)
         load = burst & rising(u_counter.COUT)
 
+        data_count = Counter(18, has_ce=True)
+        tx_done = SRFF(has_ce=True)
+        tx_done(EQ(18)(data_count.O, bits(153602, 18)), 0)
+        wire(load, tx_done.CE)
+        wire(load, data_count.CE)
+
         uart = PISO(9, has_ce=True)
         #load = LUT2(I0&~I1)(valid,run)
         uart(1, u_data, load)
         wire(baud, uart.CE)
 
         wire(uart, cam.UART) 
+        wire(tx_done, cam.DONE)
