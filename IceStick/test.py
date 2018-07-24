@@ -1,112 +1,98 @@
 from magma import *
-set_mantle_target("ice40")
+from magma.bitutils import int2seq
 from mantle import *
-from rom import ROM8, ROM16
-from pipeline import Pipeline, MEM, ReadRom
-from mantle.lattice.ice40 import ROMB, SB_LUT4
-from mantle.util.edge import falling, rising
+from rom import ROM8
 from loam.boards.icestick import IceStick
+from uart import UART
 
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib import cm
 
+# input image dimensions (height and width)
+wi = 320
+hi = 240
+
+# output image dimenstions
+wo = 16
+ho = 16
+
+# downscale factor/window size (20 x 15)
+m = wi//wo
+n = hi//ho
+
+# size of buffer for storing image n rows at a time
+buf_size = wi * n - 1 # 4800 - 1 = 4799
 
 icestick = IceStick()
 icestick.Clock.on()
-icestick.D1.on()
-icestick.D2.on()
-icestick.D3.on()
-icestick.D4.on()
-icestick.D5.on()
-
-# for i in range(6):
-#    icestick.J3[i].output().on()
+for i in range(8):
+    icestick.J3[i].output().on()
 
 main = icestick.main()
 
-#img_list = [0,0,0,0,0,15840,32752,16176,816,1008,480,0,0,0,0,0] #9, last col->first col
-img_list = [0,0,0,0,960,2016,1632,1632,2016,960,224,224,224,224,64,0] #9, first row->last row
-#img_list = [0,0,0,896,984,3680,7216,6204,14456,14448,8160,3840,0,0,0,0] #0
-#img_list = range(2,18)
+# "test" data
+init = [uint(i, 16) for i in range(wi*hi)]
+for i in range(54272):
+	init.append(uint(0,16))
+print(len(init))
+printf = Counter(17, has_ce=True)
+rom = ROM8(17, init, printf.O)
+
+# baud for uart output
+clock = CounterModM(103, 8)
+baud = clock.COUT
+
+bit_counter = Counter(4, has_ce=True)
+wire(baud, bit_counter.CE)
+
+load = Decode(0, 4)(bit_counter.O)
+
+valid_counter = CounterModM(buf_size, 13, has_ce=True)
+wire(load&baud, valid_counter.CE)
+
+valid_list = [w_in*(n-1) + i*m - 1 for i in range(1,wo+1)]  # len = 16
+
+valid = GND
+
+for i in valid_list:
+	valid = valid | Decode(i, 13)(valid_counter.O)
+
+wire(load&baud, printf.CE)
+
+px_val = rom.O
+
+# register on input
+st_in = Register(16, has_ce=True)
+st_in(px_val)
+wire(load, st_in.CE)
+
+#---------------------------STENCILING-----------------------------#
+
+Downscale = DeclareCircuit('Downscale', 
+			"I_0_0", In(Array(1, Array(1, Array(8, Bit)))),
+			"O", Out(Array(8, Bit)),
+			"WE", In(Bit),
+			"V", Out(Bit),
+			"CLK", In(Clock))
+
+dscale = Downscale()
+
+wire(st_in.O, dscale.I_0_0[0][0])
+wire(1, dscale.WE)
+wire(load, dscale.CLK)
+
+#---------------------------UART OUTPUT-----------------------------#
+
+uart_px = UART(8)
+uart_px(CLK=main.CLKIN, BAUD=baud, DATA=px_val, LOAD=load)
+
+uart_st = UART(8)
+uart_st(CLK=main.CLKIN, BAUD=baud, DATA=dscale.O, LOAD=load)
 
 
-# bmp = []
-# for n in img_list:
-#     row = [1 if digit=='1' else 0 for digit in '{0:016b}'.format(n)]
-#     bmp.append(row)
-
-# arr = np.asarray(bmp)
-# #arr = np.flip(np.rot90(arr), 1)
-# print(arr)
-# plt.imshow(arr, cmap=cm.gray)
-# plt.show()
-
-num_data = [uint(img_list[i], 16) for i in range(16)]
-
-# decrease the frequency to avoid timing violation
-counter = Counter(4)
-sclk = counter.O[-1]
-rom_idx = Counter(4, has_ce=True)
-
-full = SRFF(has_ce=True)
-check = EQ(4)(rom_idx.O, bits(15, 4))
-full(check, 0)
-wire(falling(sclk), full.CE)
-rom_ce = rising(sclk)&~full.O
-wire(rom_ce, rom_idx.CE)
-
-rom = ROM16(4, num_data, rom_idx.O)
-
-pipeline = Pipeline()
-
-wire(sclk, pipeline.CLK)
-wire(rom.O, pipeline.DATA)
-wire(rom_idx.O, pipeline.WADDR)
-wire(full.O, pipeline.RUN)
-wire(pipeline.O[:4], bits([main.D1, main.D2, main.D3, main.D4]))
-# light 5 indicates the end of prediction
-wire(pipeline.D, main.D5)
-
-# mem = MEM()
-# mem = ReadRom()
-
-# wire(sclk, mem.CLK)
-# wire(rom.O, mem.DATA)
-# wire(rom_idx.O, mem.WADDR)
-# wire(~full.O, mem.WE)
-
-# u_data = array([mem.IMAGE[15], mem.IMAGE[14], mem.IMAGE[13], mem.IMAGE[12],
-#                 mem.IMAGE[11], mem.IMAGE[10], mem.IMAGE[9], mem.IMAGE[8],
-#                 mem.IMAGE[7], mem.IMAGE[6], mem.IMAGE[5], mem.IMAGE[4],
-#                 mem.IMAGE[3], mem.IMAGE[2], mem.IMAGE[1], mem.IMAGE[0], 0])
-
-# baud = rising(sclk)
-
-# ff = FF(has_ce=True)
-# wire(baud, ff.CE)
-# u_reset = LUT2(I0 & ~I1)(full, ff(full))
-
-# u_counter = CounterModM(20, 5, has_ce=True, has_reset=True)
-# u_counter(CE=baud, RESET=u_reset)
-# load = full.O & u_counter.COUT
-
-# read_count = Counter(4, has_ce=True)
-# wire(load, read_count.CE)
-
-# wire(bits(0,4), mem.IDX)
-# wire(read_count.O, mem.CYCLE)
-
-# uart = PISO(17, has_ce=True)
-# #load = LUT2(I0&~I1)(valid,run)
-# uart(1, u_data, load)
-# wire(baud, uart.CE)
-
-# wire(sclk, main.J3[0])
-# wire(baud, main.J3[1])
-# wire(rom_ce, main.J3[2])
-# wire(u_reset, main.J3[3])
-# wire(load, main.J3[4])
-# wire(uart, main.J3[5])
-
-
+wire(valid, main.J3[0])
+wire(dscale.CLKOut, main.J3[1])
+wire(uart_px.O, main.J3[2]) 
+wire(uart_st.O, main.J3[3]) 
+# wire(uart_L00.O, main.J3[4])
+# wire(uart_L01.O, main.J3[5])
+# wire(uart_L10.O, main.J3[6])
+# wire(uart_L11.O, main.J3[7])

@@ -2,6 +2,7 @@ from magma import *
 from magma.bitutils import int2seq
 from mantle.util.edge import rising, falling
 from mantle import *
+from uart import UART
 
 
 RMASK = bits(0b1111100000000000, 16)
@@ -13,16 +14,21 @@ zeros = bits(0, 8)
 class Process(Circuit):
     name = "Process"
     IO = ['CLK', In(Clock), 'SCK', In(Bit), 'DATA', In(Bits(8)), 'VALID', In(Bit),
-          'PXV', Out(Bits(8)), 'PXB', Out(Bit), 'UART', Out(Bit)]
+          'PXV', Out(Bits(16)), 'UART1', Out(Bit), 'UART2', Out(Bit)]
     @classmethod
     def definition(io):
       edge_r = rising(io.SCK)
+      edge_f = falling(io.SCK)
+
+      # pixels come 16 bits (high and low byte) at a time
       bit_counter = Counter(4, has_ce=True, has_reset=True)
       wire(edge_r, bit_counter.CE)
 
+      # find when the high and low byte are valid
       low = Decode(15, 4)(bit_counter.O)
       high = Decode(7, 4)(bit_counter.O)
 
+      # shift registers to store high and low byte
       low_byte = PIPO(8, has_ce=True)
       high_byte = PIPO(8, has_ce=True)
 
@@ -32,45 +38,41 @@ class Process(Circuit):
       wire(low, low_byte.CE)
       wire(high, high_byte.CE)
 
+      # assemble the 16-bit RGB565 value
       px_bits = (uint(LSL(16,8)(uint(concat(high_byte.O, zeros)))) 
                  + uint(concat(low_byte.O, zeros)))
 
-      # follow by right shift
+      # extract the values for each color
       r_val = uint(LSR(16,11)(px_bits & RMASK))
       g_val = uint(LSR(16,5)(px_bits & GMASK))
       b_val = uint(px_bits & BMASK)
 
-      px_val = (r_val + g_val + b_val)[:8]
+      # sum them to get grayscale (0 to 125)
+      px_val = (r_val + g_val + b_val)
 
-      ff = FF(has_ce=True)
-      wire(edge_r, ff.CE)
-      px_bit = ff(UGE(8)(px_val, uint(63,8)))
-
-      #-------------------------DATA FORMATTING---------------------------#
-
-
+      p8 = (r_val + g_val + b_val)[:8]
 
       #---------------------------UART OUTPUT-----------------------------#
 
-      u_data = array([px_val[7], px_val[6], px_val[5], px_val[4],
-                      px_val[3], px_val[2], px_val[1], px_val[0], 0])
-
-      baud = edge_r 
+      baud = edge_r | edge_f
 
       ff = FF(has_ce=True)
-      wire(edge_r, ff.CE)
+      wire(baud, ff.CE)
       u_reset = LUT2(I0 & ~I1)(io.VALID, ff(io.VALID))
       wire(u_reset, bit_counter.RESET)
 
-      u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
-      u_counter(CE=edge_r, RESET=u_reset)
-      load = io.VALID & high
+      # u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
+      # u_counter(CE=edge_r, RESET=u_reset)
+      load = io.VALID & high & baud
 
-      uart = PISO(9, has_ce=True)
-      uart(1, u_data, load)
-      wire(baud, uart.CE)
+      # uart16 = UART(16)
+      # uart16(CLK=io.CLK, BAUD=baud, DATA=px_val, LOAD=load)
+
+      uart8 = UART(8)
+    
+      uart8(CLK=io.CLK, BAUD=baud, DATA=p8, LOAD=load)
 
       wire(px_val, io.PXV)
-      wire(px_bit, io.PXB)
-      wire(uart,   io.UART) 
+      wire(uart8,   io.UART1) 
+      # wire(uart16,   io.UART2) 
 

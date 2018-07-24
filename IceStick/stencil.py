@@ -31,7 +31,14 @@ load = Decode(0, 4)(bit_counter.O)
 valid_counter = CounterModM(8, 3, has_ce=True)
 wire(load&baud, valid_counter.CE)
 
-valid = Decode(5,3)(valid_counter.O) | Decode(7,3)(valid_counter.O)
+valid_list = [5,7]
+
+valid = GND
+
+for i in valid_list:
+	valid = valid | Decode(i,3)(valid_counter.O)
+
+#valid = Decode(5,3)(valid_counter.O) | Decode(7,3)(valid_counter.O)
 
 wire(load&baud, printf.CE)
 

@@ -7,7 +7,7 @@ from matplotlib import cm
 
 data = []
 
-# File should be 2x(320x240) = 153600 bytes long
+# File should be (320x240) = 76800 bytes long
 infile = open(os.path.expanduser("~/Documents/analyzerdata/numtest_3_xt.csv"), "r+")
 
 with infile as csvfile:

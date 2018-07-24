@@ -87,14 +87,17 @@ class ArduCAM(Circuit):
 
         baud = edge_r | edge_f
 
+        # reset when SPI burst read (image transfer) begins 
         ff = FF(has_ce=True)
         wire(edge_r, ff.CE)
         u_reset = LUT2(I0 & ~I1)(burst, ff(burst))
 
+        # UART data out every 8 bits
         u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
         u_counter(CE=edge_r, RESET=u_reset)
         load = burst & rising(u_counter.COUT)
 
+        # transfer has size 153600 bytes, first 2 bytes are ignored
         data_count = Counter(18, has_ce=True)
         tx_done = SRFF(has_ce=True)
         tx_done(EQ(18)(data_count.O, bits(153602, 18)), 0)
@@ -105,6 +108,9 @@ class ArduCAM(Circuit):
         #load = LUT2(I0&~I1)(valid,run)
         uart(1, u_data, load)
         wire(baud, uart.CE)
+
+        # uart = UART(8)
+        # uart(CLK=io.CLK, BAUD=baud, DATA=miso, LOAD=load)
 
         wire(uart, cam.UART) 
         wire(tx_done, cam.DONE)

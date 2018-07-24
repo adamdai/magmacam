@@ -41,7 +41,7 @@ inType2 = In(Array(m*n, TIN))
 outType2 = TOUT
 
 # Top level module: line buffer input, reduce output
-args = ['I', inType, 'O', outType2, 'WE', BitIn, 'V', Out(Bit), 'CLKOut', Out(Clock)] + ClockInterface(False, False)
+args = ['I', inType, 'O', outType2, 'WE', BitIn, 'V', Out(Bit)] + ClockInterface(False, False)
 top = DefineCircuit('Downscale', *args)
 
 # Line buffer declaration
@@ -63,7 +63,6 @@ for i in range(n):
 wire(red.I.identity, coreirConst.out)
 wire(top.O, red.out)
 wire(top.V, lb.valid)
-wire(top.CLKOut, top.CLK)
 
 EndCircuit()
 
