@@ -14,7 +14,7 @@ zeros = bits(0, 8)
 class Process(Circuit):
     name = "Process"
     IO = ['CLK', In(Clock), 'SCK', In(Bit), 'DATA', In(Bits(8)), 'VALID', In(Bit),
-          'PXV', Out(Bits(16)), 'UART1', Out(Bit), 'UART2', Out(Bit)]
+          'PXV', Out(Bits(16)), 'UART', Out(Bit)]
     @classmethod
     def definition(io):
       edge_r = rising(io.SCK)
@@ -50,29 +50,25 @@ class Process(Circuit):
       # sum them to get grayscale (0 to 125)
       px_val = (r_val + g_val + b_val)
 
-      p8 = (r_val + g_val + b_val)[:8]
-
       #---------------------------UART OUTPUT-----------------------------#
 
+      # run 16-bit UART at 2x speed
       baud = edge_r | edge_f
 
-      ff = FF(has_ce=True)
-      wire(baud, ff.CE)
-      u_reset = LUT2(I0 & ~I1)(io.VALID, ff(io.VALID))
+      # reset at start of pixel transfer
+      ff1 = FF(has_ce=True)
+      wire(baud, ff1.CE)
+      u_reset = LUT2(I0 & ~I1)(io.VALID, ff1(io.VALID))
       wire(u_reset, bit_counter.RESET)
 
-      # u_counter = CounterModM(8, 3, has_ce=True, has_reset=True)
-      # u_counter(CE=edge_r, RESET=u_reset)
-      load = io.VALID & high & baud
+      # generate load signal 
+      ff2 = FF(has_ce=True)
+      wire(baud, ff2.CE)
+      load = io.VALID & LUT2(I0 & ~I1)(high, ff2(high))
 
-      # uart16 = UART(16)
-      # uart16(CLK=io.CLK, BAUD=baud, DATA=px_val, LOAD=load)
-
-      uart8 = UART(8)
-    
-      uart8(CLK=io.CLK, BAUD=baud, DATA=p8, LOAD=load)
+      uart = UART(16)
+      uart(CLK=io.CLK, BAUD=baud, DATA=px_val, LOAD=load)
 
       wire(px_val, io.PXV)
-      wire(uart8,   io.UART1) 
-      # wire(uart16,   io.UART2) 
+      wire(uart,   io.UART) 
 

@@ -15,7 +15,6 @@
           ["O",["Array",16,"Bit"]],
           ["WE","BitIn"],
           ["V","Bit"],
-          ["CLKOut",["Named","coreir.clk"]],
           ["CLK",["Named","coreir.clkIn"]]
         ]],
         "instances":{
@@ -336,8 +335,7 @@
           ["self.V","inst0.valid"],
           ["self.WE","inst0.wen"],
           ["inst2.out","inst1.in.identity"],
-          ["self.O","inst1.out"],
-          ["self.CLKOut","self.CLK"]
+          ["self.O","inst1.out"]
         ]
       },
       "coreir_const160":{

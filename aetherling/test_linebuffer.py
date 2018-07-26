@@ -19,8 +19,8 @@ c = coreir.Context()
 cirb = CoreIRBackend(c)
 scope = Scope()
 
-TIN = Array(8, BitIn)
-TOUT = Array(8, Out(Bit))
+TIN = Array(16, BitIn)
+TOUT = Array(16, Out(Bit))
 
 # Line Buffer interface
 inType = Array(1, Array(1, TIN))
@@ -30,7 +30,7 @@ imgType = Array(4, Array(4, TIN))
 
 # Reduce interface
 inType2 = In(Array(4, TIN))
-outType2 = Out(Array(8, Bit))
+outType2 = Out(Array(16, Bit))
 
 # Test circuit has line buffer's input and reduce's output
 args = ['I', inType, 'O', outType2, 'WE', BitIn, 'V', Out(Bit), 'CLKOut', Out(Clock),
@@ -43,8 +43,8 @@ wire(lb.I, testcircuit.I)
 wire(lb.wen, testcircuit.WE)
 
 # # Reduce declaration
-reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DeclareAdd(8)))
-coreirConst = DefineCoreirConst(8, 0)()
+reducePar = ReduceParallel(cirb, 4, renameCircuitForReduce(DeclareAdd(16)))
+coreirConst = DefineCoreirConst(16, 0)()
 wire(reducePar.I.data[0], lb.out[0][0])
 wire(reducePar.I.data[1], lb.out[0][1])
 wire(reducePar.I.data[2], lb.out[1][0])

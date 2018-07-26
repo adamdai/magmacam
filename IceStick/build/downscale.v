@@ -2,6 +2,23 @@
 //Module: pullresistor defined externally
 
 
+module coreir_eq #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output out
+);
+  assign out = in0 == in1;
+
+endmodule //coreir_eq
+
+module corebit_ibuf (
+  inout in,
+  output out
+);
+  assign out = in;
+
+endmodule //corebit_ibuf
+
 module bitopn_U19 (
   input [0:0] in,
   output  out
@@ -11,22 +28,24 @@ module bitopn_U19 (
 
 endmodule //bitopn_U19
 
-module corebit_not (
-  input in,
-  output out
+module coreir_add #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output [width-1:0] out
 );
-  assign out = ~in;
+  assign out = in0 + in1;
 
-endmodule //corebit_not
+endmodule //coreir_add
 
-module corebit_concat (
-  input in0,
-  input in1,
-  output [1:0] out
+module coreir_mux #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  input sel,
+  output [width-1:0] out
 );
-  assign out = {in0, in1};
+  assign out = sel ? in1 : in0;
 
-endmodule //corebit_concat
+endmodule //coreir_mux
 
 module corebit_and (
   input in0,
@@ -98,20 +117,21 @@ module bitopn_U9 (
 
 endmodule //bitopn_U9
 
+module corebit_concat (
+  input in0,
+  input in1,
+  output [1:0] out
+);
+  assign out = {in0, in1};
+
+endmodule //corebit_concat
+
 module corebit_const #(parameter value=1) (
   output out
 );
   assign out = value;
 
 endmodule //corebit_const
-
-module corebit_ibuf (
-  inout in,
-  output out
-);
-  assign out = in;
-
-endmodule //corebit_ibuf
 
 module corebit_mux (
   input in0,
@@ -123,20 +143,20 @@ module corebit_mux (
 
 endmodule //corebit_mux
 
-module coreir_reg #(parameter clk_posedge=1, parameter init=1, parameter width=1) (
-  input clk,
-  input [width-1:0] in,
+module corebit_not (
+  input in,
+  output out
+);
+  assign out = ~in;
+
+endmodule //corebit_not
+
+module coreir_const #(parameter value=1, parameter width=1) (
   output [width-1:0] out
 );
-reg [width-1:0] outReg=init;
-wire real_clk;
-assign real_clk = clk_posedge ? clk : ~clk;
-always @(posedge real_clk) begin
-  outReg <= in;
-end
-assign out = outReg;
+  assign out = value;
 
-endmodule //coreir_reg
+endmodule //coreir_const
 
 module corebit_or (
   input in0,
@@ -146,24 +166,6 @@ module corebit_or (
   assign out = in0 | in1;
 
 endmodule //corebit_or
-
-module coreir_mem #(parameter depth=1, parameter has_init=1, parameter width=1) (
-  input clk,
-  input [width-1:0] wdata,
-  input [$clog2(depth)-1:0] waddr,
-  input wen,
-  output [width-1:0] rdata,
-  input [$clog2(depth)-1:0] raddr
-);
-reg [width-1:0] data[depth-1:0];
-always @(posedge clk) begin
-  if (wen) begin
-    data[waddr] <= wdata;
-  end
-end
-assign rdata = data[raddr];
-
-endmodule //coreir_mem
 
 module corebit_reg #(parameter clk_posedge=1, parameter init=1) (
   input clk,
@@ -230,186 +232,23 @@ module corebit_xor (
 
 endmodule //corebit_xor
 
-module coreir_mux #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  input sel,
-  output [width-1:0] out
+module coreir_mem #(parameter depth=1, parameter has_init=1, parameter width=1) (
+  input clk,
+  input [width-1:0] wdata,
+  input [$clog2(depth)-1:0] waddr,
+  input wen,
+  output [width-1:0] rdata,
+  input [$clog2(depth)-1:0] raddr
 );
-  assign out = sel ? in1 : in0;
+reg [width-1:0] data[depth-1:0];
+always @(posedge clk) begin
+  if (wen) begin
+    data[waddr] <= wdata;
+  end
+end
+assign rdata = data[raddr];
 
-endmodule //coreir_mux
-
-module coreir_add #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output [width-1:0] out
-);
-  assign out = in0 + in1;
-
-endmodule //coreir_add
-
-module coreir_const #(parameter value=1, parameter width=1) (
-  output [width-1:0] out
-);
-  assign out = value;
-
-endmodule //coreir_const
-
-module reg_U25 #(parameter init=1) (
-  input  clk,
-  input  clr,
-  input  en,
-  input [8:0] in,
-  output [8:0] out
-);
-  //Wire declarations for instance 'c0' (Module coreir_const)
-  wire [8:0] c0__out;
-  coreir_const #(.value(9'b000000000),.width(9)) c0(
-    .out(c0__out)
-  );
-
-  //Wire declarations for instance 'clrMux' (Module coreir_mux)
-  wire [8:0] clrMux__in0;
-  wire [8:0] clrMux__in1;
-  wire [8:0] clrMux__out;
-  wire  clrMux__sel;
-  coreir_mux #(.width(9)) clrMux(
-    .in0(clrMux__in0),
-    .in1(clrMux__in1),
-    .out(clrMux__out),
-    .sel(clrMux__sel)
-  );
-
-  //Wire declarations for instance 'enMux' (Module coreir_mux)
-  wire [8:0] enMux__in0;
-  wire [8:0] enMux__in1;
-  wire [8:0] enMux__out;
-  wire  enMux__sel;
-  coreir_mux #(.width(9)) enMux(
-    .in0(enMux__in0),
-    .in1(enMux__in1),
-    .out(enMux__out),
-    .sel(enMux__sel)
-  );
-
-  //Wire declarations for instance 'reg0' (Module coreir_reg)
-  wire  reg0__clk;
-  wire [8:0] reg0__in;
-  wire [8:0] reg0__out;
-  coreir_reg #(.clk_posedge(1),.init(init),.width(9)) reg0(
-    .clk(reg0__clk),
-    .in(reg0__in),
-    .out(reg0__out)
-  );
-
-  //All the connections
-  assign reg0__in[8:0] = enMux__out[8:0];
-  assign out[8:0] = reg0__out[8:0];
-  assign enMux__in0[8:0] = reg0__out[8:0];
-  assign reg0__clk = clk;
-  assign enMux__sel = en;
-  assign enMux__in1[8:0] = clrMux__out[8:0];
-  assign clrMux__in1[8:0] = c0__out[8:0];
-  assign clrMux__sel = clr;
-  assign clrMux__in0[8:0] = in[8:0];
-
-endmodule //reg_U25
-
-module coreir_eq #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output out
-);
-  assign out = in0 == in1;
-
-endmodule //coreir_eq
-
-module counter_U11 #(parameter init=1, parameter max=1) (
-  input  clk,
-  input  en,
-  output [8:0] out,
-  input  srst
-);
-  //Wire declarations for instance 'add' (Module coreir_add)
-  wire [8:0] add__in0;
-  wire [8:0] add__in1;
-  wire [8:0] add__out;
-  coreir_add #(.width(9)) add(
-    .in0(add__in0),
-    .in1(add__in1),
-    .out(add__out)
-  );
-
-  //Wire declarations for instance 'c0' (Module coreir_const)
-  wire [8:0] c0__out;
-  coreir_const #(.value(9'b000000000),.width(9)) c0(
-    .out(c0__out)
-  );
-
-  //Wire declarations for instance 'c1' (Module coreir_const)
-  wire [8:0] c1__out;
-  coreir_const #(.value(9'b000000001),.width(9)) c1(
-    .out(c1__out)
-  );
-
-  //Wire declarations for instance 'eq' (Module coreir_eq)
-  wire [8:0] eq__in0;
-  wire [8:0] eq__in1;
-  wire  eq__out;
-  coreir_eq #(.width(9)) eq(
-    .in0(eq__in0),
-    .in1(eq__in1),
-    .out(eq__out)
-  );
-
-  //Wire declarations for instance 'maxval' (Module coreir_const)
-  wire [8:0] maxval__out;
-  coreir_const #(.value(max),.width(9)) maxval(
-    .out(maxval__out)
-  );
-
-  //Wire declarations for instance 'mux' (Module coreir_mux)
-  wire [8:0] mux__in0;
-  wire [8:0] mux__in1;
-  wire [8:0] mux__out;
-  wire  mux__sel;
-  coreir_mux #(.width(9)) mux(
-    .in0(mux__in0),
-    .in1(mux__in1),
-    .out(mux__out),
-    .sel(mux__sel)
-  );
-
-  //Wire declarations for instance 'r' (Module reg_U25)
-  wire  r__clk;
-  wire  r__clr;
-  wire  r__en;
-  wire [8:0] r__in;
-  wire [8:0] r__out;
-  reg_U25 #(.init(init)) r(
-    .clk(r__clk),
-    .clr(r__clr),
-    .en(r__en),
-    .in(r__in),
-    .out(r__out)
-  );
-
-  //All the connections
-  assign r__clk = clk;
-  assign r__en = en;
-  assign r__clr = srst;
-  assign add__in1[8:0] = c1__out[8:0];
-  assign add__in0[8:0] = r__out[8:0];
-  assign out[8:0] = r__out[8:0];
-  assign eq__in0[8:0] = r__out[8:0];
-  assign mux__sel = eq__out;
-  assign eq__in1[8:0] = maxval__out[8:0];
-  assign mux__in0[8:0] = add__out[8:0];
-  assign mux__in1[8:0] = c0__out[8:0];
-  assign r__in[8:0] = mux__out[8:0];
-
-endmodule //counter_U11
+endmodule //coreir_mem
 
 module coreir_or #(parameter width=1) (
   input [width-1:0] in0,
@@ -419,6 +258,21 @@ module coreir_or #(parameter width=1) (
   assign out = in0 | in1;
 
 endmodule //coreir_or
+
+module coreir_reg #(parameter clk_posedge=1, parameter init=1, parameter width=1) (
+  input clk,
+  input [width-1:0] in,
+  output [width-1:0] out
+);
+reg [width-1:0] outReg=init;
+wire real_clk;
+assign real_clk = clk_posedge ? clk : ~clk;
+always @(posedge real_clk) begin
+  outReg <= in;
+end
+assign out = outReg;
+
+endmodule //coreir_reg
 
 module linebuffer_U3 (
   input  clk,
@@ -679,12 +533,12 @@ module linebuffer_U3 (
   assign valid = wen;
   assign valid_chain = wen;
   assign reg_1__clk = clk;
+  assign reg_15__clk = clk;
   assign reg_10__clk = clk;
   assign reg_11__clk = clk;
   assign reg_12__clk = clk;
   assign reg_13__clk = clk;
   assign reg_14__clk = clk;
-  assign reg_15__clk = clk;
   assign reg_16__clk = clk;
   assign reg_17__clk = clk;
   assign reg_18__clk = clk;
@@ -761,6 +615,66 @@ module reg_U13 #(parameter init=1) (
 
 endmodule //reg_U13
 
+module reg_U25 #(parameter init=1) (
+  input  clk,
+  input  clr,
+  input  en,
+  input [8:0] in,
+  output [8:0] out
+);
+  //Wire declarations for instance 'c0' (Module coreir_const)
+  wire [8:0] c0__out;
+  coreir_const #(.value(9'b000000000),.width(9)) c0(
+    .out(c0__out)
+  );
+
+  //Wire declarations for instance 'clrMux' (Module coreir_mux)
+  wire [8:0] clrMux__in0;
+  wire [8:0] clrMux__in1;
+  wire [8:0] clrMux__out;
+  wire  clrMux__sel;
+  coreir_mux #(.width(9)) clrMux(
+    .in0(clrMux__in0),
+    .in1(clrMux__in1),
+    .out(clrMux__out),
+    .sel(clrMux__sel)
+  );
+
+  //Wire declarations for instance 'enMux' (Module coreir_mux)
+  wire [8:0] enMux__in0;
+  wire [8:0] enMux__in1;
+  wire [8:0] enMux__out;
+  wire  enMux__sel;
+  coreir_mux #(.width(9)) enMux(
+    .in0(enMux__in0),
+    .in1(enMux__in1),
+    .out(enMux__out),
+    .sel(enMux__sel)
+  );
+
+  //Wire declarations for instance 'reg0' (Module coreir_reg)
+  wire  reg0__clk;
+  wire [8:0] reg0__in;
+  wire [8:0] reg0__out;
+  coreir_reg #(.clk_posedge(1),.init(init),.width(9)) reg0(
+    .clk(reg0__clk),
+    .in(reg0__in),
+    .out(reg0__out)
+  );
+
+  //All the connections
+  assign reg0__in[8:0] = enMux__out[8:0];
+  assign out[8:0] = reg0__out[8:0];
+  assign enMux__in0[8:0] = reg0__out[8:0];
+  assign reg0__clk = clk;
+  assign enMux__sel = en;
+  assign enMux__in1[8:0] = clrMux__out[8:0];
+  assign clrMux__in1[8:0] = c0__out[8:0];
+  assign clrMux__sel = clr;
+  assign clrMux__in0[8:0] = in[8:0];
+
+endmodule //reg_U25
+
 module coreir_ule #(parameter width=1) (
   input [width-1:0] in0,
   input [width-1:0] in1,
@@ -798,7 +712,6 @@ module coreir_const160 (
 
   //All the connections
   assign out[0] = bit_const_GND__out;
-  assign out[10] = bit_const_GND__out;
   assign out[11] = bit_const_GND__out;
   assign out[12] = bit_const_GND__out;
   assign out[13] = bit_const_GND__out;
@@ -812,6 +725,7 @@ module coreir_const160 (
   assign out[6] = bit_const_GND__out;
   assign out[7] = bit_const_GND__out;
   assign out[8] = bit_const_GND__out;
+  assign out[10] = bit_const_GND__out;
   assign out[9] = bit_const_GND__out;
 
 endmodule //coreir_const160
@@ -9084,7 +8998,10 @@ module reduceParallel_U1 (
   assign reducer__in_251[15:0] = in_data_251[15:0];
   assign reducer__in_252[15:0] = in_data_252[15:0];
   assign reducer__in_253[15:0] = in_data_253[15:0];
-  assign reducer__in_332[15:0] = in_identity[15:0];
+  assign reducer__in_295[15:0] = in_data_295[15:0];
+  assign reducer__in_296[15:0] = in_data_296[15:0];
+  assign reducer__in_297[15:0] = in_data_297[15:0];
+  assign reducer__in_298[15:0] = in_data_298[15:0];
   assign reducer__in_299[15:0] = in_data_299[15:0];
   assign reducer__in_300[15:0] = in_identity[15:0];
   assign reducer__in_301[15:0] = in_identity[15:0];
@@ -9115,9 +9032,6 @@ module reduceParallel_U1 (
   assign reducer__in_326[15:0] = in_identity[15:0];
   assign reducer__in_327[15:0] = in_identity[15:0];
   assign reducer__in_328[15:0] = in_identity[15:0];
-  assign reducer__in_329[15:0] = in_identity[15:0];
-  assign reducer__in_330[15:0] = in_identity[15:0];
-  assign reducer__in_331[15:0] = in_identity[15:0];
   assign reducer__in_258[15:0] = in_data_258[15:0];
   assign reducer__in_259[15:0] = in_data_259[15:0];
   assign reducer__in_260[15:0] = in_data_260[15:0];
@@ -9155,10 +9069,10 @@ module reduceParallel_U1 (
   assign reducer__in_292[15:0] = in_data_292[15:0];
   assign reducer__in_293[15:0] = in_data_293[15:0];
   assign reducer__in_294[15:0] = in_data_294[15:0];
-  assign reducer__in_295[15:0] = in_data_295[15:0];
-  assign reducer__in_296[15:0] = in_data_296[15:0];
-  assign reducer__in_297[15:0] = in_data_297[15:0];
-  assign reducer__in_298[15:0] = in_data_298[15:0];
+  assign reducer__in_329[15:0] = in_identity[15:0];
+  assign reducer__in_330[15:0] = in_identity[15:0];
+  assign reducer__in_331[15:0] = in_identity[15:0];
+  assign reducer__in_332[15:0] = in_identity[15:0];
   assign reducer__in_333[15:0] = in_identity[15:0];
   assign reducer__in_334[15:0] = in_identity[15:0];
   assign reducer__in_335[15:0] = in_identity[15:0];
@@ -9340,6 +9254,92 @@ module reduceParallel_U1 (
   assign reducer__in_511[15:0] = in_identity[15:0];
 
 endmodule //reduceParallel_U1
+
+module counter_U11 #(parameter init=1, parameter max=1) (
+  input  clk,
+  input  en,
+  output [8:0] out,
+  input  srst
+);
+  //Wire declarations for instance 'add' (Module coreir_add)
+  wire [8:0] add__in0;
+  wire [8:0] add__in1;
+  wire [8:0] add__out;
+  coreir_add #(.width(9)) add(
+    .in0(add__in0),
+    .in1(add__in1),
+    .out(add__out)
+  );
+
+  //Wire declarations for instance 'c0' (Module coreir_const)
+  wire [8:0] c0__out;
+  coreir_const #(.value(9'b000000000),.width(9)) c0(
+    .out(c0__out)
+  );
+
+  //Wire declarations for instance 'c1' (Module coreir_const)
+  wire [8:0] c1__out;
+  coreir_const #(.value(9'b000000001),.width(9)) c1(
+    .out(c1__out)
+  );
+
+  //Wire declarations for instance 'eq' (Module coreir_eq)
+  wire [8:0] eq__in0;
+  wire [8:0] eq__in1;
+  wire  eq__out;
+  coreir_eq #(.width(9)) eq(
+    .in0(eq__in0),
+    .in1(eq__in1),
+    .out(eq__out)
+  );
+
+  //Wire declarations for instance 'maxval' (Module coreir_const)
+  wire [8:0] maxval__out;
+  coreir_const #(.value(max),.width(9)) maxval(
+    .out(maxval__out)
+  );
+
+  //Wire declarations for instance 'mux' (Module coreir_mux)
+  wire [8:0] mux__in0;
+  wire [8:0] mux__in1;
+  wire [8:0] mux__out;
+  wire  mux__sel;
+  coreir_mux #(.width(9)) mux(
+    .in0(mux__in0),
+    .in1(mux__in1),
+    .out(mux__out),
+    .sel(mux__sel)
+  );
+
+  //Wire declarations for instance 'r' (Module reg_U25)
+  wire  r__clk;
+  wire  r__clr;
+  wire  r__en;
+  wire [8:0] r__in;
+  wire [8:0] r__out;
+  reg_U25 #(.init(init)) r(
+    .clk(r__clk),
+    .clr(r__clr),
+    .en(r__en),
+    .in(r__in),
+    .out(r__out)
+  );
+
+  //All the connections
+  assign r__clk = clk;
+  assign r__en = en;
+  assign r__clr = srst;
+  assign add__in1[8:0] = c1__out[8:0];
+  assign add__in0[8:0] = r__out[8:0];
+  assign out[8:0] = r__out[8:0];
+  assign eq__in0[8:0] = r__out[8:0];
+  assign mux__sel = eq__out;
+  assign eq__in1[8:0] = maxval__out[8:0];
+  assign mux__in0[8:0] = add__out[8:0];
+  assign mux__in1[8:0] = c0__out[8:0];
+  assign r__in[8:0] = mux__out[8:0];
+
+endmodule //counter_U11
 
 module reg_U12 #(parameter init=1) (
   input  clk,
@@ -9536,11 +9536,11 @@ module rowbuffer_U4 (
   );
 
   //All the connections
-  assign waddr__clk = clk;
+  assign state__clk = clk;
   assign mem__clk = clk;
   assign raddr__clk = clk;
+  assign waddr__clk = clk;
   assign cnt__clk = clk;
-  assign state__clk = clk;
   assign mem__raddr[8:0] = raddr__out[8:0];
   assign mem__waddr[8:0] = waddr__out[8:0];
   assign rdata[15:0] = mem__rdata[15:0];
@@ -9628,85 +9628,6 @@ module reg_U20 #(parameter init=1) (
 
 endmodule //reg_U20
 
-module counter_U8 (
-  input  clk,
-  input  en,
-  output [15:0] out,
-  output  overflow,
-  input  reset
-);
-  //Wire declarations for instance 'add' (Module coreir_add)
-  wire [15:0] add__in0;
-  wire [15:0] add__in1;
-  wire [15:0] add__out;
-  coreir_add #(.width(16)) add(
-    .in0(add__in0),
-    .in1(add__in1),
-    .out(add__out)
-  );
-
-  //Wire declarations for instance 'count' (Module reg_U20)
-  wire  count__clk;
-  wire  count__clr;
-  wire  count__en;
-  wire [15:0] count__in;
-  wire [15:0] count__out;
-  reg_U20 #(.init(16'b0000000000000000)) count(
-    .clk(count__clk),
-    .clr(count__clr),
-    .en(count__en),
-    .in(count__in),
-    .out(count__out)
-  );
-
-  //Wire declarations for instance 'inc' (Module coreir_const)
-  wire [15:0] inc__out;
-  coreir_const #(.value(16'b0000000000000001),.width(16)) inc(
-    .out(inc__out)
-  );
-
-  //Wire declarations for instance 'max' (Module coreir_const)
-  wire [15:0] max__out;
-  coreir_const #(.value(16'b0000000011101111),.width(16)) max(
-    .out(max__out)
-  );
-
-  //Wire declarations for instance 'resetOr' (Module coreir_or)
-  wire [0:0] resetOr__in0;
-  wire [0:0] resetOr__in1;
-  wire [0:0] resetOr__out;
-  coreir_or #(.width(1)) resetOr(
-    .in0(resetOr__in0),
-    .in1(resetOr__in1),
-    .out(resetOr__out)
-  );
-
-  //Wire declarations for instance 'ult' (Module coreir_ult)
-  wire [15:0] ult__in0;
-  wire [15:0] ult__in1;
-  wire  ult__out;
-  coreir_ult #(.width(16)) ult(
-    .in0(ult__in0),
-    .in1(ult__in1),
-    .out(ult__out)
-  );
-
-  //All the connections
-  assign add__in0[15:0] = count__out[15:0];
-  assign out[15:0] = count__out[15:0];
-  assign add__in1[15:0] = inc__out[15:0];
-  assign count__en = en;
-  assign count__in[15:0] = add__out[15:0];
-  assign ult__in1[15:0] = add__out[15:0];
-  assign ult__in0[15:0] = max__out[15:0];
-  assign resetOr__in0[0] = ult__out;
-  assign overflow = ult__out;
-  assign count__clr = resetOr__out[0];
-  assign resetOr__in1[0] = reset;
-  assign count__clk = clk;
-
-endmodule //counter_U8
-
 module counter_U7 (
   input  clk,
   input  en,
@@ -9785,6 +9706,85 @@ module counter_U7 (
   assign count__clk = clk;
 
 endmodule //counter_U7
+
+module counter_U8 (
+  input  clk,
+  input  en,
+  output [15:0] out,
+  output  overflow,
+  input  reset
+);
+  //Wire declarations for instance 'add' (Module coreir_add)
+  wire [15:0] add__in0;
+  wire [15:0] add__in1;
+  wire [15:0] add__out;
+  coreir_add #(.width(16)) add(
+    .in0(add__in0),
+    .in1(add__in1),
+    .out(add__out)
+  );
+
+  //Wire declarations for instance 'count' (Module reg_U20)
+  wire  count__clk;
+  wire  count__clr;
+  wire  count__en;
+  wire [15:0] count__in;
+  wire [15:0] count__out;
+  reg_U20 #(.init(16'b0000000000000000)) count(
+    .clk(count__clk),
+    .clr(count__clr),
+    .en(count__en),
+    .in(count__in),
+    .out(count__out)
+  );
+
+  //Wire declarations for instance 'inc' (Module coreir_const)
+  wire [15:0] inc__out;
+  coreir_const #(.value(16'b0000000000000001),.width(16)) inc(
+    .out(inc__out)
+  );
+
+  //Wire declarations for instance 'max' (Module coreir_const)
+  wire [15:0] max__out;
+  coreir_const #(.value(16'b0000000011101111),.width(16)) max(
+    .out(max__out)
+  );
+
+  //Wire declarations for instance 'resetOr' (Module coreir_or)
+  wire [0:0] resetOr__in0;
+  wire [0:0] resetOr__in1;
+  wire [0:0] resetOr__out;
+  coreir_or #(.width(1)) resetOr(
+    .in0(resetOr__in0),
+    .in1(resetOr__in1),
+    .out(resetOr__out)
+  );
+
+  //Wire declarations for instance 'ult' (Module coreir_ult)
+  wire [15:0] ult__in0;
+  wire [15:0] ult__in1;
+  wire  ult__out;
+  coreir_ult #(.width(16)) ult(
+    .in0(ult__in0),
+    .in1(ult__in1),
+    .out(ult__out)
+  );
+
+  //All the connections
+  assign add__in0[15:0] = count__out[15:0];
+  assign out[15:0] = count__out[15:0];
+  assign add__in1[15:0] = inc__out[15:0];
+  assign count__en = en;
+  assign count__in[15:0] = add__out[15:0];
+  assign ult__in1[15:0] = add__out[15:0];
+  assign ult__in0[15:0] = max__out[15:0];
+  assign resetOr__in0[0] = ult__out;
+  assign overflow = ult__out;
+  assign count__clr = resetOr__out[0];
+  assign resetOr__in1[0] = reset;
+  assign count__clk = clk;
+
+endmodule //counter_U8
 
 module linebuffer_U0 (
   input  clk,
@@ -11408,288 +11408,288 @@ module linebuffer_U0 (
   assign valcounter_0__clk = clk;
   assign valcounter_1__clk = clk;
   assign out_14_12[15:0] = lb1d_0__out_12[15:0];
-  assign out_13_8[15:0] = lb1d_1__out_8[15:0];
+  assign out_4_10[15:0] = lb1d_10__out_10[15:0];
   assign out_14_11[15:0] = lb1d_0__out_11[15:0];
-  assign out_2_1[15:0] = lb1d_12__out_1[15:0];
+  assign out_2_3[15:0] = lb1d_12__out_3[15:0];
   assign out_14_10[15:0] = lb1d_0__out_10[15:0];
-  assign out_9_1[15:0] = lb1d_5__out_1[15:0];
-  assign out_14_8[15:0] = lb1d_0__out_8[15:0];
   assign out_4_1[15:0] = lb1d_10__out_1[15:0];
+  assign out_14_8[15:0] = lb1d_0__out_8[15:0];
   assign out_14_9[15:0] = lb1d_0__out_9[15:0];
-  assign out_8_2[15:0] = lb1d_6__out_2[15:0];
-  assign out_2_0[15:0] = lb1d_12__out_0[15:0];
-  assign lb1d_0__in_0[15:0] = in_0_0[15:0];
-  assign out_11_0[15:0] = lb1d_3__out_0[15:0];
-  assign out_12_2[15:0] = lb1d_2__out_2[15:0];
-  assign out_14_0[15:0] = lb1d_0__out_0[15:0];
   assign out_4_2[15:0] = lb1d_10__out_2[15:0];
-  assign out_0_5[15:0] = lb1d_14__out_5[15:0];
+  assign out_4_4[15:0] = lb1d_10__out_4[15:0];
+  assign lb1d_0__in_0[15:0] = in_0_0[15:0];
+  assign out_1_2[15:0] = lb1d_13__out_2[15:0];
+  assign out_14_0[15:0] = lb1d_0__out_0[15:0];
+  assign out_2_1[15:0] = lb1d_12__out_1[15:0];
+  assign out_11_6[15:0] = lb1d_3__out_6[15:0];
   assign out_14_1[15:0] = lb1d_0__out_1[15:0];
   assign out_3_5[15:0] = lb1d_11__out_5[15:0];
   assign out_14_2[15:0] = lb1d_0__out_2[15:0];
+  assign out_9_2[15:0] = lb1d_5__out_2[15:0];
   assign out_14_3[15:0] = lb1d_0__out_3[15:0];
-  assign out_1_0[15:0] = lb1d_13__out_0[15:0];
+  assign out_2_9[15:0] = lb1d_12__out_9[15:0];
   assign out_14_4[15:0] = lb1d_0__out_4[15:0];
-  assign out_2_7[15:0] = lb1d_12__out_7[15:0];
-  assign out_14_5[15:0] = lb1d_0__out_5[15:0];
   assign out_4_0[15:0] = lb1d_10__out_0[15:0];
+  assign out_14_5[15:0] = lb1d_0__out_5[15:0];
+  assign out_2_4[15:0] = lb1d_12__out_4[15:0];
   assign out_14_6[15:0] = lb1d_0__out_6[15:0];
-  assign out_4_8[15:0] = lb1d_10__out_8[15:0];
-  assign out_3_2[15:0] = lb1d_11__out_2[15:0];
-  assign out_4_5[15:0] = lb1d_10__out_5[15:0];
-  assign out_4_4[15:0] = lb1d_10__out_4[15:0];
-  assign out_13_4[15:0] = lb1d_1__out_4[15:0];
-  assign out_13_6[15:0] = lb1d_1__out_6[15:0];
-  assign out_2_2[15:0] = lb1d_12__out_2[15:0];
-  assign out_14_7[15:0] = lb1d_0__out_7[15:0];
-  assign out_13_1[15:0] = lb1d_1__out_1[15:0];
-  assign out_12_4[15:0] = lb1d_2__out_4[15:0];
-  assign out_13_2[15:0] = lb1d_1__out_2[15:0];
-  assign out_13_3[15:0] = lb1d_1__out_3[15:0];
-  assign out_11_7[15:0] = lb1d_3__out_7[15:0];
-  assign out_1_4[15:0] = lb1d_13__out_4[15:0];
+  assign out_13_8[15:0] = lb1d_1__out_8[15:0];
+  assign out_13_7[15:0] = lb1d_1__out_7[15:0];
   assign out_9_0[15:0] = lb1d_5__out_0[15:0];
-  assign out_5_8[15:0] = lb1d_9__out_8[15:0];
+  assign out_2_2[15:0] = lb1d_12__out_2[15:0];
+  assign out_1_7[15:0] = lb1d_13__out_7[15:0];
+  assign out_4_5[15:0] = lb1d_10__out_5[15:0];
+  assign out_0_6[15:0] = lb1d_14__out_6[15:0];
+  assign out_9_7[15:0] = lb1d_5__out_7[15:0];
+  assign out_7_6[15:0] = lb1d_7__out_6[15:0];
+  assign out_0_0[15:0] = lb1d_14__out_0[15:0];
+  assign out_14_7[15:0] = lb1d_0__out_7[15:0];
+  assign out_13_2[15:0] = lb1d_1__out_2[15:0];
+  assign out_3_0[15:0] = lb1d_11__out_0[15:0];
+  assign out_13_3[15:0] = lb1d_1__out_3[15:0];
+  assign out_1_4[15:0] = lb1d_13__out_4[15:0];
+  assign out_13_4[15:0] = lb1d_1__out_4[15:0];
   assign out_4_6[15:0] = lb1d_10__out_6[15:0];
   assign out_4_7[15:0] = lb1d_10__out_7[15:0];
   assign out_3_4[15:0] = lb1d_11__out_4[15:0];
-  assign out_2_4[15:0] = lb1d_12__out_4[15:0];
-  assign out_12_1[15:0] = lb1d_2__out_1[15:0];
+  assign out_2_6[15:0] = lb1d_12__out_6[15:0];
+  assign out_9_1[15:0] = lb1d_5__out_1[15:0];
   assign out_13_0[15:0] = lb1d_1__out_0[15:0];
-  assign out_6_5[15:0] = lb1d_8__out_5[15:0];
-  assign out_2_5[15:0] = lb1d_12__out_5[15:0];
-  assign out_13_7[15:0] = lb1d_1__out_7[15:0];
-  assign out_3_1[15:0] = lb1d_11__out_1[15:0];
+  assign out_1_1[15:0] = lb1d_13__out_1[15:0];
+  assign out_2_7[15:0] = lb1d_12__out_7[15:0];
+  assign out_13_1[15:0] = lb1d_1__out_1[15:0];
+  assign out_3_2[15:0] = lb1d_11__out_2[15:0];
   assign out_13_5[15:0] = lb1d_1__out_5[15:0];
-  assign out_0_0[15:0] = lb1d_14__out_0[15:0];
+  assign out_3_1[15:0] = lb1d_11__out_1[15:0];
+  assign out_13_6[15:0] = lb1d_1__out_6[15:0];
   assign out_14_13[15:0] = lb1d_0__out_13[15:0];
-  assign out_4_10[15:0] = lb1d_10__out_10[15:0];
-  assign out_14_14[15:0] = lb1d_0__out_14[15:0];
   assign out_13_9[15:0] = lb1d_1__out_9[15:0];
-  assign out_14_15[15:0] = lb1d_0__out_15[15:0];
+  assign out_14_14[15:0] = lb1d_0__out_14[15:0];
   assign out_3_8[15:0] = lb1d_11__out_8[15:0];
-  assign out_14_16[15:0] = lb1d_0__out_16[15:0];
+  assign out_14_15[15:0] = lb1d_0__out_15[15:0];
   assign out_13_10[15:0] = lb1d_1__out_10[15:0];
-  assign out_14_17[15:0] = lb1d_0__out_17[15:0];
+  assign out_14_16[15:0] = lb1d_0__out_16[15:0];
   assign out_3_6[15:0] = lb1d_11__out_6[15:0];
-  assign out_14_18[15:0] = lb1d_0__out_18[15:0];
+  assign out_14_17[15:0] = lb1d_0__out_17[15:0];
   assign out_3_7[15:0] = lb1d_11__out_7[15:0];
+  assign out_14_18[15:0] = lb1d_0__out_18[15:0];
+  assign out_11_9[15:0] = lb1d_3__out_9[15:0];
   assign out_14_19[15:0] = lb1d_0__out_19[15:0];
-  assign out_10_2[15:0] = lb1d_4__out_2[15:0];
-  assign out_3_10[15:0] = lb1d_11__out_10[15:0];
+  assign out_4_8[15:0] = lb1d_10__out_8[15:0];
   assign out_4_3[15:0] = lb1d_10__out_3[15:0];
+  assign out_12_2[15:0] = lb1d_2__out_2[15:0];
   assign out_13_11[15:0] = lb1d_1__out_11[15:0];
-  assign out_4_9[15:0] = lb1d_10__out_9[15:0];
+  assign out_3_10[15:0] = lb1d_11__out_10[15:0];
   assign out_13_12[15:0] = lb1d_1__out_12[15:0];
-  assign out_0_6[15:0] = lb1d_14__out_6[15:0];
+  assign out_4_9[15:0] = lb1d_10__out_9[15:0];
   assign out_13_13[15:0] = lb1d_1__out_13[15:0];
-  assign out_12_5[15:0] = lb1d_2__out_5[15:0];
-  assign out_13_14[15:0] = lb1d_1__out_14[15:0];
-  assign out_11_4[15:0] = lb1d_3__out_4[15:0];
-  assign out_13_15[15:0] = lb1d_1__out_15[15:0];
-  assign out_10_3[15:0] = lb1d_4__out_3[15:0];
-  assign out_13_16[15:0] = lb1d_1__out_16[15:0];
-  assign out_13_17[15:0] = lb1d_1__out_17[15:0];
-  assign out_9_3[15:0] = lb1d_5__out_3[15:0];
-  assign out_13_18[15:0] = lb1d_1__out_18[15:0];
   assign out_1_3[15:0] = lb1d_13__out_3[15:0];
+  assign out_13_14[15:0] = lb1d_1__out_14[15:0];
+  assign out_11_2[15:0] = lb1d_3__out_2[15:0];
+  assign out_13_15[15:0] = lb1d_1__out_15[15:0];
+  assign out_9_4[15:0] = lb1d_5__out_4[15:0];
+  assign out_13_16[15:0] = lb1d_1__out_16[15:0];
+  assign out_1_6[15:0] = lb1d_13__out_6[15:0];
+  assign out_13_17[15:0] = lb1d_1__out_17[15:0];
+  assign out_13_18[15:0] = lb1d_1__out_18[15:0];
+  assign out_11_0[15:0] = lb1d_3__out_0[15:0];
   assign out_13_19[15:0] = lb1d_1__out_19[15:0];
-  assign out_3_0[15:0] = lb1d_11__out_0[15:0];
+  assign out_0_5[15:0] = lb1d_14__out_5[15:0];
+  assign out_2_10[15:0] = lb1d_12__out_10[15:0];
   assign out_3_3[15:0] = lb1d_11__out_3[15:0];
-  assign out_0_4[15:0] = lb1d_14__out_4[15:0];
+  assign out_7_0[15:0] = lb1d_7__out_0[15:0];
   assign out_4_11[15:0] = lb1d_10__out_11[15:0];
+  assign out_1_8[15:0] = lb1d_13__out_8[15:0];
+  assign out_2_12[15:0] = lb1d_12__out_12[15:0];
   assign out_4_12[15:0] = lb1d_10__out_12[15:0];
   assign out_3_9[15:0] = lb1d_11__out_9[15:0];
   assign out_4_13[15:0] = lb1d_10__out_13[15:0];
-  assign out_2_6[15:0] = lb1d_12__out_6[15:0];
-  assign out_4_14[15:0] = lb1d_10__out_14[15:0];
-  assign out_1_1[15:0] = lb1d_13__out_1[15:0];
-  assign out_4_15[15:0] = lb1d_10__out_15[15:0];
-  assign out_11_5[15:0] = lb1d_3__out_5[15:0];
-  assign out_4_16[15:0] = lb1d_10__out_16[15:0];
-  assign out_4_17[15:0] = lb1d_10__out_17[15:0];
-  assign out_10_8[15:0] = lb1d_4__out_8[15:0];
-  assign out_4_18[15:0] = lb1d_10__out_18[15:0];
-  assign out_4_19[15:0] = lb1d_10__out_19[15:0];
-  assign out_9_6[15:0] = lb1d_5__out_6[15:0];
-  assign out_2_10[15:0] = lb1d_12__out_10[15:0];
-  assign out_12_3[15:0] = lb1d_2__out_3[15:0];
-  assign out_2_3[15:0] = lb1d_12__out_3[15:0];
-  assign out_3_11[15:0] = lb1d_11__out_11[15:0];
-  assign out_6_1[15:0] = lb1d_8__out_1[15:0];
   assign out_2_8[15:0] = lb1d_12__out_8[15:0];
+  assign out_4_14[15:0] = lb1d_10__out_14[15:0];
+  assign out_4_15[15:0] = lb1d_10__out_15[15:0];
+  assign out_9_5[15:0] = lb1d_5__out_5[15:0];
+  assign out_4_16[15:0] = lb1d_10__out_16[15:0];
+  assign out_8_4[15:0] = lb1d_6__out_4[15:0];
+  assign out_4_17[15:0] = lb1d_10__out_17[15:0];
+  assign out_2_0[15:0] = lb1d_12__out_0[15:0];
+  assign out_4_18[15:0] = lb1d_10__out_18[15:0];
+  assign out_10_8[15:0] = lb1d_4__out_8[15:0];
+  assign out_4_19[15:0] = lb1d_10__out_19[15:0];
+  assign out_10_2[15:0] = lb1d_4__out_2[15:0];
+  assign out_10_7[15:0] = lb1d_4__out_7[15:0];
+  assign out_2_5[15:0] = lb1d_12__out_5[15:0];
+  assign out_3_11[15:0] = lb1d_11__out_11[15:0];
+  assign out_6_4[15:0] = lb1d_8__out_4[15:0];
   assign out_3_12[15:0] = lb1d_11__out_12[15:0];
-  assign out_1_9[15:0] = lb1d_13__out_9[15:0];
+  assign out_2_11[15:0] = lb1d_12__out_11[15:0];
   assign out_3_13[15:0] = lb1d_11__out_13[15:0];
-  assign out_1_2[15:0] = lb1d_13__out_2[15:0];
+  assign out_12_1[15:0] = lb1d_2__out_1[15:0];
   assign out_3_14[15:0] = lb1d_11__out_14[15:0];
   assign out_3_15[15:0] = lb1d_11__out_15[15:0];
-  assign out_0_1[15:0] = lb1d_14__out_1[15:0];
+  assign out_11_4[15:0] = lb1d_3__out_4[15:0];
   assign out_3_16[15:0] = lb1d_11__out_16[15:0];
-  assign out_9_5[15:0] = lb1d_5__out_5[15:0];
+  assign out_10_3[15:0] = lb1d_4__out_3[15:0];
   assign out_3_17[15:0] = lb1d_11__out_17[15:0];
-  assign out_0_2[15:0] = lb1d_14__out_2[15:0];
+  assign out_1_0[15:0] = lb1d_13__out_0[15:0];
   assign out_3_18[15:0] = lb1d_11__out_18[15:0];
-  assign out_5_7[15:0] = lb1d_9__out_7[15:0];
+  assign out_5_5[15:0] = lb1d_9__out_5[15:0];
   assign out_3_19[15:0] = lb1d_11__out_19[15:0];
-  assign out_0_3[15:0] = lb1d_14__out_3[15:0];
-  assign out_2_9[15:0] = lb1d_12__out_9[15:0];
-  assign out_9_2[15:0] = lb1d_5__out_2[15:0];
-  assign out_2_11[15:0] = lb1d_12__out_11[15:0];
-  assign out_2_12[15:0] = lb1d_12__out_12[15:0];
+  assign out_11_5[15:0] = lb1d_3__out_5[15:0];
+  assign out_12_3[15:0] = lb1d_2__out_3[15:0];
+  assign out_11_7[15:0] = lb1d_3__out_7[15:0];
   assign out_1_5[15:0] = lb1d_13__out_5[15:0];
+  assign out_0_1[15:0] = lb1d_14__out_1[15:0];
+  assign out_1_9[15:0] = lb1d_13__out_9[15:0];
+  assign out_0_4[15:0] = lb1d_14__out_4[15:0];
   assign out_2_13[15:0] = lb1d_12__out_13[15:0];
-  assign out_11_8[15:0] = lb1d_3__out_8[15:0];
   assign out_2_14[15:0] = lb1d_12__out_14[15:0];
-  assign out_1_6[15:0] = lb1d_13__out_6[15:0];
-  assign out_2_15[15:0] = lb1d_12__out_15[15:0];
-  assign out_11_9[15:0] = lb1d_3__out_9[15:0];
-  assign out_2_16[15:0] = lb1d_12__out_16[15:0];
-  assign out_1_7[15:0] = lb1d_13__out_7[15:0];
-  assign out_2_17[15:0] = lb1d_12__out_17[15:0];
-  assign out_10_7[15:0] = lb1d_4__out_7[15:0];
-  assign out_2_18[15:0] = lb1d_12__out_18[15:0];
-  assign out_1_8[15:0] = lb1d_13__out_8[15:0];
-  assign out_2_19[15:0] = lb1d_12__out_19[15:0];
-  assign out_1_11[15:0] = lb1d_13__out_11[15:0];
-  assign out_11_6[15:0] = lb1d_3__out_6[15:0];
-  assign out_1_12[15:0] = lb1d_13__out_12[15:0];
   assign out_1_10[15:0] = lb1d_13__out_10[15:0];
-  assign out_0_7[15:0] = lb1d_14__out_7[15:0];
-  assign out_12_6[15:0] = lb1d_2__out_6[15:0];
-  assign out_11_1[15:0] = lb1d_3__out_1[15:0];
+  assign out_2_15[15:0] = lb1d_12__out_15[15:0];
+  assign out_2_16[15:0] = lb1d_12__out_16[15:0];
+  assign out_1_11[15:0] = lb1d_13__out_11[15:0];
+  assign out_2_17[15:0] = lb1d_12__out_17[15:0];
+  assign out_6_2[15:0] = lb1d_8__out_2[15:0];
+  assign out_2_18[15:0] = lb1d_12__out_18[15:0];
+  assign out_12_4[15:0] = lb1d_2__out_4[15:0];
+  assign out_2_19[15:0] = lb1d_12__out_19[15:0];
+  assign out_12_5[15:0] = lb1d_2__out_5[15:0];
+  assign out_1_12[15:0] = lb1d_13__out_12[15:0];
+  assign out_0_2[15:0] = lb1d_14__out_2[15:0];
+  assign out_8_3[15:0] = lb1d_6__out_3[15:0];
+  assign out_0_3[15:0] = lb1d_14__out_3[15:0];
+  assign out_8_0[15:0] = lb1d_6__out_0[15:0];
   assign out_1_13[15:0] = lb1d_13__out_13[15:0];
   assign out_0_8[15:0] = lb1d_14__out_8[15:0];
   assign out_1_14[15:0] = lb1d_13__out_14[15:0];
-  assign out_8_4[15:0] = lb1d_6__out_4[15:0];
+  assign out_11_1[15:0] = lb1d_3__out_1[15:0];
   assign out_1_15[15:0] = lb1d_13__out_15[15:0];
   assign out_0_9[15:0] = lb1d_14__out_9[15:0];
   assign out_1_16[15:0] = lb1d_13__out_16[15:0];
-  assign out_11_2[15:0] = lb1d_3__out_2[15:0];
+  assign out_5_7[15:0] = lb1d_9__out_7[15:0];
   assign out_1_17[15:0] = lb1d_13__out_17[15:0];
   assign out_0_10[15:0] = lb1d_14__out_10[15:0];
   assign out_1_18[15:0] = lb1d_13__out_18[15:0];
-  assign out_6_2[15:0] = lb1d_8__out_2[15:0];
+  assign out_11_8[15:0] = lb1d_3__out_8[15:0];
   assign out_1_19[15:0] = lb1d_13__out_19[15:0];
   assign out_0_11[15:0] = lb1d_14__out_11[15:0];
   assign out_12_0[15:0] = lb1d_2__out_0[15:0];
-  assign out_9_7[15:0] = lb1d_5__out_7[15:0];
-  assign out_0_12[15:0] = lb1d_14__out_12[15:0];
-  assign out_8_0[15:0] = lb1d_6__out_0[15:0];
-  assign out_0_13[15:0] = lb1d_14__out_13[15:0];
-  assign out_12_7[15:0] = lb1d_2__out_7[15:0];
-  assign out_0_14[15:0] = lb1d_14__out_14[15:0];
-  assign out_10_4[15:0] = lb1d_4__out_4[15:0];
-  assign out_0_15[15:0] = lb1d_14__out_15[15:0];
-  assign out_12_8[15:0] = lb1d_2__out_8[15:0];
-  assign out_0_16[15:0] = lb1d_14__out_16[15:0];
-  assign out_0_17[15:0] = lb1d_14__out_17[15:0];
-  assign out_12_9[15:0] = lb1d_2__out_9[15:0];
-  assign out_0_18[15:0] = lb1d_14__out_18[15:0];
   assign out_10_5[15:0] = lb1d_4__out_5[15:0];
+  assign out_9_6[15:0] = lb1d_5__out_6[15:0];
+  assign out_0_7[15:0] = lb1d_14__out_7[15:0];
+  assign out_0_12[15:0] = lb1d_14__out_12[15:0];
+  assign out_12_6[15:0] = lb1d_2__out_6[15:0];
+  assign out_0_13[15:0] = lb1d_14__out_13[15:0];
+  assign out_10_9[15:0] = lb1d_4__out_9[15:0];
+  assign out_0_14[15:0] = lb1d_14__out_14[15:0];
+  assign out_12_7[15:0] = lb1d_2__out_7[15:0];
+  assign out_0_15[15:0] = lb1d_14__out_15[15:0];
+  assign out_6_6[15:0] = lb1d_8__out_6[15:0];
+  assign out_0_16[15:0] = lb1d_14__out_16[15:0];
+  assign out_12_8[15:0] = lb1d_2__out_8[15:0];
+  assign out_0_17[15:0] = lb1d_14__out_17[15:0];
+  assign out_10_4[15:0] = lb1d_4__out_4[15:0];
+  assign out_0_18[15:0] = lb1d_14__out_18[15:0];
+  assign out_12_9[15:0] = lb1d_2__out_9[15:0];
   assign out_0_19[15:0] = lb1d_14__out_19[15:0];
+  assign out_8_1[15:0] = lb1d_6__out_1[15:0];
   assign out_12_10[15:0] = lb1d_2__out_10[15:0];
-  assign out_5_5[15:0] = lb1d_9__out_5[15:0];
-  assign out_12_11[15:0] = lb1d_2__out_11[15:0];
   assign out_11_3[15:0] = lb1d_3__out_3[15:0];
-  assign out_11_10[15:0] = lb1d_3__out_10[15:0];
+  assign out_12_11[15:0] = lb1d_2__out_11[15:0];
+  assign out_9_8[15:0] = lb1d_5__out_8[15:0];
   assign out_12_12[15:0] = lb1d_2__out_12[15:0];
-  assign out_8_3[15:0] = lb1d_6__out_3[15:0];
   assign out_12_13[15:0] = lb1d_2__out_13[15:0];
   assign out_12_14[15:0] = lb1d_2__out_14[15:0];
   assign out_7_2[15:0] = lb1d_7__out_2[15:0];
   assign out_12_15[15:0] = lb1d_2__out_15[15:0];
-  assign out_7_1[15:0] = lb1d_7__out_1[15:0];
+  assign out_8_7[15:0] = lb1d_6__out_7[15:0];
   assign out_12_16[15:0] = lb1d_2__out_16[15:0];
   assign out_10_0[15:0] = lb1d_4__out_0[15:0];
   assign out_12_17[15:0] = lb1d_2__out_17[15:0];
+  assign out_8_2[15:0] = lb1d_6__out_2[15:0];
   assign out_12_18[15:0] = lb1d_2__out_18[15:0];
+  assign out_7_3[15:0] = lb1d_7__out_3[15:0];
   assign out_12_19[15:0] = lb1d_2__out_19[15:0];
   assign out_10_1[15:0] = lb1d_4__out_1[15:0];
-  assign out_10_9[15:0] = lb1d_4__out_9[15:0];
+  assign out_11_10[15:0] = lb1d_3__out_10[15:0];
   assign out_10_6[15:0] = lb1d_4__out_6[15:0];
-  assign out_8_1[15:0] = lb1d_6__out_1[15:0];
   assign out_11_11[15:0] = lb1d_3__out_11[15:0];
-  assign out_9_10[15:0] = lb1d_5__out_10[15:0];
+  assign out_5_9[15:0] = lb1d_9__out_9[15:0];
   assign out_11_12[15:0] = lb1d_3__out_12[15:0];
-  assign out_10_10[15:0] = lb1d_4__out_10[15:0];
+  assign out_5_4[15:0] = lb1d_9__out_4[15:0];
   assign out_11_13[15:0] = lb1d_3__out_13[15:0];
-  assign out_6_4[15:0] = lb1d_8__out_4[15:0];
   assign out_11_14[15:0] = lb1d_3__out_14[15:0];
   assign out_8_5[15:0] = lb1d_6__out_5[15:0];
   assign out_11_15[15:0] = lb1d_3__out_15[15:0];
-  assign out_8_6[15:0] = lb1d_6__out_6[15:0];
   assign out_11_16[15:0] = lb1d_3__out_16[15:0];
   assign out_11_17[15:0] = lb1d_3__out_17[15:0];
-  assign out_8_8[15:0] = lb1d_6__out_8[15:0];
   assign out_11_18[15:0] = lb1d_3__out_18[15:0];
   assign out_11_19[15:0] = lb1d_3__out_19[15:0];
-  assign out_7_5[15:0] = lb1d_7__out_5[15:0];
-  assign out_9_8[15:0] = lb1d_5__out_8[15:0];
-  assign out_9_4[15:0] = lb1d_5__out_4[15:0];
-  assign out_6_3[15:0] = lb1d_8__out_3[15:0];
+  assign out_6_1[15:0] = lb1d_8__out_1[15:0];
+  assign out_10_10[15:0] = lb1d_4__out_10[15:0];
+  assign out_9_3[15:0] = lb1d_5__out_3[15:0];
   assign out_10_11[15:0] = lb1d_4__out_11[15:0];
+  assign out_10_18[15:0] = lb1d_4__out_18[15:0];
   assign out_10_19[15:0] = lb1d_4__out_19[15:0];
-  assign out_5_4[15:0] = lb1d_9__out_4[15:0];
   assign out_10_12[15:0] = lb1d_4__out_12[15:0];
   assign out_9_9[15:0] = lb1d_5__out_9[15:0];
   assign out_10_13[15:0] = lb1d_4__out_13[15:0];
+  assign out_8_6[15:0] = lb1d_6__out_6[15:0];
   assign out_10_14[15:0] = lb1d_4__out_14[15:0];
-  assign out_7_3[15:0] = lb1d_7__out_3[15:0];
-  assign out_10_15[15:0] = lb1d_4__out_15[15:0];
   assign out_5_0[15:0] = lb1d_9__out_0[15:0];
-  assign out_10_16[15:0] = lb1d_4__out_16[15:0];
-  assign out_10_17[15:0] = lb1d_4__out_17[15:0];
-  assign out_6_0[15:0] = lb1d_8__out_0[15:0];
-  assign out_10_18[15:0] = lb1d_4__out_18[15:0];
-  assign out_9_11[15:0] = lb1d_5__out_11[15:0];
-  assign out_8_7[15:0] = lb1d_6__out_7[15:0];
+  assign out_10_15[15:0] = lb1d_4__out_15[15:0];
   assign out_7_4[15:0] = lb1d_7__out_4[15:0];
+  assign out_10_16[15:0] = lb1d_4__out_16[15:0];
+  assign out_7_5[15:0] = lb1d_7__out_5[15:0];
+  assign out_10_17[15:0] = lb1d_4__out_17[15:0];
+  assign out_9_10[15:0] = lb1d_5__out_10[15:0];
+  assign out_9_11[15:0] = lb1d_5__out_11[15:0];
   assign out_9_12[15:0] = lb1d_5__out_12[15:0];
-  assign out_5_9[15:0] = lb1d_9__out_9[15:0];
-  assign out_9_13[15:0] = lb1d_5__out_13[15:0];
-  assign out_5_2[15:0] = lb1d_9__out_2[15:0];
-  assign out_9_14[15:0] = lb1d_5__out_14[15:0];
+  assign out_8_8[15:0] = lb1d_6__out_8[15:0];
   assign out_8_9[15:0] = lb1d_6__out_9[15:0];
-  assign out_9_15[15:0] = lb1d_5__out_15[15:0];
-  assign out_7_10[15:0] = lb1d_7__out_10[15:0];
-  assign out_9_16[15:0] = lb1d_5__out_16[15:0];
+  assign out_9_13[15:0] = lb1d_5__out_13[15:0];
+  assign out_9_14[15:0] = lb1d_5__out_14[15:0];
   assign out_8_10[15:0] = lb1d_6__out_10[15:0];
-  assign out_8_12[15:0] = lb1d_6__out_12[15:0];
-  assign out_9_17[15:0] = lb1d_5__out_17[15:0];
-  assign out_9_18[15:0] = lb1d_5__out_18[15:0];
+  assign out_9_15[15:0] = lb1d_5__out_15[15:0];
+  assign out_6_5[15:0] = lb1d_8__out_5[15:0];
+  assign out_9_16[15:0] = lb1d_5__out_16[15:0];
   assign out_8_11[15:0] = lb1d_6__out_11[15:0];
-  assign out_9_19[15:0] = lb1d_5__out_19[15:0];
+  assign out_9_17[15:0] = lb1d_5__out_17[15:0];
   assign out_5_6[15:0] = lb1d_9__out_6[15:0];
-  assign out_7_0[15:0] = lb1d_7__out_0[15:0];
-  assign out_7_6[15:0] = lb1d_7__out_6[15:0];
-  assign out_8_13[15:0] = lb1d_6__out_13[15:0];
-  assign out_8_14[15:0] = lb1d_6__out_14[15:0];
+  assign out_9_18[15:0] = lb1d_5__out_18[15:0];
+  assign out_6_3[15:0] = lb1d_8__out_3[15:0];
+  assign out_9_19[15:0] = lb1d_5__out_19[15:0];
+  assign out_8_12[15:0] = lb1d_6__out_12[15:0];
+  assign out_5_2[15:0] = lb1d_9__out_2[15:0];
+  assign out_7_1[15:0] = lb1d_7__out_1[15:0];
   assign out_7_7[15:0] = lb1d_7__out_7[15:0];
-  assign out_8_15[15:0] = lb1d_6__out_15[15:0];
-  assign out_5_1[15:0] = lb1d_9__out_1[15:0];
-  assign out_8_16[15:0] = lb1d_6__out_16[15:0];
-  assign out_7_8[15:0] = lb1d_7__out_8[15:0];
-  assign out_8_17[15:0] = lb1d_6__out_17[15:0];
-  assign out_8_18[15:0] = lb1d_6__out_18[15:0];
-  assign out_7_9[15:0] = lb1d_7__out_9[15:0];
-  assign out_8_19[15:0] = lb1d_6__out_19[15:0];
-  assign out_7_11[15:0] = lb1d_7__out_11[15:0];
-  assign out_7_12[15:0] = lb1d_7__out_12[15:0];
-  assign out_6_6[15:0] = lb1d_8__out_6[15:0];
-  assign out_7_13[15:0] = lb1d_7__out_13[15:0];
-  assign out_7_14[15:0] = lb1d_7__out_14[15:0];
   assign out_6_7[15:0] = lb1d_8__out_7[15:0];
-  assign out_7_15[15:0] = lb1d_7__out_15[15:0];
-  assign out_7_16[15:0] = lb1d_7__out_16[15:0];
+  assign out_7_8[15:0] = lb1d_7__out_8[15:0];
+  assign out_8_13[15:0] = lb1d_6__out_13[15:0];
+  assign out_5_1[15:0] = lb1d_9__out_1[15:0];
+  assign out_8_14[15:0] = lb1d_6__out_14[15:0];
+  assign out_7_9[15:0] = lb1d_7__out_9[15:0];
+  assign out_8_15[15:0] = lb1d_6__out_15[15:0];
+  assign out_8_16[15:0] = lb1d_6__out_16[15:0];
+  assign out_7_10[15:0] = lb1d_7__out_10[15:0];
+  assign out_8_17[15:0] = lb1d_6__out_17[15:0];
+  assign out_5_8[15:0] = lb1d_9__out_8[15:0];
+  assign out_8_18[15:0] = lb1d_6__out_18[15:0];
+  assign out_7_11[15:0] = lb1d_7__out_11[15:0];
+  assign out_8_19[15:0] = lb1d_6__out_19[15:0];
+  assign out_6_0[15:0] = lb1d_8__out_0[15:0];
+  assign out_7_12[15:0] = lb1d_7__out_12[15:0];
+  assign out_7_13[15:0] = lb1d_7__out_13[15:0];
   assign out_6_8[15:0] = lb1d_8__out_8[15:0];
-  assign out_7_17[15:0] = lb1d_7__out_17[15:0];
-  assign out_7_18[15:0] = lb1d_7__out_18[15:0];
+  assign out_7_14[15:0] = lb1d_7__out_14[15:0];
+  assign out_7_15[15:0] = lb1d_7__out_15[15:0];
   assign out_6_9[15:0] = lb1d_8__out_9[15:0];
-  assign out_7_19[15:0] = lb1d_7__out_19[15:0];
+  assign out_7_16[15:0] = lb1d_7__out_16[15:0];
+  assign out_7_17[15:0] = lb1d_7__out_17[15:0];
   assign out_6_10[15:0] = lb1d_8__out_10[15:0];
-  assign out_5_3[15:0] = lb1d_9__out_3[15:0];
+  assign out_7_18[15:0] = lb1d_7__out_18[15:0];
+  assign out_7_19[15:0] = lb1d_7__out_19[15:0];
   assign out_6_11[15:0] = lb1d_8__out_11[15:0];
+  assign out_5_3[15:0] = lb1d_9__out_3[15:0];
   assign out_6_12[15:0] = lb1d_8__out_12[15:0];
   assign out_6_13[15:0] = lb1d_8__out_13[15:0];
   assign out_6_14[15:0] = lb1d_8__out_14[15:0];
@@ -11713,7 +11713,6 @@ endmodule //linebuffer_U0
 
 module Downscale (
   input  CLK,
-  output  CLKOut,
   input [15:0] I_0_0,
   output [15:0] O,
   output  V,
@@ -12952,7 +12951,6 @@ module Downscale (
   assign inst0__wen = WE;
   assign O[15:0] = inst1__out[15:0];
   assign inst1__in_identity[15:0] = inst2__out[15:0];
-  assign CLKOut = CLK;
   assign inst0__clk = CLK;
   assign inst0__in_0_0[15:0] = I_0_0[15:0];
   assign inst1__in_data_0[15:0] = inst0__out_0_0[15:0];
@@ -12977,10 +12975,10 @@ module Downscale (
   assign inst1__in_data_19[15:0] = inst0__out_0_19[15:0];
   assign inst1__in_data_20[15:0] = inst0__out_1_0[15:0];
   assign inst1__in_data_21[15:0] = inst0__out_1_1[15:0];
+  assign inst1__in_data_151[15:0] = inst0__out_7_11[15:0];
   assign inst1__in_data_22[15:0] = inst0__out_1_2[15:0];
   assign inst1__in_data_23[15:0] = inst0__out_1_3[15:0];
   assign inst1__in_data_24[15:0] = inst0__out_1_4[15:0];
-  assign inst1__in_data_151[15:0] = inst0__out_7_11[15:0];
   assign inst1__in_data_25[15:0] = inst0__out_1_5[15:0];
   assign inst1__in_data_26[15:0] = inst0__out_1_6[15:0];
   assign inst1__in_data_27[15:0] = inst0__out_1_7[15:0];

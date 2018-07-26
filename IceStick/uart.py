@@ -5,7 +5,7 @@ from mantle import *
 # n-bit UART transmitter
 def DefineUART(n):
     class _UART(Circuit):
-        name = "UART"
+        name = "UART"+str(n)
         IO = ['CLK', In(Clock), 'BAUD', In(Bit), 'DATA', In(Bits(n)), 'LOAD', In(Bit),
               'O', Out(Bit)]
         @classmethod

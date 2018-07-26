@@ -3,6 +3,7 @@ from magma.bitutils import int2seq
 from mantle.util.edge import falling, rising
 from mantle import *
 from rom import ROM16
+from uart import UART
 
 
 trigger = 1 # maybe tie to GPIO later
@@ -75,6 +76,7 @@ class ArduCAM(Circuit):
         increment = LUT4(I0 & (I1 | I2) & ~I3)(ready, start, cap_done, burst)
         wire(increment, rom_index.CE)
 
+        # wire outputs
         wire(enable,  cam.EN)
         wire(mosi.O,  cam.MOSI)
         wire(miso.O,  cam.DATA)
@@ -82,9 +84,7 @@ class ArduCAM(Circuit):
 
         #---------------------------UART OUTPUT-----------------------------#
 
-        u_data = array([miso.O[7], miso.O[6], miso.O[5], miso.O[4],
-                miso.O[3], miso.O[2], miso.O[1], miso.O[0], 0])
-
+        # run UART at 2x SPI rate to allow it to keep up
         baud = edge_r | edge_f
 
         # reset when SPI burst read (image transfer) begins 
@@ -97,20 +97,19 @@ class ArduCAM(Circuit):
         u_counter(CE=edge_r, RESET=u_reset)
         load = burst & rising(u_counter.COUT)
 
-        # transfer has size 153600 bytes, first 2 bytes are ignored
+        uart = UART(8)
+        uart(CLK=cam.CLK, BAUD=baud, DATA=miso, LOAD=load) #quick hack to build
+
+        # wire output
+        wire(uart, cam.UART) 
+
+        # generate signal for when transfer is done
         data_count = Counter(18, has_ce=True)
         tx_done = SRFF(has_ce=True)
+        # transfer has size 153600 bytes, first 2 bytes are ignored
         tx_done(EQ(18)(data_count.O, bits(153602, 18)), 0)
         wire(load, tx_done.CE)
         wire(load, data_count.CE)
 
-        uart = PISO(9, has_ce=True)
-        #load = LUT2(I0&~I1)(valid,run)
-        uart(1, u_data, load)
-        wire(baud, uart.CE)
-
-        # uart = UART(8)
-        # uart(CLK=io.CLK, BAUD=baud, DATA=miso, LOAD=load)
-
-        wire(uart, cam.UART) 
+        # wire output
         wire(tx_done, cam.DONE)

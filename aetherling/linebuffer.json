@@ -2,37 +2,37 @@
 "namespaces":{
   "global":{
     "modules":{
-      "Add8":{
+      "Add16":{
         "type":["Record",[
-          ["I0",["Array",8,"BitIn"]],
-          ["I1",["Array",8,"BitIn"]],
-          ["O",["Array",8,"Bit"]]
+          ["I0",["Array",16,"BitIn"]],
+          ["I1",["Array",16,"BitIn"]],
+          ["O",["Array",16,"Bit"]]
         ]]
       },
       "STEN":{
         "type":["Record",[
-          ["I",["Array",1,["Array",1,["Array",8,"BitIn"]]]],
-          ["O",["Array",8,"Bit"]],
+          ["I",["Array",1,["Array",1,["Array",16,"BitIn"]]]],
+          ["O",["Array",16,"Bit"]],
           ["WE","BitIn"],
           ["V","Bit"],
           ["CLKOut",["Named","coreir.clk"]],
-          ["L00",["Array",8,"Bit"]],
-          ["L01",["Array",8,"Bit"]],
-          ["L10",["Array",8,"Bit"]],
-          ["L11",["Array",8,"Bit"]],
+          ["L00",["Array",16,"Bit"]],
+          ["L01",["Array",16,"Bit"]],
+          ["L10",["Array",16,"Bit"]],
+          ["L11",["Array",16,"Bit"]],
           ["CLK",["Named","coreir.clkIn"]]
         ]],
         "instances":{
           "inst0":{
             "genref":"commonlib.linebuffer",
-            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",4,["Array",4,["Array",8,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",8,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",2,["Array",2,["Array",8,"Bit"]]]]}
+            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",4,["Array",4,["Array",16,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",16,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",2,["Array",2,["Array",16,"Bit"]]]]}
           },
           "inst1":{
             "genref":"aetherlinglib.reduceParallel",
-            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___"]}
+            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
           },
           "inst2":{
-            "modref":"global.coreir_const80"
+            "modref":"global.coreir_const160"
           }
         },
         "connections":[
@@ -52,9 +52,9 @@
           ["self.CLKOut","self.CLK"]
         ]
       },
-      "coreir_const80":{
+      "coreir_const160":{
         "type":["Record",[
-          ["out",["Array",8,"Bit"]]
+          ["out",["Array",16,"Bit"]]
         ]],
         "instances":{
           "bit_const_GND":{
@@ -64,24 +64,32 @@
         },
         "connections":[
           ["self.out.0","bit_const_GND.out"],
+          ["self.out.10","bit_const_GND.out"],
+          ["self.out.11","bit_const_GND.out"],
+          ["self.out.12","bit_const_GND.out"],
+          ["self.out.13","bit_const_GND.out"],
+          ["self.out.14","bit_const_GND.out"],
+          ["self.out.15","bit_const_GND.out"],
           ["self.out.1","bit_const_GND.out"],
           ["self.out.2","bit_const_GND.out"],
           ["self.out.3","bit_const_GND.out"],
           ["self.out.4","bit_const_GND.out"],
           ["self.out.5","bit_const_GND.out"],
           ["self.out.6","bit_const_GND.out"],
-          ["self.out.7","bit_const_GND.out"]
+          ["self.out.7","bit_const_GND.out"],
+          ["self.out.8","bit_const_GND.out"],
+          ["self.out.9","bit_const_GND.out"]
         ]
       },
-      "renamedForReduce_opAdd8_I0_In_Bits_8___I1_In_Bits_8___O_Out_Bits_8___":{
+      "renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___":{
         "type":["Record",[
-          ["in0",["Array",8,"BitIn"]],
-          ["in1",["Array",8,"BitIn"]],
-          ["out",["Array",8,"Bit"]]
+          ["in0",["Array",16,"BitIn"]],
+          ["in1",["Array",16,"BitIn"]],
+          ["out",["Array",16,"Bit"]]
         ]],
         "instances":{
           "inst0":{
-            "modref":"global.Add8"
+            "modref":"global.Add16"
           }
         },
         "connections":[

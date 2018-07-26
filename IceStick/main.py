@@ -10,7 +10,7 @@ from loam.boards.icestick import IceStick
 icestick = IceStick()
 icestick.Clock.on()
 #icestick.D1.on()
-for i in range(7):
+for i in range(6):
     icestick.J3[i].output().on()
 
 icestick.J1[0].input().on()
@@ -36,13 +36,14 @@ wire(sclk,        process.SCK)
 wire(cam.DATA,    process.DATA)
 wire(cam.VALID,   process.VALID)
 
+
+
 # Wire up GPIOs for debugging
 
 wire(sclk,          main.J3[0])
 wire(cam.EN,        main.J3[1])
 wire(cam.MOSI,      main.J3[2])
 wire(cam.UART,      main.J3[3])
-wire(process.UART1,  main.J3[4])
-wire(process.UART2,  main.J3[5])
-wire(cam.DONE,      main.J3[6])
+wire(process.UART,  main.J3[4])
+wire(cam.DONE,      main.J3[5])
 
