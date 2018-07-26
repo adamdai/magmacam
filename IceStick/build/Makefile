@@ -1,6 +1,6 @@
-#NAME = main
+NAME = main
 #NAME = test
-NAME = stencil
+#NAME = stencil
 #NAME = downscale_test
 
 PCF = $(NAME).pcf
