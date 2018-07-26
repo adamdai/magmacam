@@ -10,11 +10,9 @@ def DefineUART(n):
               'O', Out(Bit)]
         @classmethod
         def definition(io):
-            # create array with LSB first and 0 at end as start bit
-            data_list = [0]
-            for i in range(n):
-                data_list.insert(0, io.DATA[i])
-            u_data = array(data_list)
+            # create array with LSB first and 0 at end as start bit, we do this
+            # by zero extending the value, then reversing it
+            u_data = zext(io.DATA, 1)[::-1]
 
             # shift register to output one bit at a time
             uart = PISO(n+1, has_ce=True)
