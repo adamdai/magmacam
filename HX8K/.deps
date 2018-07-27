@@ -1,0 +1,52 @@
+{
+    ".deps_version": 2,
+    "magma -b hx8kboard -d build blink_test": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/blink_test.cpython-36.pyc": "output-210c4fd14c5a5060a702bacf95ebe961",
+        "blink_test.py": "input-60cc64b610421881ca34bf90f4f8bd14",
+        "build/blink_test.pcf": "output-c4f43b7097157b7f71ad1561b2b8a3af",
+        "build/blink_test.v": "output-026cb3d0108878ca4e5cc3d2e8eebee9"
+    },
+    "magma -b hx8kboard -d build downscale_test": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/downscale_test.cpython-36.pyc": "output-ad9296a414b0bea5d2b1430d731a3588",
+        "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
+        "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
+        "build/downscale_test.pcf": "output-9796d63f071cb81e95f51faabae4a48c",
+        "build/downscale_test.v": "output-f497671988a1c177670a0f578166a6d4",
+        "downscale_test.py": "input-ec7467eca1c98d9f3c6b5ae38906cd85",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
+    },
+    "magma -b hx8kboard -d build main": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/arducam.cpython-36.pyc": "input-dda54f8ea2fc1247837025756700b8ef",
+        "__pycache__/main.cpython-36.pyc": "output-18d0a4339cd2c0f6d2a33aaf03721dd1",
+        "__pycache__/pipeline.cpython-36.pyc": "input-6513b8a579463a9e41be32dd3adf8b08",
+        "__pycache__/process.cpython-36.pyc": "input-89541c6456a9b17d85fc7c68bf8eb03c",
+        "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
+        "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
+        "arducam.py": "input-f9ff59abb92ea83b3dde806fffcd9ca7",
+        "build/main.pcf": "output-ccc8c2f41b3e20f3dadd672dac966610",
+        "build/main.v": "output-25daefa1341ddb482852bc63176b4cde",
+        "main.py": "input-9123471c3c3b0bb58b3bbb83e018ca77",
+        "nn_train/BNN.pkl": "input-a42ca71edd4072119d87d2b6cbc26377",
+        "pipeline.py": "input-9045a72b49a8444b5cb4999fcf2e45a4",
+        "process.py": "input-5e7ad720d8c035bff843bfd4ada930e4",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
+    },
+    "magma -b hx8kboard -d build test": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
+        "__pycache__/test.cpython-36.pyc": "output-a816ba475dacfac1489aa5d74b841bdd",
+        "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
+        "build/test.pcf": "output-5b55f4966ec018468bdfdacde6432ca2",
+        "build/test.v": "output-4880d29397e3a19151cf93c1af6b9a74",
+        "test.py": "input-62d25e33ece8fae395b2ec99ef53c0aa",
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
+    }
+}

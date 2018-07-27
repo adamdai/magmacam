@@ -1,0 +1,5 @@
+set_io J2_10 M16
+set_io J2_9 M15
+set_io J2_11 L16
+set_io J2_12 K15
+set_io CLKIN J3

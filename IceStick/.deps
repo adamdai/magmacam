@@ -83,28 +83,40 @@
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
         "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
     },
+    "magma -b icestick -d build reduce_test": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__/reduce_test.cpython-36.pyc": "input-dfb393d3139fdc93ed4bd65d47270bf0",
+        "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
+        "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
+        "build/reduce_test.pcf": "output-5bcb27aa43f81bab68f3f165f4c88b20",
+        "build/reduce_test.v": "output-9b68bc765badc34bb16c380f46ad0367",
+        "reduce_test.py": "input-27c3f67b7efa8296910db4730ce248d4",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
+    },
     "magma -b icestick -d build stencil": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
         "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
-        "__pycache__/stencil.cpython-36.pyc": "input-881de00c0c79dc98dfa482632a9077c1",
+        "__pycache__/stencil.cpython-36.pyc": "output-c559c8ab3fd07bcf1d26105c17679b82",
         "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
         "build/stencil.pcf": "output-686653e37ebc8b77a7e432fc1e05798c",
-        "build/stencil.v": "output-19c35b8be5d1859ed68ee88132f07c67",
+        "build/stencil.v": "output-d1a1c0ce301d123fdd365e3b4b9acb57",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
-        "stencil.py": "input-c0b2709464c9f300dec93c6c11773c37",
+        "stencil.py": "input-9f99f68d5300c70d36b30444ed4ee942",
         "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
     },
     "magma -b icestick -d build test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/rom.cpython-36.pyc": "input-19e8a270f145ee5244465465d907ce60",
-        "__pycache__/test.cpython-36.pyc": "output-16bec93d7ab4f3876b2ffeb69e3a20d6",
-        "__pycache__/uart.cpython-36.pyc": "input-4712b604222e8169a0ef33b0735f805e",
+        "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
+        "__pycache__/test.cpython-36.pyc": "output-c34ab6dc9ca31065141228888b5bb950",
+        "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
         "build/test.pcf": "output-5bcb27aa43f81bab68f3f165f4c88b20",
         "build/test.v": "output-4ee1e9aeae32801dcd6d1b2327deca56",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
-        "test.py": "input-a74aea9af5634cf6154eb9d86c806fd8",
-        "uart.py": "input-d0e92d54caf5b220d85875ca1aebfaaf"
+        "test.py": "input-6943d373092a3cb9249d8253899e15b7",
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
     },
     "magma -b icestick -d build uart_test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",

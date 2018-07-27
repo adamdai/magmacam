@@ -61,14 +61,13 @@ st_in = mantle.Register(16, has_ce=True)
 st_in(px_val)
 m.wire(load, st_in.CE)
 
-#---------------------------STENCILING-----------------------------#
+# ---------------------------STENCILING----------------------------- #
 
-Downscale = m.DeclareCircuit('Downscale', 
+Downscale = m.DeclareCircuit(
+            'Downscale',
             "I_0_0", m.In(m.Array(1, m.Array(1, m.Array(16, m.Bit)))),
-            "O", m.Out(m.Array(16, m.Bit)),
-            "WE", m.In(m.Bit),
-            "V", m.Out(m.Bit),
-            "CLK", m.In(m.Clock))
+            "WE", m.In(m.Bit), "CLK", m.In(m.Clock),
+            "O", m.Out(m.Array(16, m.Bit)), "V", m.Out(m.Bit))
 
 dscale = Downscale()
 

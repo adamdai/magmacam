@@ -32,7 +32,7 @@ outType = TOUT
 # test circuit has line buffer's input and reduce's output
 args = ['I', inType, 'O', outType, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
         m.ClockInterface(False, False)
-reducePS = m.DefineCircuit('ReduceHybrid', *args)
+reduceHybrid = m.DefineCircuit('ReduceHybrid', *args)
 
 # reduce Parallel
 reducePar = ReduceParallel(cirb, a, renameCircuitForReduce(DeclareAdd(width)))
@@ -42,19 +42,19 @@ coreirConst = DefineCoreirConst(width, 0)()
 reduceSeq = ReduceSequential(cirb, b, renameCircuitForReduce(DefineAdd(width)))
 
 # top level input fed to reduce parallel input
-m.wire(reducePS.I, reducePar.I.data)
+m.wire(reduceHybrid.I, reducePar.I.data)
 m.wire(reducePar.I.identity, coreirConst.out)
 
 # reduce parallel output fed to reduce sequential input
 m.wire(reducePar.out, reduceSeq.I)
 
 # output of reduce sequential fed to top level output
-m.wire(reduceSeq.out, reducePS.O)
-m.wire(reduceSeq.valid, reducePS.V)
+m.wire(reduceSeq.out, reduceHybrid.O)
+m.wire(reduceSeq.valid, reduceHybrid.V)
 
 m.EndCircuit()
 
-module = GetCoreIRModule(cirb, reducePS)
+module = GetCoreIRModule(cirb, reduceHybrid)
 module.save_to_file("reducehybrid.json")
 
 print("done")

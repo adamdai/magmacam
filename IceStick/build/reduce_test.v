@@ -327,23 +327,6 @@ endmodule
 //Module: pullresistor defined externally
 
 
-module corebit_not (
-  input in,
-  output out
-);
-  assign out = ~in;
-
-endmodule //corebit_not
-
-module corebit_and (
-  input in0,
-  input in1,
-  output out
-);
-  assign out = in0 & in1;
-
-endmodule //corebit_and
-
 module coreir_or #(parameter width=1) (
   input [width-1:0] in0,
   input [width-1:0] in1,
@@ -368,14 +351,14 @@ assign out = outReg;
 
 endmodule //coreir_reg
 
-module corebit_or (
+module corebit_and (
   input in0,
   input in1,
   output out
 );
-  assign out = in0 | in1;
+  assign out = in0 & in1;
 
-endmodule //corebit_or
+endmodule //corebit_and
 
 module corebit_concat (
   input in0,
@@ -431,66 +414,22 @@ assign out = outReg;
 
 endmodule //corebit_reg
 
-module corebit_reg_arst #(parameter arst_posedge=1, parameter clk_posedge=1, parameter init=1) (
-  input clk,
-  input in,
-  input arst,
-  output out
-);
-reg outReg;
-wire real_rst;
-assign real_rst = arst_posedge ? arst : ~arst;
-wire real_clk;
-assign real_clk = clk_posedge ? clk : ~clk;
-always @(posedge real_clk, posedge real_rst) begin
-  if (real_rst) outReg <= init;
-  else outReg <= in;
-end
-assign out = outReg;
-
-endmodule //corebit_reg_arst
-
-module corebit_tribuf (
-  input in,
-  input en,
-  inout out
-);
-  assign out = en ? in : 1'bz;
-
-endmodule //corebit_tribuf
-
-module coreir_const #(parameter value=1, parameter width=1) (
-  output [width-1:0] out
-);
-  assign out = value;
-
-endmodule //coreir_const
-
-module corebit_wire (
+module corebit_not (
   input in,
   output out
 );
-  assign out = in;
+  assign out = ~in;
 
-endmodule //corebit_wire
+endmodule //corebit_not
 
-module corebit_xor (
+module corebit_or (
   input in0,
   input in1,
   output out
 );
-  assign out = in0 ^ in1;
+  assign out = in0 | in1;
 
-endmodule //corebit_xor
-
-module coreir_add #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output [width-1:0] out
-);
-  assign out = in0 + in1;
-
-endmodule //coreir_add
+endmodule //corebit_or
 
 module coreir_eq #(parameter width=1) (
   input [width-1:0] in0,
@@ -537,15 +476,6 @@ module muxn_U7 (
 
 endmodule //muxn_U7
 
-module coreir_ult #(parameter width=1) (
-  input [width-1:0] in0,
-  input [width-1:0] in1,
-  output out
-);
-  assign out = in0 < in1;
-
-endmodule //coreir_ult
-
 module coreir_const160 (
   output [15:0] out
 );
@@ -574,6 +504,76 @@ module coreir_const160 (
   assign out[9] = bit_const_GND__out;
 
 endmodule //coreir_const160
+
+module corebit_reg_arst #(parameter arst_posedge=1, parameter clk_posedge=1, parameter init=1) (
+  input clk,
+  input in,
+  input arst,
+  output out
+);
+reg outReg;
+wire real_rst;
+assign real_rst = arst_posedge ? arst : ~arst;
+wire real_clk;
+assign real_clk = clk_posedge ? clk : ~clk;
+always @(posedge real_clk, posedge real_rst) begin
+  if (real_rst) outReg <= init;
+  else outReg <= in;
+end
+assign out = outReg;
+
+endmodule //corebit_reg_arst
+
+module corebit_tribuf (
+  input in,
+  input en,
+  inout out
+);
+  assign out = en ? in : 1'bz;
+
+endmodule //corebit_tribuf
+
+module corebit_wire (
+  input in,
+  output out
+);
+  assign out = in;
+
+endmodule //corebit_wire
+
+module corebit_xor (
+  input in0,
+  input in1,
+  output out
+);
+  assign out = in0 ^ in1;
+
+endmodule //corebit_xor
+
+module coreir_const #(parameter value=1, parameter width=1) (
+  output [width-1:0] out
+);
+  assign out = value;
+
+endmodule //coreir_const
+
+module coreir_add #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output [width-1:0] out
+);
+  assign out = in0 + in1;
+
+endmodule //coreir_add
+
+module coreir_ult #(parameter width=1) (
+  input [width-1:0] in0,
+  input [width-1:0] in1,
+  output out
+);
+  assign out = in0 < in1;
+
+endmodule //coreir_ult
 
 module renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___ (
   input [15:0] in0,
