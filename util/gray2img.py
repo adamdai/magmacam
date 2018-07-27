@@ -18,7 +18,6 @@ with infile as csvfile:
 	    data.append(int(', '.join(row), 0))
 
 
-#img = Image.open('image.tiff')
 arr = np.asarray(data).reshape(240, 320)
 plt.imshow(arr, cmap=cm.gray)
 plt.show()

@@ -1,12 +1,11 @@
 import magma as m
-from magma import I0, I1, I2, I3
 from magma.bitutils import int2seq
 from mantle.util.edge import falling, rising
 import mantle
 from rom import ROM16
 from uart import UART
 
-trigger = 1  # maybe tie to GPIO later
+trigger = m.VCC  # maybe tie to GPIO later
 
 # ArduCAM start capture sequence
 init = [
@@ -34,7 +33,6 @@ init = [
 ]
 
 
-# Read ROM unit
 class ArduCAM(m.Circuit):
     name = "ArduCAM"
     IO = ['CLK', m.In(m.Clock), 'SCK', m.In(m.Bit), 'MISO', m.In(m.Bit),
@@ -64,11 +62,11 @@ class ArduCAM(m.Circuit):
         m.wire(edge_f, run.CE)
 
         # Reset the message length counter after done
-        run_reset = mantle.LUT2(I0 | ~I1)(done, run)
+        run_reset = done | ~run.O
         done_counter(CE=edge_r, RESET=run_reset)
 
         # State variables for high-level state machine
-        ready = mantle.LUT2(~I0 & I1)(run, edge_f)
+        ready = ~run.O & edge_f
         start = mantle.ULE(4)(rom_index.O, m.uint(3, 4))
         burst = mantle.UGE(4)(rom_index.O, m.uint(9, 4))
 
@@ -76,14 +74,14 @@ class ArduCAM(m.Circuit):
         mosi = mantle.PISO(16, has_ce=True)
         # SPI enable is negative of load-don't load and shift out data at the
         # same time
-        enable = mantle.LUT3(I0 & ~I1 & ~I2)(trigger, run, burst)
+        enable = trigger & ~run.O & ~burst
         mosi(~burst, rom.O, enable)
         m.wire(edge_f, mosi.CE)
 
         # Shit register to read in 8-bit data
         miso = mantle.SIPO(8, has_ce=True)
         miso(cam.MISO)
-        valid = mantle.LUT2(~I0 & I1)(enable, edge_r)
+        valid = ~enable & edge_r
         m.wire(valid, miso.CE)
 
         # Capture done state variable
@@ -92,8 +90,7 @@ class ArduCAM(m.Circuit):
         m.wire(enable & edge_r, cap_done.CE)
 
         # Use state variables to determine what commands are sent (how)
-        increment = mantle.LUT4(I0 & (I1 | I2) & ~I3)(
-            ready, start, cap_done, burst)
+        increment = ready & (start | cap_done.O) & ~burst
         m.wire(increment, rom_index.CE)
 
         # wire outputs
@@ -102,7 +99,7 @@ class ArduCAM(m.Circuit):
         m.wire(miso.O, cam.DATA)
         m.wire(burst,  cam.VALID)
 
-        # ---------------------------UART OUTPUT----------------------------- #
+        # --------------------------UART OUTPUT---------------------------- #
 
         # run UART at 2x SPI rate to allow it to keep up
         baud = edge_r | edge_f
@@ -110,16 +107,14 @@ class ArduCAM(m.Circuit):
         # reset when SPI burst read (image transfer) begins
         ff = mantle.FF(has_ce=True)
         m.wire(edge_r, ff.CE)
-        u_reset = mantle.LUT2(I0 & ~I1)(burst, ff(burst))
+        u_reset = burst & ~ff(burst)
 
         # UART data out every 8 bits
         u_counter = mantle.CounterModM(8, 3, has_ce=True, has_reset=True)
         u_counter(CE=edge_r, RESET=u_reset)
         load = burst & rising(u_counter.COUT)
 
-        uart = mantle.UART(8)
-
-        # quick hack to build
+        uart = UART(8)
         uart(CLK=cam.CLK, BAUD=baud, DATA=miso, LOAD=load)
 
         # wire output

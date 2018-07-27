@@ -1,49 +1,45 @@
-from magma import *
-set_mantle_target("ice40")
-from mantle import *
+import magma as m
+import mantle
 from arducam import ArduCAM
 from process import Process
 from pipeline import Pipeline
 from loam.boards.icestick import IceStick
 
-
 icestick = IceStick()
 icestick.Clock.on()
-#icestick.D1.on()
-for i in range(6):
+for i in range(7):
     icestick.J3[i].output().on()
 
 icestick.J1[0].input().on()
 
 main = icestick.main()
 
-# Generate the SCLK signal (12 MHz/16 = 750 kHz)
-clk_counter = Counter(5)
+# Generate the SCLK signal (12 MHz/32 = 375 kHz)
+clk_counter = mantle.Counter(5)
 sclk = clk_counter.O[4]
 
 # Initialize Modules
 
+# ArduCAM
 cam = ArduCAM()
 
-wire(main.CLKIN,  cam.CLK)
-wire(sclk,        cam.SCK)
-wire(main.J1,     cam.MISO)
+m.wire(main.CLKIN,  cam.CLK)
+m.wire(sclk,        cam.SCK)
+m.wire(main.J1,     cam.MISO)
 
+# Pre-processing
 process = Process()
 
-wire(main.CLKIN,  process.CLK)
-wire(sclk,        process.SCK)
-wire(cam.DATA,    process.DATA)
-wire(cam.VALID,   process.VALID)
-
-
+m.wire(main.CLKIN,  process.CLK)
+m.wire(sclk,        process.SCK)
+m.wire(cam.DATA,    process.DATA)
+m.wire(cam.VALID,   process.VALID)
 
 # Wire up GPIOs for debugging
-
-wire(sclk,          main.J3[0])
-wire(cam.EN,        main.J3[1])
-wire(cam.MOSI,      main.J3[2])
-wire(cam.UART,      main.J3[3])
-wire(process.UART,  main.J3[4])
-wire(cam.DONE,      main.J3[5])
-
+m.wire(sclk,          main.J3[0])
+m.wire(cam.EN,        main.J3[1])
+m.wire(cam.MOSI,      main.J3[2])
+m.wire(cam.UART,      main.J3[3])
+m.wire(process.UART,  main.J3[4])
+m.wire(process.BAUD,      main.J3[5])
+m.wire(process.LOAD,      main.J3[6])

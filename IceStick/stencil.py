@@ -1,6 +1,6 @@
-from magma import *
+import magma as m
 from magma.bitutils import int2seq
-from mantle import *
+import mantle
 from rom import ROM8, ROM16
 from loam.boards.icestick import IceStick
 from uart import UART
@@ -14,64 +14,61 @@ for i in range(8):
 main = icestick.main()
 
 # "test" data
-init = [uint(n, 16) for n in range(16)]
-printf = Counter(4, has_ce=True)
+init = [m.uint(n, 16) for n in range(16)]
+printf = mantle.Counter(4, has_ce=True)
 rom = ROM16(4, init, printf.O)
 
 # baud for uart output
-clock = CounterModM(103, 8)
+clock = mantle.CounterModM(103, 8)
 baud = clock.COUT
 
-bit_counter = Counter(5, has_ce=True)
-wire(baud, bit_counter.CE)
+bit_counter = mantle.Counter(5, has_ce=True)
+m.wire(baud, bit_counter.CE)
 
-load = Decode(0, 5)(bit_counter.O)
+load = mantle.Decode(0, 5)(bit_counter.O)
 
-#valid_counter = CounterModM(4800, 13, has_ce=True)
-valid_counter = CounterModM(8, 3, has_ce=True)
-wire(load&baud, valid_counter.CE)
+valid_counter = mantle.CounterModM(8, 3, has_ce=True)
+m.wire(load & baud, valid_counter.CE)
 
-valid_list = [5,7]
+valid_list = [5, 7]
 
-valid = GND
+valid = m.GND
 
 for i in valid_list:
-	valid = valid | Decode(i,3)(valid_counter.O)
+    valid = valid | mantle.Decode(i, 3)(valid_counter.O)
 
-#valid = Decode(5,3)(valid_counter.O) | Decode(7,3)(valid_counter.O)
-
-wire(load&baud, printf.CE)
+m.wire(load & baud, printf.CE)
 
 px_val = rom.O
 
-st_in = Register(16, has_ce=True)
+st_in = mantle.Register(16, has_ce=True)
 st_in(px_val)
-wire(load, st_in.CE)
+m.wire(load, st_in.CE)
 
-#---------------------------STENCILING-----------------------------#
+# ---------------------------STENCILING----------------------------- #
 
-STEN = DeclareCircuit('STEN', 
-			"I_0_0", In(Array(1, Array(1, Array(16, Bit)))),
-			"O", Out(Array(16, Bit)),
-			"WE", In(Bit),
-			"V", Out(Bit),
-			"CLK", In(Clock),
-			"CLKOut", Out(Clock),
-			"L00", Out(Array(16, Bit)),
-			"L01", Out(Array(16, Bit)),
-			"L10", Out(Array(16, Bit)),
-			"L11", Out(Array(16, Bit)),
-			)
+STEN = m.DeclareCircuit(
+            'STEN',
+            "I_0_0", m.In(m.Array(1, m.Array(1, m.Array(16, m.Bit)))),
+            "O", m.Out(m.Array(16, m.Bit)),
+            "WE", m.In(m.Bit),
+            "V", m.Out(m.Bit),
+            "CLK", m.In(m.Clock),
+            "CLKOut", m.Out(m.Clock),
+            "L00", m.Out(m.Array(16, m.Bit)),
+            "L01", m.Out(m.Array(16, m.Bit)),
+            "L10", m.Out(m.Array(16, m.Bit)),
+            "L11", m.Out(m.Array(16, m.Bit)))
 
 stencil = STEN()
 
-wire(st_in.O, stencil.I_0_0[0][0])
-wire(1, stencil.WE)
-wire(load, stencil.CLK)
+m.wire(st_in.O, stencil.I_0_0[0][0])
+m.wire(1, stencil.WE)
+m.wire(load, stencil.CLK)
 
-add16 = CounterModM(1,16) # needed for Add16 definition
+add16 = mantle.CounterModM(1, 16)  # needed for Add16 definition
 
-#---------------------------UART OUTPUT-----------------------------#
+# ---------------------------UART OUTPUT----------------------------- #
 
 uart_px = UART(16)
 uart_px(CLK=main.CLKIN, BAUD=baud, DATA=px_val, LOAD=load)
@@ -94,11 +91,11 @@ uart_L11(CLK=main.CLKIN, BAUD=baud, DATA=stencil.L11, LOAD=load)
 uart_reg = UART(16)
 uart_reg(CLK=main.CLKIN, BAUD=baud, DATA=st_in.O, LOAD=load)
 
-wire(valid, main.J3[0])
-wire(stencil.CLKOut, main.J3[1])
-wire(uart_px.O, main.J3[2]) # change to main.TX to stream to UART
-wire(uart_st.O, main.J3[3]) # change to main.TX to stream to UART
-wire(uart_L00.O, main.J3[4])
-wire(uart_L01.O, main.J3[5])
-wire(uart_L10.O, main.J3[6])
-wire(uart_L11.O, main.J3[7])
+m.wire(valid,          main.J3[0])
+m.wire(stencil.CLKOut, main.J3[1])
+m.wire(uart_px.O,      main.J3[2])
+m.wire(uart_st.O,      main.J3[3])
+m.wire(uart_L00.O,     main.J3[4])
+m.wire(uart_L01.O,     main.J3[5])
+m.wire(uart_L10.O,     main.J3[6])
+m.wire(uart_L11.O,     main.J3[7])

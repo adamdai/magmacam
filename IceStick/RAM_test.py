@@ -1,5 +1,4 @@
 import magma as m
-m.set_mantle_target("ice40")
 import mantle
 from rom import ROM8, ROM16
 from pipeline import Pipeline, MEM, ReadRom
