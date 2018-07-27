@@ -1,6 +1,7 @@
 import magma as m
 from magma.bitutils import int2seq
 from mantle.util.edge import falling, rising
+from mantle import I0, I1, I2, I3
 import mantle
 from rom import ROM16
 from uart import UART
@@ -62,11 +63,11 @@ class ArduCAM(m.Circuit):
         m.wire(edge_f, run.CE)
 
         # Reset the message length counter after done
-        run_reset = done | ~run.O
+        run_reset = mantle.LUT2(I0 | ~I1)(done, run)
         done_counter(CE=edge_r, RESET=run_reset)
 
         # State variables for high-level state machine
-        ready = ~run.O & edge_f
+        ready = mantle.LUT2(~I0 & I1)(run, edge_f)
         start = mantle.ULE(4)(rom_index.O, m.uint(3, 4))
         burst = mantle.UGE(4)(rom_index.O, m.uint(9, 4))
 
@@ -74,14 +75,14 @@ class ArduCAM(m.Circuit):
         mosi = mantle.PISO(16, has_ce=True)
         # SPI enable is negative of load-don't load and shift out data at the
         # same time
-        enable = trigger & ~run.O & ~burst
+        enable = mantle.LUT3(I0 & ~I1 & ~I2)(trigger, run, burst)
         mosi(~burst, rom.O, enable)
         m.wire(edge_f, mosi.CE)
 
         # Shit register to read in 8-bit data
         miso = mantle.SIPO(8, has_ce=True)
         miso(cam.MISO)
-        valid = ~enable & edge_r
+        valid = mantle.LUT2(~I0 & I1)(enable, edge_r)
         m.wire(valid, miso.CE)
 
         # Capture done state variable
@@ -90,7 +91,8 @@ class ArduCAM(m.Circuit):
         m.wire(enable & edge_r, cap_done.CE)
 
         # Use state variables to determine what commands are sent (how)
-        increment = ready & (start | cap_done.O) & ~burst
+        increment = mantle.LUT4(I0 & (I1 | I2) & ~I3)(
+            ready, start, cap_done, burst)
         m.wire(increment, rom_index.CE)
 
         # wire outputs
@@ -107,7 +109,7 @@ class ArduCAM(m.Circuit):
         # reset when SPI burst read (image transfer) begins
         ff = mantle.FF(has_ce=True)
         m.wire(edge_r, ff.CE)
-        u_reset = burst & ~ff(burst)
+        u_reset = mantle.LUT2(I0 & ~I1)(burst, ff(burst))
 
         # UART data out every 8 bits
         u_counter = mantle.CounterModM(8, 3, has_ce=True, has_reset=True)

@@ -1,8 +1,8 @@
-#NAME = main
+NAME = main
 #NAME = test
 #NAME = stencil
 #NAME = downscale_test
-NAME = RAM_test
+#NAME = RAM_test
 
 PCF = $(NAME).pcf
 

@@ -7,7 +7,7 @@ from loam.boards.icestick import IceStick
 
 icestick = IceStick()
 icestick.Clock.on()
-for i in range(7):
+for i in range(6):
     icestick.J3[i].output().on()
 
 icestick.J1[0].input().on()
@@ -41,5 +41,4 @@ m.wire(cam.EN,        main.J3[1])
 m.wire(cam.MOSI,      main.J3[2])
 m.wire(cam.UART,      main.J3[3])
 m.wire(process.UART,  main.J3[4])
-m.wire(process.BAUD,      main.J3[5])
-m.wire(process.LOAD,      main.J3[6])
+m.wire(cam.DONE,      main.J3[5])

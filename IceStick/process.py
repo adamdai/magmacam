@@ -1,6 +1,7 @@
 import magma as m
 from magma.bitutils import int2seq
 from mantle.util.edge import rising, falling
+from mantle import I0, I1, I2 
 import mantle
 from uart import UART
 
@@ -16,8 +17,7 @@ class Process(m.Circuit):
     name = "Process"
     IO = ['CLK', m.In(m.Clock), 'SCK', m.In(m.Bit), 'DATA', m.In(m.Bits(8)),
           'VALID', m.In(m.Bit),
-          'PXV', m.Out(m.Bits(16)), 'UART', m.Out(m.Bit),
-          'BAUD', m.Out(m.Bit), 'LOAD', m.Out(m.Bit)]
+          'PXV', m.Out(m.Bits(16)), 'UART', m.Out(m.Bit)]
 
     @classmethod
     def definition(io):
@@ -62,19 +62,16 @@ class Process(m.Circuit):
         # reset at start of pixel transfer
         ff1 = mantle.FF(has_ce=True)
         m.wire(baud, ff1.CE)
-        u_reset = io.VALID & ~io.VALID
+        u_reset = mantle.LUT2(I0 & ~I1)(io.VALID, ff1(io.VALID))
         m.wire(u_reset, bit_counter.RESET)
 
         # generate load signal
         ff2 = mantle.FF(has_ce=True)
         m.wire(baud, ff2.CE)
-        load = io.VALID & (high & ~ff2(high))
+        load = mantle.LUT3(I0 & I1 & ~I2)(io.VALID, high, ff2(high))
 
         uart = UART(16)
         uart(CLK=io.CLK, BAUD=baud, DATA=px_val, LOAD=load)
 
         m.wire(px_val, io.PXV)
         m.wire(uart,   io.UART)
-
-        m.wire(baud, io.BAUD)
-        m.wire(load,   io.LOAD)

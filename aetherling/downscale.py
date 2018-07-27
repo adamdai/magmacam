@@ -1,6 +1,6 @@
 from aetherling.modules.linebuffer import *
-from aetherling.modules.reduce import ReduceSequential, ReduceParallel, renameCircuitForReduce
-from magma import *
+from aetherling.modules.reduce import *
+import magma as m
 from magma.clock import *
 from magma.backend.coreir_ import CoreIRBackend
 from magma.bitutils import *
@@ -14,9 +14,9 @@ from magma.frontend.coreir_ import GetCoreIRModule
 from mantle.coreir.arith import *
 from mantle.primitives import DeclareAdd
 
-# downscale factor (m x n)
-m = 20
-n = 15
+# downscale factor (a x b)
+a = 20
+b = 15
 
 # image dimensions (height and width)
 im_w = 320
@@ -26,45 +26,46 @@ c = coreir.Context()
 cirb = CoreIRBackend(c)
 scope = Scope()
 
-# 8-bit pixels (grayscale) but extend to 16-bit to avoid carryover in addition
-b = 16
-TIN = Array(b, BitIn)
-TOUT = Array(b, Out(Bit))
+# 8-bit values but extend to 16-bit to avoid carryover in addition
+width = 16
+TIN = m.Array(width, m.BitIn)
+TOUT = m.Array(width, m.Out(Bit))
 
 # Line Buffer interface
-inType = Array(1, Array(1, TIN)) # one pixel in per clock
-outType = Array(n, Array(m, TOUT)) # downscale window
-imgType = Array(im_h, Array(im_w, TIN)) # image dimensions
+inType = m.Array(1, m.Array(1, TIN))  # one pixel in per clock
+outType = m.Array(width, m.Array(a, TOUT))  # downscale window
+imgType = m.Array(im_h, m.Array(im_w, TIN))  # image dimensions
 
 # Reduce interface
-inType2 = In(Array(m*n, TIN))
+inType2 = m.In(m.Array(a*b, TIN))
 outType2 = TOUT
 
 # Top level module: line buffer input, reduce output
-args = ['I', inType, 'O', outType2, 'WE', BitIn, 'V', Out(Bit)] + ClockInterface(False, False)
-top = DefineCircuit('Downscale', *args)
+args = ['I', inType, 'O', outType2, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
+        m.ClockInterface(False, False)
+top = m.DefineCircuit('Downscale', *args)
 
 # Line buffer declaration
 lb = Linebuffer(cirb, inType, outType, imgType, True)
-wire(lb.I, top.I)
-wire(lb.wen, top.WE)
+m.wire(lb.I, top.I)
+m.wire(lb.wen, top.WE)
 
 # Reduce declaration
-red = ReduceParallel(cirb, m*n, renameCircuitForReduce(DeclareAdd(b)))
+red = ReduceParallel(cirb, a*b, renameCircuitForReduce(DeclareAdd(width)))
 # additive identity
-coreirConst = DefineCoreirConst(b, 0)()
+coreirConst = DefineCoreirConst(width, 0)()
 
 # flatten linebuffer output and wire to reduce parallel input
-for i in range(n):
-	for j in range(m):
-		k = m * i + j
-		wire(red.I.data[k], lb.out[i][j])
+for i in range(b):
+    for j in range(a):
+        k = a * i + j
+        m.wire(red.I.data[k], lb.out[i][j])
 
-wire(red.I.identity, coreirConst.out)
-wire(top.O, red.out)
-wire(top.V, lb.valid)
+m.wire(red.I.identity, coreirConst.out)
+m.wire(top.O, red.out)
+m.wire(top.V, lb.valid)
 
-EndCircuit()
+m.EndCircuit()
 
 module = GetCoreIRModule(cirb, top)
 module.save_to_file("downscale.json")

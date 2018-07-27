@@ -1,4 +1,4 @@
-{"top":"global.STEN",
+{"top":"global.ReduceHybrid",
 "namespaces":{
   "global":{
     "modules":{
@@ -9,45 +9,33 @@
           ["O",["Array",16,"Bit"]]
         ]]
       },
-      "STEN":{
+      "ReduceHybrid":{
         "type":["Record",[
-          ["I",["Array",1,["Array",1,["Array",16,"BitIn"]]]],
+          ["I",["Array",2,["Array",16,"BitIn"]]],
           ["O",["Array",16,"Bit"]],
           ["WE","BitIn"],
           ["V","Bit"],
-          ["L00",["Array",16,"Bit"]],
-          ["L01",["Array",16,"Bit"]],
-          ["L10",["Array",16,"Bit"]],
-          ["L11",["Array",16,"Bit"]],
           ["CLK",["Named","coreir.clkIn"]]
         ]],
         "instances":{
           "inst0":{
-            "genref":"commonlib.linebuffer",
-            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",4,["Array",4,["Array",16,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",16,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",2,["Array",2,["Array",16,"Bit"]]]]}
+            "genref":"aetherlinglib.reduceParallel",
+            "genargs":{"numInputs":["Int",2], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
           },
           "inst1":{
-            "genref":"aetherlinglib.reduceParallel",
-            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
+            "modref":"global.coreir_const160"
           },
           "inst2":{
-            "modref":"global.coreir_const160"
+            "genref":"aetherlinglib.reduceSequential",
+            "genargs":{"numInputs":["Int",2], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
           }
         },
         "connections":[
-          ["self.I","inst0.in"],
-          ["inst1.in.data.0","inst0.out.0.0"],
-          ["self.L00","inst0.out.0.0"],
-          ["inst1.in.data.1","inst0.out.0.1"],
-          ["self.L01","inst0.out.0.1"],
-          ["inst1.in.data.2","inst0.out.1.0"],
-          ["self.L10","inst0.out.1.0"],
-          ["inst1.in.data.3","inst0.out.1.1"],
-          ["self.L11","inst0.out.1.1"],
-          ["self.V","inst0.valid"],
-          ["self.WE","inst0.wen"],
-          ["inst2.out","inst1.in.identity"],
-          ["self.O","inst1.out"]
+          ["self.I","inst0.in.data"],
+          ["inst1.out","inst0.in.identity"],
+          ["inst2.in","inst0.out"],
+          ["self.O","inst2.out"],
+          ["self.V","inst2.valid"]
         ]
       },
       "coreir_const160":{

@@ -20,7 +20,7 @@
         "instances":{
           "inst0":{
             "genref":"commonlib.linebuffer",
-            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",240,["Array",320,["Array",16,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",16,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",15,["Array",20,["Array",16,"Bit"]]]]}
+            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",240,["Array",320,["Array",16,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",16,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",16,["Array",20,["Array",16,"Bit"]]]]}
           },
           "inst1":{
             "genref":"aetherlinglib.reduceParallel",
