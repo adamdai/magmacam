@@ -164,17 +164,17 @@ SB_LUT4 #(.LUT_INIT(16'h8282)) inst7 (.I0(inst6_O), .I1(I0[7]), .I2(I1[7]), .I3(
 assign O = inst7_O;
 endmodule
 
-module Decode1028 (input [7:0] I, output  O);
+module Decode158 (input [7:0] I, output  O);
 wire  inst0_O;
-EQ8 inst0 (.I0(I), .I1({1'b0,1'b1,1'b1,1'b0,1'b0,1'b1,1'b1,1'b0}), .O(inst0_O));
+EQ8 inst0 (.I0(I), .I1({1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1}), .O(inst0_O));
 assign O = inst0_O;
 endmodule
 
-module Counter8Mod103COUT (output [7:0] O, output  COUT, input  CLK);
+module Counter8Mod16COUT (output [7:0] O, output  COUT, input  CLK);
 wire [7:0] inst0_O;
 wire  inst1_O;
 Counter8R inst0 (.O(inst0_O), .CLK(CLK), .RESET(inst1_O));
-Decode1028 inst1 (.I(inst0_O), .O(inst1_O));
+Decode158 inst1 (.I(inst0_O), .O(inst1_O));
 assign O = inst0_O;
 assign COUT = inst1_O;
 endmodule
@@ -240,6 +240,12 @@ endmodule
 module Decode05 (input [4:0] I, output  O);
 wire  inst0_O;
 EQ5 inst0 (.I0(I), .I1({1'b0,1'b0,1'b0,1'b0,1'b0}), .O(inst0_O));
+assign O = inst0_O;
+endmodule
+
+module And2 (input [1:0] I, output  O);
+wire  inst0_O;
+SB_LUT4 #(.LUT_INIT(16'h8888)) inst0 (.I0(I[0]), .I1(I[1]), .I2(1'b0), .I3(1'b0), .O(inst0_O));
 assign O = inst0_O;
 endmodule
 
@@ -354,24 +360,18 @@ SB_LUT4 #(.LUT_INIT(16'h8282)) inst12 (.I0(inst11_O), .I1(I0[12]), .I2(I1[12]), 
 assign O = inst12_O;
 endmodule
 
-module Decode479813 (input [12:0] I, output  O);
+module Decode479913 (input [12:0] I, output  O);
 wire  inst0_O;
-EQ13 inst0 (.I0(I), .I1({1'b1,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b0}), .O(inst0_O));
+EQ13 inst0 (.I0(I), .I1({1'b1,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}), .O(inst0_O));
 assign O = inst0_O;
 endmodule
 
-module And2 (input [1:0] I, output  O);
-wire  inst0_O;
-SB_LUT4 #(.LUT_INIT(16'h8888)) inst0 (.I0(I[0]), .I1(I[1]), .I2(1'b0), .I3(1'b0), .O(inst0_O));
-assign O = inst0_O;
-endmodule
-
-module Counter13Mod4799COUTCE (output [12:0] O, output  COUT, input  CLK, input  CE);
+module Counter13Mod4800COUTCE (output [12:0] O, output  COUT, input  CLK, input  CE);
 wire [12:0] inst0_O;
 wire  inst1_O;
 wire  inst2_O;
 Counter13CER inst0 (.O(inst0_O), .CLK(CLK), .CE(CE), .RESET(inst2_O));
-Decode479813 inst1 (.I(inst0_O), .O(inst1_O));
+Decode479913 inst1 (.I(inst0_O), .O(inst1_O));
 And2 inst2 (.I({CE,inst1_O}), .O(inst2_O));
 assign O = inst0_O;
 assign COUT = inst2_O;
@@ -470,12 +470,6 @@ endmodule
 module Decode477913 (input [12:0] I, output  O);
 wire  inst0_O;
 EQ13 inst0 (.I0(I), .I1({1'b1,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b1}), .O(inst0_O));
-assign O = inst0_O;
-endmodule
-
-module Decode479913 (input [12:0] I, output  O);
-wire  inst0_O;
-EQ13 inst0 (.I0(I), .I1({1'b1,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}), .O(inst0_O));
 assign O = inst0_O;
 endmodule
 
@@ -651,6 +645,117 @@ PISO17CE inst0 (.SI(1'b1), .PI({1'b0,DATA[0],DATA[1],DATA[2],DATA[3],DATA[4],DAT
 assign O = inst0_O;
 endmodule
 
+module Rescale (input  CLK, input  LOAD, input [15:0] DATA, input  BAUD, output [3:0] ROW, output  DONE, output  UART, output  TEST);
+wire [12:0] inst0_O;
+wire  inst0_COUT;
+wire  inst1_O;
+wire  inst2_O;
+wire  inst3_O;
+wire  inst4_O;
+wire  inst5_O;
+wire  inst6_O;
+wire  inst7_O;
+wire  inst8_O;
+wire  inst9_O;
+wire  inst10_O;
+wire  inst11_O;
+wire  inst12_O;
+wire  inst13_O;
+wire  inst14_O;
+wire  inst15_O;
+wire  inst16_O;
+wire  inst17_O;
+wire  inst18_O;
+wire  inst19_O;
+wire  inst20_O;
+wire  inst21_O;
+wire  inst22_O;
+wire  inst23_O;
+wire  inst24_O;
+wire  inst25_O;
+wire  inst26_O;
+wire  inst27_O;
+wire  inst28_O;
+wire  inst29_O;
+wire  inst30_O;
+wire  inst31_O;
+wire  inst32_O;
+wire  inst33_O;
+wire [15:0] inst34_O;
+wire [15:0] inst35_O;
+wire  inst35_V;
+wire [15:0] inst36_O;
+wire [3:0] inst37_O;
+wire  inst37_COUT;
+wire  inst38_Q;
+wire  inst39_O;
+wire [3:0] inst40_O;
+wire  inst40_COUT;
+wire  inst41_Q;
+wire  inst42_O;
+wire  inst43_Q;
+wire  inst44_O;
+wire  inst45_Q;
+wire  inst46_O;
+wire  inst47_O;
+wire  inst48_O;
+wire  inst49_O;
+Counter13Mod4800COUTCE inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLK), .CE(inst1_O));
+And2 inst1 (.I({BAUD,LOAD}), .O(inst1_O));
+Decode449913 inst2 (.I(inst0_O), .O(inst2_O));
+Or2 inst3 (.I({inst2_O,1'b0}), .O(inst3_O));
+Decode451913 inst4 (.I(inst0_O), .O(inst4_O));
+Or2 inst5 (.I({inst4_O,inst3_O}), .O(inst5_O));
+Decode453913 inst6 (.I(inst0_O), .O(inst6_O));
+Or2 inst7 (.I({inst6_O,inst5_O}), .O(inst7_O));
+Decode455913 inst8 (.I(inst0_O), .O(inst8_O));
+Or2 inst9 (.I({inst8_O,inst7_O}), .O(inst9_O));
+Decode457913 inst10 (.I(inst0_O), .O(inst10_O));
+Or2 inst11 (.I({inst10_O,inst9_O}), .O(inst11_O));
+Decode459913 inst12 (.I(inst0_O), .O(inst12_O));
+Or2 inst13 (.I({inst12_O,inst11_O}), .O(inst13_O));
+Decode461913 inst14 (.I(inst0_O), .O(inst14_O));
+Or2 inst15 (.I({inst14_O,inst13_O}), .O(inst15_O));
+Decode463913 inst16 (.I(inst0_O), .O(inst16_O));
+Or2 inst17 (.I({inst16_O,inst15_O}), .O(inst17_O));
+Decode465913 inst18 (.I(inst0_O), .O(inst18_O));
+Or2 inst19 (.I({inst18_O,inst17_O}), .O(inst19_O));
+Decode467913 inst20 (.I(inst0_O), .O(inst20_O));
+Or2 inst21 (.I({inst20_O,inst19_O}), .O(inst21_O));
+Decode469913 inst22 (.I(inst0_O), .O(inst22_O));
+Or2 inst23 (.I({inst22_O,inst21_O}), .O(inst23_O));
+Decode471913 inst24 (.I(inst0_O), .O(inst24_O));
+Or2 inst25 (.I({inst24_O,inst23_O}), .O(inst25_O));
+Decode473913 inst26 (.I(inst0_O), .O(inst26_O));
+Or2 inst27 (.I({inst26_O,inst25_O}), .O(inst27_O));
+Decode475913 inst28 (.I(inst0_O), .O(inst28_O));
+Or2 inst29 (.I({inst28_O,inst27_O}), .O(inst29_O));
+Decode477913 inst30 (.I(inst0_O), .O(inst30_O));
+Or2 inst31 (.I({inst30_O,inst29_O}), .O(inst31_O));
+Decode479913 inst32 (.I(inst0_O), .O(inst32_O));
+Or2 inst33 (.I({inst32_O,inst31_O}), .O(inst33_O));
+Register16CE inst34 (.I(DATA), .O(inst34_O), .CLK(CLK), .CE(LOAD));
+Downscale inst35 (.I_0_0({{inst34_O}}), .WE(1'b1), .CLK(LOAD), .O(inst35_O), .V(inst35_V));
+Add16 inst36 (.O(inst36_O));
+Counter4CE inst37 (.O(inst37_O), .COUT(inst37_COUT), .CLK(CLK), .CE(inst39_O));
+SB_DFF inst38 (.C(CLK), .D(inst33_O), .Q(inst38_Q));
+SB_LUT4 #(.LUT_INIT(16'h2222)) inst39 (.I0(inst33_O), .I1(inst38_Q), .I2(1'b0), .I3(1'b0), .O(inst39_O));
+Counter4CE inst40 (.O(inst40_O), .COUT(inst40_COUT), .CLK(CLK), .CE(inst48_O));
+SB_DFFE inst41 (.C(CLK), .E(inst44_O), .D(inst42_O), .Q(inst41_Q));
+SB_LUT4 #(.LUT_INIT(16'h0E0E)) inst42 (.I0(inst41_Q), .I1(inst40_COUT), .I2(1'b0), .I3(1'b0), .O(inst42_O));
+SB_DFF inst43 (.C(CLK), .D(inst37_COUT), .Q(inst43_Q));
+SB_LUT4 #(.LUT_INIT(16'h4444)) inst44 (.I0(inst37_COUT), .I1(inst43_Q), .I2(1'b0), .I3(1'b0), .O(inst44_O));
+SB_DFF inst45 (.C(CLK), .D(inst37_COUT), .Q(inst45_Q));
+SB_LUT4 #(.LUT_INIT(16'h2222)) inst46 (.I0(inst37_COUT), .I1(inst45_Q), .I2(1'b0), .I3(1'b0), .O(inst46_O));
+SB_LUT4 #(.LUT_INIT(16'h5555)) inst47 (.I0(inst41_Q), .I1(1'b0), .I2(1'b0), .I3(1'b0), .O(inst47_O));
+And2 inst48 (.I({inst47_O,inst46_O}), .O(inst48_O));
+UART16 inst49 (.CLK(CLK), .BAUD(BAUD), .DATA(inst35_O), .LOAD(LOAD), .O(inst49_O));
+assign ROW = inst40_O;
+assign DONE = inst41_Q;
+assign UART = inst49_O;
+assign TEST = inst33_O;
+endmodule
+
 module main (output  J2_10, output  J2_9, output  J2_11, output  J2_12, input  CLKIN);
 wire [3:0] inst0_O;
 wire  inst0_COUT;
@@ -674,49 +779,12 @@ wire  inst16_COUT;
 wire [4:0] inst17_O;
 wire  inst17_COUT;
 wire  inst18_O;
-wire [12:0] inst19_O;
-wire  inst19_COUT;
-wire  inst20_O;
-wire  inst21_O;
-wire  inst22_O;
-wire  inst23_O;
-wire  inst24_O;
-wire  inst25_O;
-wire  inst26_O;
-wire  inst27_O;
-wire  inst28_O;
-wire  inst29_O;
-wire  inst30_O;
-wire  inst31_O;
-wire  inst32_O;
-wire  inst33_O;
-wire  inst34_O;
-wire  inst35_O;
-wire  inst36_O;
-wire  inst37_O;
-wire  inst38_O;
-wire  inst39_O;
-wire  inst40_O;
-wire  inst41_O;
-wire  inst42_O;
-wire  inst43_O;
-wire  inst44_O;
-wire  inst45_O;
-wire  inst46_O;
-wire  inst47_O;
-wire  inst48_O;
-wire  inst49_O;
-wire  inst50_O;
-wire  inst51_O;
-wire  inst52_O;
-wire  inst53_O;
-wire [15:0] inst54_O;
-wire [15:0] inst55_O;
-wire  inst55_V;
-wire [15:0] inst56_O;
-wire  inst57_O;
-wire  inst58_O;
-Counter4CE inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLKIN), .CE(inst53_O));
+wire  inst19_O;
+wire [3:0] inst20_ROW;
+wire  inst20_DONE;
+wire  inst20_UART;
+wire  inst20_TEST;
+Counter4CE inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLKIN), .CE(inst19_O));
 Mux2x16 inst1 (.I0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1}), .S(inst0_O[0]), .O(inst1_O));
 Mux2x16 inst2 (.I0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0}), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1}), .S(inst0_O[0]), .O(inst2_O));
 Mux2x16 inst3 (.I0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0}), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1}), .S(inst0_O[0]), .O(inst3_O));
@@ -732,53 +800,15 @@ Mux2x16 inst12 (.I0(inst7_O), .I1(inst8_O), .S(inst0_O[1]), .O(inst12_O));
 Mux2x16 inst13 (.I0(inst9_O), .I1(inst10_O), .S(inst0_O[2]), .O(inst13_O));
 Mux2x16 inst14 (.I0(inst11_O), .I1(inst12_O), .S(inst0_O[2]), .O(inst14_O));
 Mux2x16 inst15 (.I0(inst13_O), .I1(inst14_O), .S(inst0_O[3]), .O(inst15_O));
-Counter8Mod103COUT inst16 (.O(inst16_O), .COUT(inst16_COUT), .CLK(CLKIN));
+Counter8Mod16COUT inst16 (.O(inst16_O), .COUT(inst16_COUT), .CLK(CLKIN));
 Counter5CE inst17 (.O(inst17_O), .COUT(inst17_COUT), .CLK(CLKIN), .CE(inst16_COUT));
 Decode05 inst18 (.I(inst17_O), .O(inst18_O));
-Counter13Mod4799COUTCE inst19 (.O(inst19_O), .COUT(inst19_COUT), .CLK(CLKIN), .CE(inst20_O));
-And2 inst20 (.I({inst16_COUT,inst18_O}), .O(inst20_O));
-Decode449913 inst21 (.I(inst19_O), .O(inst21_O));
-Or2 inst22 (.I({inst21_O,1'b0}), .O(inst22_O));
-Decode451913 inst23 (.I(inst19_O), .O(inst23_O));
-Or2 inst24 (.I({inst23_O,inst22_O}), .O(inst24_O));
-Decode453913 inst25 (.I(inst19_O), .O(inst25_O));
-Or2 inst26 (.I({inst25_O,inst24_O}), .O(inst26_O));
-Decode455913 inst27 (.I(inst19_O), .O(inst27_O));
-Or2 inst28 (.I({inst27_O,inst26_O}), .O(inst28_O));
-Decode457913 inst29 (.I(inst19_O), .O(inst29_O));
-Or2 inst30 (.I({inst29_O,inst28_O}), .O(inst30_O));
-Decode459913 inst31 (.I(inst19_O), .O(inst31_O));
-Or2 inst32 (.I({inst31_O,inst30_O}), .O(inst32_O));
-Decode461913 inst33 (.I(inst19_O), .O(inst33_O));
-Or2 inst34 (.I({inst33_O,inst32_O}), .O(inst34_O));
-Decode463913 inst35 (.I(inst19_O), .O(inst35_O));
-Or2 inst36 (.I({inst35_O,inst34_O}), .O(inst36_O));
-Decode465913 inst37 (.I(inst19_O), .O(inst37_O));
-Or2 inst38 (.I({inst37_O,inst36_O}), .O(inst38_O));
-Decode467913 inst39 (.I(inst19_O), .O(inst39_O));
-Or2 inst40 (.I({inst39_O,inst38_O}), .O(inst40_O));
-Decode469913 inst41 (.I(inst19_O), .O(inst41_O));
-Or2 inst42 (.I({inst41_O,inst40_O}), .O(inst42_O));
-Decode471913 inst43 (.I(inst19_O), .O(inst43_O));
-Or2 inst44 (.I({inst43_O,inst42_O}), .O(inst44_O));
-Decode473913 inst45 (.I(inst19_O), .O(inst45_O));
-Or2 inst46 (.I({inst45_O,inst44_O}), .O(inst46_O));
-Decode475913 inst47 (.I(inst19_O), .O(inst47_O));
-Or2 inst48 (.I({inst47_O,inst46_O}), .O(inst48_O));
-Decode477913 inst49 (.I(inst19_O), .O(inst49_O));
-Or2 inst50 (.I({inst49_O,inst48_O}), .O(inst50_O));
-Decode479913 inst51 (.I(inst19_O), .O(inst51_O));
-Or2 inst52 (.I({inst51_O,inst50_O}), .O(inst52_O));
-And2 inst53 (.I({inst16_COUT,inst18_O}), .O(inst53_O));
-Register16CE inst54 (.I(inst15_O), .O(inst54_O), .CLK(CLKIN), .CE(inst18_O));
-Downscale inst55 (.I_0_0({{inst54_O}}), .WE(1'b1), .CLK(inst18_O), .O(inst55_O), .V(inst55_V));
-Add16 inst56 (.O(inst56_O));
-UART16 inst57 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst15_O), .LOAD(inst18_O), .O(inst57_O));
-UART16 inst58 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst55_O), .LOAD(inst18_O), .O(inst58_O));
+And2 inst19 (.I({inst16_COUT,inst18_O}), .O(inst19_O));
+Rescale inst20 (.CLK(CLKIN), .LOAD(inst18_O), .DATA(inst15_O), .BAUD(inst16_COUT), .ROW(inst20_ROW), .DONE(inst20_DONE), .UART(inst20_UART), .TEST(inst20_TEST));
 assign J2_10 = inst18_O;
-assign J2_9 = inst52_O;
-assign J2_11 = inst57_O;
-assign J2_12 = inst58_O;
+assign J2_9 = inst20_UART;
+assign J2_11 = inst20_TEST;
+assign J2_12 = inst20_DONE;
 endmodule
 
 //Module: Add16 defined externally

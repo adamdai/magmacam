@@ -21,12 +21,16 @@ icestick.D5.on()
 
 main = icestick.main()
 
+#nine
 # img_list = [0, 0, 0, 0, 0, 15840, 32752, 16176, 816, 1008, 480, 0, 0, 0, 0,
 #             0]  # 9, last col->first col
-img_list = [0, 0, 0, 0, 960, 2016, 1632, 1632, 2016, 960, 224, 224, 224, 224,
-            64, 0]  # 9, first row->last row
+# img_list = [0, 0, 0, 0, 960, 2016, 1632, 1632, 2016, 960, 224, 224, 224, 224,
+#             64, 2016]  # 9, first row->last row
+
+#zero 
 # img_list = [0, 0, 0, 896, 984, 3680, 7216, 6204, 14456, 14448, 8160, 3840,
 #             0, 0, 0, 0] # 0
+img_list = [0, 0, 128, 400, 976, 2016, 1840, 1048, 3096, 3128, 3168, 4064, 1984, 768, 0, 0] 
 # img_list = range(2, 18)
 
 
@@ -38,7 +42,8 @@ sclk = counter.O[-1]
 rom_idx = mantle.Counter(4, has_ce=True)
 
 full = mantle.SRFF(has_ce=True)
-check = mantle. EQ(4)(rom_idx.O, m.bits(15, 4))
+#check = mantle.EQ(5)(rom_idx.O, m.bits(16, 5))
+check = rom_idx.COUT
 full(check, 0)
 m.wire(falling(sclk), full.CE)
 rom_ce = rising(sclk) & ~full.O

@@ -7,7 +7,7 @@ BOARD = 'icestick'
 BUILD = 'build'
 GOLD = 'gold' 
 
-tests = ['reduce_test.py']
+tests = ['RAM_test.py']
 
 def build():
     for test in tests:

@@ -38,7 +38,7 @@ sclk = counter.O[-1]
 rom_idx = mantle.Counter(4, has_ce=True)
 
 full = mantle.SRFF(has_ce=True)
-check = mantle. EQ(4)(rom_idx.O, m.bits(15, 4))
+check = mantle.EQ(4)(rom_idx.O, m.bits(15, 4))
 full(check, 0)
 m.wire(falling(sclk), full.CE)
 rom_ce = rising(sclk) & ~full.O
@@ -51,6 +51,7 @@ pipeline = Pipeline()
 m.wire(sclk, pipeline.CLK)
 m.wire(rom.O, pipeline.DATA)
 m.wire(rom_idx.O, pipeline.WADDR)
+m.wire(~full.O, pipeline.WE)
 m.wire(full.O, pipeline.RUN)
 m.wire(pipeline.O[:4], m.bits([main.D1, main.D2, main.D3, main.D4]))
 # light 5 indicates the end of prediction

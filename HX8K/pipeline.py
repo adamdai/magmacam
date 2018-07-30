@@ -273,7 +273,7 @@ class Classifier(Circuit):
 
 class Pipeline(Circuit):
     name = "Pipeline"
-    IO = ['CLK', In(Clock), 'DATA', In(Bits(N)), 'WADDR', In(Bits(n)), 'RUN', In(Bit),
+    IO = ['CLK', In(Clock), 'DATA', In(Bits(N)), 'WADDR', In(Bits(n)), 'WE', In(Bit), 'RUN', In(Bit),
           'O', Out(Bits(b)), 'D', Out(Bit)]
     @classmethod
     def definition(io):
@@ -281,7 +281,7 @@ class Pipeline(Circuit):
         mem = MEM()
         wire(io.DATA, mem.DATA)
         wire(io.WADDR, mem.WADDR)
-        wire(~io.RUN, mem.WE)
+        wire(io.WE, mem.WE)
         wire(io.CLK, mem.CLK)
 
         # wait until RAM fills up to run rest of pipeline
