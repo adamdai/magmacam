@@ -398,6 +398,35 @@ EQ13 inst0 (.I0(I), .I1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b1,1'b0,1'b1,
 assign O = inst0_O;
 endmodule
 
+module Add4Cout (input [3:0] I0, input [3:0] I1, output [3:0] O, output  COUT);
+wire  inst0_O;
+wire  inst0_COUT;
+wire  inst1_O;
+wire  inst1_COUT;
+wire  inst2_O;
+wire  inst2_COUT;
+wire  inst3_O;
+wire  inst3_COUT;
+FullAdder inst0 (.I0(I0[0]), .I1(I1[0]), .CIN(1'b0), .O(inst0_O), .COUT(inst0_COUT));
+FullAdder inst1 (.I0(I0[1]), .I1(I1[1]), .CIN(inst0_COUT), .O(inst1_O), .COUT(inst1_COUT));
+FullAdder inst2 (.I0(I0[2]), .I1(I1[2]), .CIN(inst1_COUT), .O(inst2_O), .COUT(inst2_COUT));
+FullAdder inst3 (.I0(I0[3]), .I1(I1[3]), .CIN(inst2_COUT), .O(inst3_O), .COUT(inst3_COUT));
+assign O = {inst3_O,inst2_O,inst1_O,inst0_O};
+assign COUT = inst3_COUT;
+endmodule
+
+module Register4CER (input [3:0] I, output [3:0] O, input  CLK, input  CE, input  RESET);
+wire  inst0_Q;
+wire  inst1_Q;
+wire  inst2_Q;
+wire  inst3_Q;
+SB_DFFESR inst0 (.C(CLK), .R(RESET), .E(CE), .D(I[0]), .Q(inst0_Q));
+SB_DFFESR inst1 (.C(CLK), .R(RESET), .E(CE), .D(I[1]), .Q(inst1_Q));
+SB_DFFESR inst2 (.C(CLK), .R(RESET), .E(CE), .D(I[2]), .Q(inst2_Q));
+SB_DFFESR inst3 (.C(CLK), .R(RESET), .E(CE), .D(I[3]), .Q(inst3_Q));
+assign O = {inst3_Q,inst2_Q,inst1_Q,inst0_Q};
+endmodule
+
 module Add4 (input [3:0] I0, input [3:0] I1, output [3:0] O);
 wire  inst0_O;
 wire  inst0_COUT;
@@ -414,38 +443,33 @@ FullAdder inst3 (.I0(I0[3]), .I1(I1[3]), .CIN(inst2_COUT), .O(inst3_O), .COUT(in
 assign O = {inst3_O,inst2_O,inst1_O,inst0_O};
 endmodule
 
-module Register4CER (input [3:0] I, output [3:0] O, input  CLK, input  CE, input  RESET);
-wire  inst0_Q;
-wire  inst1_Q;
-wire  inst2_Q;
-wire  inst3_Q;
-SB_DFFESR inst0 (.C(CLK), .R(RESET), .E(CE), .D(I[0]), .Q(inst0_Q));
-SB_DFFESR inst1 (.C(CLK), .R(RESET), .E(CE), .D(I[1]), .Q(inst1_Q));
-SB_DFFESR inst2 (.C(CLK), .R(RESET), .E(CE), .D(I[2]), .Q(inst2_Q));
-SB_DFFESR inst3 (.C(CLK), .R(RESET), .E(CE), .D(I[3]), .Q(inst3_Q));
-assign O = {inst3_Q,inst2_Q,inst1_Q,inst0_Q};
-endmodule
-
-module Counter4CER (output [3:0] O, input  CLK, input  CE, input  RESET);
+module Counter4CER (output [3:0] O, output  COUT, input  CLK, input  CE, input  RESET);
 wire [3:0] inst0_O;
+wire  inst0_COUT;
 wire [3:0] inst1_O;
-Add4 inst0 (.I0(inst1_O), .I1({1'b0,1'b0,1'b0,1'b1}), .O(inst0_O));
+wire [3:0] inst2_O;
+wire [3:0] inst3_O;
+Add4Cout inst0 (.I0(inst1_O), .I1({1'b0,1'b0,1'b0,1'b1}), .O(inst0_O), .COUT(inst0_COUT));
 Register4CER inst1 (.I(inst0_O), .O(inst1_O), .CLK(CLK), .CE(CE), .RESET(RESET));
+Add4 inst2 (.I0(inst1_O), .I1({1'b0,1'b0,1'b0,1'b1}), .O(inst2_O));
+Register4CER inst3 (.I(inst2_O), .O(inst3_O), .CLK(CLK), .CE(CE), .RESET(RESET));
 assign O = inst1_O;
+assign COUT = inst0_COUT;
 endmodule
 
 module Counter4Mod16COUTCE (output [3:0] O, output  COUT, input  CLK, input  CE);
 wire [3:0] inst0_O;
+wire  inst0_COUT;
 wire  inst1_O;
 wire  inst2_O;
-Counter4CER inst0 (.O(inst0_O), .CLK(CLK), .CE(CE), .RESET(inst2_O));
+Counter4CER inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLK), .CE(CE), .RESET(inst2_O));
 SB_LUT4 #(.LUT_INIT(16'h8000)) inst1 (.I0(inst0_O[0]), .I1(inst0_O[1]), .I2(inst0_O[2]), .I3(inst0_O[3]), .O(inst1_O));
 And2 inst2 (.I({CE,inst1_O}), .O(inst2_O));
 assign O = inst0_O;
 assign COUT = inst2_O;
 endmodule
 
-module main (output  J2_3, output  J2_5, output  J2_4, output  J2_8, output  J2_9, input  CLKIN);
+module main (output  J2_10, output  J2_9, output  J2_11, output  J2_12, input  CLKIN);
 wire [7:0] inst0_O;
 wire  inst0_COUT;
 wire [4:0] inst1_O;
@@ -530,10 +554,9 @@ Or2 inst36 (.I({inst35_O,inst34_O}), .O(inst36_O));
 Counter4Mod16COUTCE inst37 (.O(inst37_O), .COUT(inst37_COUT), .CLK(CLKIN), .CE(inst39_O));
 SB_DFF inst38 (.C(CLKIN), .D(inst36_O), .Q(inst38_Q));
 SB_LUT4 #(.LUT_INIT(16'h2222)) inst39 (.I0(inst36_O), .I1(inst38_Q), .I2(1'b0), .I3(1'b0), .O(inst39_O));
-assign J2_3 = inst0_COUT;
-assign J2_5 = inst36_O;
-assign J2_4 = inst2_O;
-assign J2_8 = inst39_O;
-assign J2_9 = inst37_COUT;
+assign J2_10 = inst2_O;
+assign J2_9 = inst0_COUT;
+assign J2_11 = inst36_O;
+assign J2_12 = inst39_O;
 endmodule
 

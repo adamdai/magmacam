@@ -1,6 +1,9 @@
 import magma as m
 import mantle
 from mantle.util.edge import falling, rising, falling_ce, rising_ce
+#from arducam import ArduCAM
+from process import Process
+from rescale import Rescale
 from loam.boards.hx8kboard import HX8KBoard
 from uart import UART
 
@@ -11,7 +14,7 @@ hx8kboard.J2[9].output().on()
 hx8kboard.J2[10].output().on()
 hx8kboard.J2[11].output().on()
 hx8kboard.J2[12].output().on()
-hx8kboard.J2[13].output().on()
+#hx8kboard.J2[13].output().on()
 
 main = hx8kboard.main()
 
@@ -43,4 +46,4 @@ m.wire(baud, main.J2_9)
 m.wire(load, main.J2_10)
 m.wire(valid, main.J2_11) 
 m.wire(col_ce, main.J2_12)
-m.wire(col.COUT, main.J2_13) 
+#m.wire(col.COUT, main.J2_13) 
