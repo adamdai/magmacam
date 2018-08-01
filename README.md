@@ -7,18 +7,26 @@ Here is a breakdown of the various directories.
 This directory contains Magma programs written for the Lattice ICE40 IceStick
 architecture.
 
-### main.py
-The main program which defines a top level module (`main`).  It uses the
-ArduCAM circuit (defined in `arducam.py`), which exposes the SPI interface of
-an ArduCAM Mini 2MP peripheral for initiating a capture and receiving image
-data, and the Process circuit (defined in `process.py`), which processes RGB
-pixel data converting it to grayscale values.
+### arducam.py
+A magma module which exposes the SPI interface of an ArduCAM Mini 2MP 
+peripheral for initiating a capture and receiving image data
+
+### process.py
+A magma module which processes RGB
+pixel data converting it to grayscale values
 
 ### pipeline.py
 BNN digit classifier adapted from https://github.com/MIT-HAN-LAB/BNN_IceStick.
 Instead of the loading the image into ROM at initialization time, the circuit
 has a RAM for storing image bits so that the input of the BNN may be wired to
 another circuit (e.g. the output of the ArduCAM).
+
+### main.py
+The main program which defines a top level module (`main`).  It uses the
+ArduCAM circuit (defined in `arducam.py`), which exposes the SPI interface of
+an ArduCAM Mini 2MP peripheral for initiating a capture and receiving image
+data, and the Process circuit (defined in `process.py`), which processes RGB
+pixel data converting it to grayscale values.
 
 
 **TODO:** It would be good to document how to run these tests (using the logic
