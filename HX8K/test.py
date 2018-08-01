@@ -7,11 +7,11 @@ from uart import UART
 hx8kboard = HX8KBoard()
 hx8kboard.Clock.on()
 
-hx8kboard.J2[3].output().on()
-hx8kboard.J2[4].output().on()
-hx8kboard.J2[5].output().on()
-hx8kboard.J2[8].output().on()
 hx8kboard.J2[9].output().on()
+hx8kboard.J2[10].output().on()
+hx8kboard.J2[11].output().on()
+hx8kboard.J2[12].output().on()
+hx8kboard.J2[13].output().on()
 
 main = hx8kboard.main()
 
@@ -39,8 +39,8 @@ col = mantle.CounterModM(16, 4, has_ce=True)
 col_ce = rising(valid) #& ~row_full.O
 m.wire(col_ce, col.CE)
 
-m.wire(baud, main.J2_3)
-m.wire(load, main.J2_4)
-m.wire(valid, main.J2_5) 
-m.wire(col_ce, main.J2_8)
-m.wire(col.COUT, main.J2_9) 
+m.wire(baud, main.J2_9)
+m.wire(load, main.J2_10)
+m.wire(valid, main.J2_11) 
+m.wire(col_ce, main.J2_12)
+m.wire(col.COUT, main.J2_13) 

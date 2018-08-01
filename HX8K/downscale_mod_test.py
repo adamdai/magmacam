@@ -19,6 +19,7 @@ hx8kboard.J2[10].output().on()
 hx8kboard.J2[11].output().on()
 hx8kboard.J2[12].output().on()
 
+
 main = hx8kboard.main()
 
 # "test" data
@@ -48,7 +49,7 @@ m.wire(load, rescale.LOAD)
 # outputs
 m.wire(rescale.UART, main.J2_3)
 m.wire(load, main.J2_4)
-m.wire(rescale.DONE, main.J2_5)
+m.wire(rescale.VALID, main.J2_5)
 m.wire(rescale.T0, main.J2_8)
 
 m.wire(rescale.T1, main.J2_9)

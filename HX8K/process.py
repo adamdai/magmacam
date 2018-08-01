@@ -17,7 +17,7 @@ class Process(m.Circuit):
     name = "Process"
     IO = ['CLK', m.In(m.Clock), 'SCK', m.In(m.Bit), 'DATA', m.In(m.Bits(8)),
           'VALID', m.In(m.Bit),
-          'PXV', m.Out(m.Bits(16)), 'UART', m.Out(m.Bit)]
+          'PXV', m.Out(m.Bits(16)), 'UART', m.Out(m.Bit), 'LOAD', m.Out(m.Bit)]
 
     @classmethod
     def definition(io):
@@ -75,3 +75,4 @@ class Process(m.Circuit):
 
         m.wire(px_val, io.PXV)
         m.wire(uart,   io.UART)
+        m.wire(load,   io.LOAD)

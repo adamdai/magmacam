@@ -3,6 +3,7 @@ import mantle
 from arducam import ArduCAM
 from process import Process
 from pipeline import Pipeline
+#from rescale import Rescale
 from loam.boards.hx8kboard import HX8KBoard
 
 hx8kboard = HX8KBoard()
@@ -39,6 +40,14 @@ m.wire(main.CLKIN,  process.CLK)
 m.wire(sclk,        process.SCK)
 m.wire(cam.DATA,    process.DATA)
 m.wire(cam.VALID,   process.VALID)
+
+# rescale = Rescale()
+
+# inputs
+# m.wire(main.CLKIN, rescale.CLK)
+# m.wire(process.PXV, rescale.DATA)
+# m.wire(sclk, rescale.SCK)
+# m.wire(process.LOAD, rescale.LOAD)
 
 # Wire up GPIOs for debugging
 m.wire(sclk,          main.J2_3)

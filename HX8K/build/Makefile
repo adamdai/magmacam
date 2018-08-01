@@ -1,7 +1,7 @@
-#NAME = main
+NAME = main
 #NAME = test
 #NAME = stencil
-NAME = downscale_mod_test
+#NAME = downscale_mod_test
 #NAME = RAM_test
 #NAME = reduce_test
 #NAME = blink_test

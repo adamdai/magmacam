@@ -97,6 +97,9 @@ class Rescale(m.Circuit):
         uart_row = UART(16)
         uart_row(CLK=io.CLK, BAUD=row_baud, DATA=row.O, LOAD=row_load)
 
+        uart_in = UART(16)
+        uart_in(CLK=io.CLK, BAUD=baud, DATA=io.DATA, LOAD=load)
+
         m.wire(rowaddr.O, io.WADDR)
         m.wire(img_full, io.DONE) #img_full
         m.wire(uart_st, io.UART) #uart_st
@@ -106,6 +109,6 @@ class Rescale(m.Circuit):
         m.wire(uart_row, io.T0) 
         m.wire(valid, io.T1)
         m.wire(px_bit, io.T2) #uart_st
-        m.wire(col.COUT, io.T3) 
-        m.wire(baud, io.T4) 
+        m.wire(uart_in, io.T3) 
+        m.wire(load, io.T4) 
 

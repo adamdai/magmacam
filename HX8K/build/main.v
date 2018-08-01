@@ -961,7 +961,7 @@ PISO17CE inst0 (.SI(1'b1), .PI({1'b0,DATA[0],DATA[1],DATA[2],DATA[3],DATA[4],DAT
 assign O = inst0_O;
 endmodule
 
-module Process (input  CLK, input  SCK, input [7:0] DATA, input  VALID, output [15:0] PXV, output  UART);
+module Process (input  CLK, input  SCK, input [7:0] DATA, input  VALID, output [15:0] PXV, output  UART, output  LOAD);
 wire  inst0_Q;
 wire  inst1_O;
 wire  inst2_Q;
@@ -1013,6 +1013,7 @@ SB_LUT4 #(.LUT_INIT(16'h0808)) inst22 (.I0(VALID), .I1(inst6_O), .I2(inst21_Q), 
 UART16 inst23 (.CLK(CLK), .BAUD(inst18_O), .DATA(inst17_O), .LOAD(inst22_O), .O(inst23_O));
 assign PXV = inst17_O;
 assign UART = inst23_O;
+assign LOAD = inst22_O;
 endmodule
 
 module main (output  J2_3, output  J2_5, output  J2_4, input  J2_8, output  J2_10, output  J2_9, input  CLKIN);
@@ -1026,9 +1027,10 @@ wire  inst1_UART;
 wire  inst1_DONE;
 wire [15:0] inst2_PXV;
 wire  inst2_UART;
+wire  inst2_LOAD;
 Counter5 inst0 (.O(inst0_O), .COUT(inst0_COUT), .CLK(CLKIN));
 ArduCAM inst1 (.CLK(CLKIN), .SCK(inst0_O[4]), .MISO(J2_8), .EN(inst1_EN), .MOSI(inst1_MOSI), .DATA(inst1_DATA), .VALID(inst1_VALID), .UART(inst1_UART), .DONE(inst1_DONE));
-Process inst2 (.CLK(CLKIN), .SCK(inst0_O[4]), .DATA(inst1_DATA), .VALID(inst1_VALID), .PXV(inst2_PXV), .UART(inst2_UART));
+Process inst2 (.CLK(CLKIN), .SCK(inst0_O[4]), .DATA(inst1_DATA), .VALID(inst1_VALID), .PXV(inst2_PXV), .UART(inst2_UART), .LOAD(inst2_LOAD));
 assign J2_3 = inst0_O[4];
 assign J2_5 = inst1_MOSI;
 assign J2_4 = inst1_EN;
