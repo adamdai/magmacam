@@ -11,14 +11,14 @@
     "magma -b hx8kboard -d build downscale_mod_test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/downscale_mod_test.cpython-36.pyc": "input-2ecf7fdab37c35bfcea82261856e8f2f",
-        "__pycache__/rescale.cpython-36.pyc": "output-b2407a287fa5ed1cebc2e88c03372fcf",
+        "__pycache__/downscale_mod_test.cpython-36.pyc": "input-5dca9f24f7a0da007b36e19c0b3792b0",
+        "__pycache__/rescale.cpython-36.pyc": "output-02377419212536c2be7751a8a63ec0b5",
         "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
         "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
-        "build/downscale_mod_test.pcf": "output-9796d63f071cb81e95f51faabae4a48c",
-        "build/downscale_mod_test.v": "output-495f2c9ae5f766dee2b93afa105032c5",
-        "downscale_mod_test.py": "input-25230c2c43ffa200bcaa2a0ed4e1c695",
-        "rescale.py": "input-40d4dc1a276263bd61d9da996c3b521c",
+        "build/downscale_mod_test.pcf": "output-02039fcc2faafc02ca36550083ef893b",
+        "build/downscale_mod_test.v": "output-bca61def1fedfd8f76d7ac7d389f4c8a",
+        "downscale_mod_test.py": "input-9e53ede1a151b675981a22dad835395c",
+        "rescale.py": "input-011138a6b7f13c81efd43134146a0052",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
         "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
     },
@@ -52,14 +52,25 @@
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
         "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
     },
+    "magma -b hx8kboard -d build stencil": {
+        ".": "input-5058f1af8388633f609cadb75a75dc9d",
+        "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
+        "__pycache__/stencil.cpython-36.pyc": "input-8d6a97ae13559ec83120e1539a8ddd14",
+        "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
+        "build/stencil.pcf": "output-9796d63f071cb81e95f51faabae4a48c",
+        "build/stencil.v": "output-99a6953f7e98274615bce39b59325356",
+        "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
+        "stencil.py": "input-8b7b139db41ac93e683c4dec8c4d8103",
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
+    },
     "magma -b hx8kboard -d build test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/test.cpython-36.pyc": "output-a816ba475dacfac1489aa5d74b841bdd",
+        "__pycache__/test.cpython-36.pyc": "output-308495d3fe40b2ca59538bb407f687f6",
         "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
-        "build/test.pcf": "output-5b55f4966ec018468bdfdacde6432ca2",
-        "build/test.v": "output-4880d29397e3a19151cf93c1af6b9a74",
-        "test.py": "input-62d25e33ece8fae395b2ec99ef53c0aa",
+        "build/test.pcf": "output-7db9ced3964c44db8f0ede827917017e",
+        "build/test.v": "output-7a56a9c0b245ad4ecefa40a7459f6659",
+        "test.py": "input-0955e5e0f9fc8a6c8ed706c503573052",
         "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
     }
 }

@@ -7,7 +7,7 @@ BOARD = 'hx8kboard'
 BUILD = 'build'
 GOLD = 'gold' 
 
-tests = ['downscale_test.py', 'downscale_mod_test.py']
+tests = ['test.py', 'downscale_mod_test.py']
 
 def build():
     for test in tests:

@@ -1,6 +1,6 @@
 import magma as m
 import mantle
-from mantle.util.edge import falling, rising
+from mantle.util.edge import falling, rising, falling_ce, rising_ce
 from uart import UART
 
 
@@ -23,13 +23,14 @@ buf_size = wi * b  # 4800
 class Rescale(m.Circuit):
     name = "Rescale"
     IO = ['CLK', m.In(m.Clock), 'LOAD', m.In(m.Bit), 'DATA', m.In(m.Bits(16)),
-          'BAUD', m.In(m.Bit),
-          'ROW', m.Out(m.Bits(5)), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit), 'TEST', m.Out(m.Bit)]
+          'SCK', m.In(m.Bit),
+          'WADDR', m.Out(m.Bits(5)), 'O', m.Out(m.Bits(16)), 'VALID', m.Out(m.Bit), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit), 
+          'T0', m.Out(m.Bit), 'T1', m.Out(m.Bit), 'T2', m.Out(m.Bit), 'T3', m.Out(m.Bit), 'T4', m.Out(m.Bit)]
 
     @classmethod
     def definition(io):
         load = io.LOAD
-        baud = io.BAUD
+        baud = io.SCK
 
         valid_counter = mantle.CounterModM(buf_size, 13, has_ce=True)
         m.wire(load & baud, valid_counter.CE)
@@ -65,7 +66,7 @@ class Rescale(m.Circuit):
         # --------------------------FILL IMG RAM--------------------------- #
         # each valid output of dscale represents an entry of 16x16 binary image
         # accumulate each group of 16 entries into a 16-bit value representing a row
-        col = mantle.Counter(4, has_ce=True)
+        col = mantle.CounterModM(16, 4, has_ce=True)
 
         # row_full= mantle.SRFF(has_ce=True)
         # row_full(mantle.EQ(4)(col.O, m.bits(15, 4)), 0)
@@ -73,21 +74,38 @@ class Rescale(m.Circuit):
         col_ce = rising(valid) #& ~row_full.O
         m.wire(col_ce, col.CE)
 
+        px_bit = mantle.UGE(16)(dscale.O, m.uint(100, 16)) & valid #1000
+        row = mantle.SIPO(16, has_ce=True)
+        row(px_bit)
+        m.wire(col_ce, row.CE)
 
-        row = mantle.Counter(5, has_ce=True)
+        rowaddr = mantle.Counter(5, has_ce=True)
 
         img_full = mantle.SRFF(has_ce=True)
-        img_full(mantle.EQ(5)(row.O, m.bits(16, 5)), 0)
+        img_full(mantle.EQ(5)(rowaddr.O, m.bits(16, 5)), 0)
         m.wire(falling(col.COUT), img_full.CE)
         row_ce = rising(col.COUT) & ~img_full.O
-        m.wire(row_ce, row.CE)
+        m.wire(row_ce, rowaddr.CE)
 
         # ---------------------------UART OUTPUT----------------------------- #
 
         uart_st = UART(16)
         uart_st(CLK=io.CLK, BAUD=baud, DATA=dscale.O, LOAD=load)
 
-        m.wire(row.O, io.ROW)
-        m.wire(img_full.O, io.DONE)
-        m.wire(uart_st.O, io.UART)
-        m.wire(valid, io.TEST)
+        row_load = col.COUT
+        row_baud = mantle.FF()(baud)
+        uart_row = UART(16)
+        uart_row(CLK=io.CLK, BAUD=row_baud, DATA=row.O, LOAD=row_load)
+
+        m.wire(rowaddr.O, io.WADDR)
+        m.wire(img_full, io.DONE) #img_full
+        m.wire(uart_st, io.UART) #uart_st
+        m.wire(row.O, io.O)
+        m.wire(col.COUT, io.VALID)
+
+        m.wire(uart_row, io.T0) 
+        m.wire(valid, io.T1)
+        m.wire(px_bit, io.T2) #uart_st
+        m.wire(col.COUT, io.T3) 
+        m.wire(baud, io.T4) 
+

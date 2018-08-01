@@ -564,7 +564,7 @@ PISO17CE inst0 (.SI(1'b1), .PI({1'b0,DATA[0],DATA[1],DATA[2],DATA[3],DATA[4],DAT
 assign O = inst0_O;
 endmodule
 
-module main (output [7:0] J3, input  CLKIN);
+module main (output  J2_10, output  J2_9, output  J2_11, output  J2_12, input  CLKIN);
 wire [3:0] inst0_O;
 wire  inst0_COUT;
 wire [15:0] inst1_O;
@@ -598,7 +598,6 @@ wire  inst25_O;
 wire [15:0] inst26_O;
 wire [15:0] inst27_O;
 wire  inst27_V;
-wire  inst27_CLKOut;
 wire [15:0] inst27_L00;
 wire [15:0] inst27_L01;
 wire [15:0] inst27_L10;
@@ -639,7 +638,7 @@ SB_LUT4 #(.LUT_INIT(16'h0080)) inst23 (.I0(inst19_O[0]), .I1(inst19_O[1]), .I2(i
 Or2 inst24 (.I({inst23_O,inst22_O}), .O(inst24_O));
 And2 inst25 (.I({inst16_COUT,inst18_O}), .O(inst25_O));
 Register16CE inst26 (.I(inst15_O), .O(inst26_O), .CLK(CLKIN), .CE(inst18_O));
-STEN inst27 (.I_0_0({{inst26_O}}), .O(inst27_O), .WE(1'b1), .V(inst27_V), .CLK(inst18_O), .CLKOut(inst27_CLKOut), .L00(inst27_L00), .L01(inst27_L01), .L10(inst27_L10), .L11(inst27_L11));
+STEN inst27 (.I_0_0({{inst26_O}}), .O(inst27_O), .WE(1'b1), .V(inst27_V), .CLK(inst18_O), .L00(inst27_L00), .L01(inst27_L01), .L10(inst27_L10), .L11(inst27_L11));
 Counter16Mod1COUT inst28 (.O(inst28_O), .COUT(inst28_COUT), .CLK(CLKIN));
 UART16 inst29 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst15_O), .LOAD(inst18_O), .O(inst29_O));
 UART16 inst30 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst27_O), .LOAD(inst18_O), .O(inst30_O));
@@ -648,6 +647,9 @@ UART16 inst32 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst27_L01), .LOAD(inst18_
 UART16 inst33 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst27_L10), .LOAD(inst18_O), .O(inst33_O));
 UART16 inst34 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst27_L11), .LOAD(inst18_O), .O(inst34_O));
 UART16 inst35 (.CLK(CLKIN), .BAUD(inst16_COUT), .DATA(inst26_O), .LOAD(inst18_O), .O(inst35_O));
-assign J3 = {inst34_O,inst33_O,inst32_O,inst31_O,inst30_O,inst29_O,inst18_O,inst24_O};
+assign J2_10 = inst18_O;
+assign J2_9 = inst24_O;
+assign J2_11 = inst29_O;
+assign J2_12 = inst30_O;
 endmodule
 

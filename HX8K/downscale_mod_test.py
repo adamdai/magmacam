@@ -10,6 +10,10 @@ from rescale import Rescale
 hx8kboard = HX8KBoard()
 hx8kboard.Clock.on()
 
+hx8kboard.J2[3].output().on()
+hx8kboard.J2[4].output().on()
+hx8kboard.J2[5].output().on()
+hx8kboard.J2[8].output().on()
 hx8kboard.J2[9].output().on()
 hx8kboard.J2[10].output().on()
 hx8kboard.J2[11].output().on()
@@ -35,12 +39,19 @@ m.wire(load & baud, printf.CE)
 
 rescale = Rescale()
 
+# inputs
 m.wire(main.CLKIN, rescale.CLK)
 m.wire(rom.O, rescale.DATA)
-m.wire(baud, rescale.BAUD)
+m.wire(baud, rescale.SCK)
 m.wire(load, rescale.LOAD)
 
-m.wire(rescale.UART, main.J2_9)
-m.wire(load, main.J2_10)
-m.wire(rescale.TEST, main.J2_11)
-m.wire(rescale.DONE, main.J2_12)
+# outputs
+m.wire(rescale.UART, main.J2_3)
+m.wire(load, main.J2_4)
+m.wire(rescale.DONE, main.J2_5)
+m.wire(rescale.T0, main.J2_8)
+
+m.wire(rescale.T1, main.J2_9)
+m.wire(rescale.T2, main.J2_10)
+m.wire(rescale.T3, main.J2_11)
+m.wire(rescale.T4, main.J2_12)

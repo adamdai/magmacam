@@ -2,16 +2,19 @@ import magma as m
 from magma.bitutils import int2seq
 import mantle
 from rom import ROM8, ROM16
-from loam.boards.icestick import IceStick
+from loam.boards.hx8kboard import HX8KBoard
 from uart import UART
 
 
-icestick = IceStick()
-icestick.Clock.on()
-for i in range(8):
-    icestick.J3[i].output().on()
+hx8kboard = HX8KBoard()
+hx8kboard.Clock.on()
 
-main = icestick.main()
+hx8kboard.J2[9].output().on()
+hx8kboard.J2[10].output().on()
+hx8kboard.J2[11].output().on()
+hx8kboard.J2[12].output().on()
+
+main = hx8kboard.main()
 
 # "test" data
 init = [m.uint(n, 16) for n in range(16)]
@@ -54,7 +57,6 @@ STEN = m.DeclareCircuit(
             "WE", m.In(m.Bit),
             "V", m.Out(m.Bit),
             "CLK", m.In(m.Clock),
-            "CLKOut", m.Out(m.Clock),
             "L00", m.Out(m.Array(16, m.Bit)),
             "L01", m.Out(m.Array(16, m.Bit)),
             "L10", m.Out(m.Array(16, m.Bit)),
@@ -91,11 +93,11 @@ uart_L11(CLK=main.CLKIN, BAUD=baud, DATA=stencil.L11, LOAD=load)
 uart_reg = UART(16)
 uart_reg(CLK=main.CLKIN, BAUD=baud, DATA=st_in.O, LOAD=load)
 
-m.wire(valid,       main.J3[0])
-m.wire(load,        main.J3[1])
-m.wire(uart_px.O,   main.J3[2])
-m.wire(uart_st.O,   main.J3[3])
-m.wire(uart_L00.O,  main.J3[4])
-m.wire(uart_L01.O,  main.J3[5])
-m.wire(uart_L10.O,  main.J3[6])
-m.wire(uart_L11.O,  main.J3[7])
+m.wire(valid,       main.J2_9)
+m.wire(load,        main.J2_10)
+m.wire(uart_px.O,   main.J2_11)
+m.wire(uart_st.O,   main.J2_12)
+# m.wire(uart_L00.O,  main.J3[4])
+# m.wire(uart_L01.O,  main.J3[5])
+# m.wire(uart_L10.O,  main.J3[6])
+# m.wire(uart_L11.O,  main.J3[7])
