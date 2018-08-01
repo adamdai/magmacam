@@ -2,8 +2,8 @@
 #NAME = test
 #NAME = stencil
 #NAME = downscale_test
-NAME = RAM_test
-#NAME = reduce_test
+#NAME = RAM_test
+NAME = reduce_test
 
 PCF = $(NAME).pcf
 
