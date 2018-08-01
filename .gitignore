@@ -1,3 +1,8 @@
 parser.out
 parsetab.py
 __pycache__
+*.bin
+*.blif
+*.pcf
+*.txt
+*.v
