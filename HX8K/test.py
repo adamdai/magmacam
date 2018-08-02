@@ -1,7 +1,7 @@
 import magma as m
 import mantle
-from mantle.util.edge import falling, rising, falling_ce, rising_ce
-#from arducam import ArduCAM
+#from mantle.util.edge import falling, rising, falling_ce, rising_ce
+from arducam import ArduCAM
 from process import Process
 from rescale import Rescale
 from loam.boards.hx8kboard import HX8KBoard

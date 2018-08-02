@@ -43,12 +43,12 @@ class Process(m.Circuit):
         m.wire(high, high_byte.CE)
 
         # assemble the 16-bit RGB565 value
-        px_bits = (m.uint(mantle.LSL(16, 8)(m.uint(m.concat(high_byte.O, zeros))))
+        px_bits = (m.uint(mantle.LSL(16)(m.uint(m.concat(high_byte.O, zeros))), m.bits(8, 4))
                    + m.uint(m.concat(low_byte.O, zeros)))
 
         # extract the values for each color
-        r_val = m.uint(mantle.LSR(16, 11)(px_bits & RMASK))
-        g_val = m.uint(mantle.LSR(16, 5)(px_bits & GMASK))
+        r_val = m.uint(mantle.LSR(16)(px_bits & RMASK), m.bits(11, 4))
+        g_val = m.uint(mantle.LSR(16)(px_bits & GMASK), m.bits(5, 4))
         b_val = m.uint(px_bits & BMASK)
 
         # sum them to get grayscale (0 to 125)

@@ -1,6 +1,6 @@
 import magma as m
 import mantle
-from mantle.util.edge import falling, rising, falling_ce, rising_ce
+from mantle.util.edge import falling, rising
 from uart import UART
 
 
