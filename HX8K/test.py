@@ -18,6 +18,9 @@ hx8kboard = HX8KBoard()
 
 main = hx8kboard.main()
 
+
+#clk = mantle.Counter(5, has_ce=True)
+
 # # baud for uart output
 # clock = mantle.CounterModM(100, 8)
 # baud = clock.COUT
