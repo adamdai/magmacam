@@ -3,7 +3,7 @@ import mantle
 from arducam import ArduCAM
 from process import Process
 from pipeline import Pipeline
-#from rescale import Rescale
+from rescale import Rescale
 from loam.boards.hx8kboard import HX8KBoard
 
 hx8kboard = HX8KBoard()
