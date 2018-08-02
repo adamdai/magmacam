@@ -32,9 +32,8 @@ class Rescale(m.Circuit):
         load = io.LOAD
         baud = io.SCK
 
-        # valid_counter = mantle.CounterModM(buf_size, 13, has_ce=True)
-        # m.wire(load & baud, valid_counter.CE)
-        valid_counter = mantle.Counter(13)
+        valid_counter = mantle.CounterModM(buf_size, 13, has_ce=True)
+        m.wire(load & baud, valid_counter.CE)
 
         valid_list = [wi * (b - 1) + i * a - 1 for i in range(1, wo + 1)]  # len = 16
 
@@ -67,12 +66,11 @@ class Rescale(m.Circuit):
         # --------------------------FILL IMG RAM--------------------------- #
         # each valid output of dscale represents an entry of 16x16 binary image
         # accumulate each group of 16 entries into a 16-bit value representing a row
-        #col = mantle.CounterModM(16, 4, has_ce=True)
-        col = mantle.Counter(4, has_ce=True)
+        col = mantle.CounterModM(16, 4, has_ce=True)
+        #col = mantle.Counter(4, has_ce=True)
+        print(type(col))
+        #test_counter = mantle.Counter(4, has_ce=True, has_reset=True)
 
-        # row_full= mantle.SRFF(has_ce=True)
-        # row_full(mantle.EQ(4)(col.O, m.bits(15, 4)), 0)
-        # m.wire(falling(dscale.V), row_full.CE)
         col_ce = rising(valid) #& ~row_full.O
         m.wire(col_ce, col.CE)
 

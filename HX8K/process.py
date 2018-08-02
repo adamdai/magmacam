@@ -26,6 +26,7 @@ class Process(m.Circuit):
 
         # pixels come 16 bits (high and low byte) at a time
         bit_counter = mantle.Counter(4, has_ce=True, has_reset=True)
+        print(type(bit_counter))
         m.wire(edge_r, bit_counter.CE)
 
         # find when the high and low byte are valid
