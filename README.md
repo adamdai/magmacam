@@ -1,19 +1,37 @@
-This repo contains applications and demos for embedded FPGA systems developed
-using the [magma HDL](https://github.com/phanrahan/magma).
+This repo contains applications and demos for embedded FPGA systems developed using the [magma HDL](https://github.com/phanrahan/magma).
 
 Here is a breakdown of the various directories.
 
 ## IceStick
-This directory contains Magma programs written for the Lattice ICE40 IceStick
-architecture.
+This directory contains Magma programs written for the Lattice ICE40 IceStick architecture.
 
 ### arducam.py
-A magma module which exposes the SPI interface of an ArduCAM Mini 2MP 
-peripheral for initiating a capture and receiving image data
+A magma module which exposes the SPI interface of an ArduCAM Mini 2MP  peripheral for initiating a capture and receiving image data. 
+
+The module has three phases or states: a capture command phase, a wait phase, and a burst read phase. During the capture command phase, the programs steps through a set of 2-byte commands consisting of a register and value, which are pre-loaded in ROM during initialization, and sends them to the ArduCAM over the MOSI line. When the ArduCAM slave received these commands, it initiates a capture, and the program goes into the wait phase, continually checking the MISO line for the capture completion flag to be set. Once the flag is read as set, the program sends the burst read command to the ArduCAM, then proceeds to contiually read image data from the MISO line.
+
+In order to initialize the ArduCAM for operation, as Raspberry Pi Model A+ is used. The library https://github.com/ArduCAM/RaspberryPi is installed and the `arducam_ov2640_capture.c` is modified to set the capture format to BMP instead of JPEG. Now, everytime the ArduCAM is first powered up, the `ov2640_capture` program must be run to properly initialize the I2C registers. A way to setup the ArduCAM so it may be used standalone with the FPGA is to first power the ArduCAM with the FPGA, connect the remaining SPI and I2C headers to the appropriate GPIO on the Raspberry Pi, and also connect the grounds of the FPGA and Pi. Then, run `ov2640_capture` to initialize the camera settings and now the I2C connections may be disconnected and the SPI connections wired to the FPGA's GPIOs.
+
+Here are the pin mappings for the ArduCAM / Raspberry Pi interface
+```
+ArduCAM           Raspberry Pi 
+CS                pin 11
+MOSI              pin 19
+MISO              pin 21
+SCK               pin 23
+GND               pin 6, 9
+VCC               pin 1
+SDA               pin 3
+SCL               pin 5
+```
+
+Currently the I2C registers of the ArduCAM are configured for a 320x240 BMP capture, and thus the image data send over the MISO line consists of 153600 bytes (2 bytes per pixel, 320x240 = 76800 pixels). The 2 byte, 16-bit pixels are formatted as RGB565, where the red, green, and blue values are allocated 5, 6, and 5 bits respectively. 
 
 ### process.py
-A magma module which processes RGB
-pixel data converting it to grayscale values
+A magma module which processes RGB pixel data converting it to grayscale values. It is designed to accept 2 bytes of pixel data at a time from the arducam module output, then interprets it as an 16-bit RGB565 pixel and extracts the red, green, and blue color values and sums them obtain a grayscale value for that pixel. These grayscale values range from 0 to a maximum of 31 + 63 + 31 = 125. 
+
+### rescale.py
+
 
 ### pipeline.py
 BNN digit classifier adapted from https://github.com/MIT-HAN-LAB/BNN_IceStick.
