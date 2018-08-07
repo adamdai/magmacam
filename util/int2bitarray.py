@@ -1,10 +1,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
+import csv
+import os
 
 #img_list = [0,0,0,0,0,15840,32752,16176,816,1008,480,0,0,0,0,0] #9, last col->first col
 #img_list = [0,0,0,0,960,2016,1632,1632,2016,960,224,224,224,224,64,0] #9, first row->last row
-img_list = [0,0,0,896,984,3680,7216,6204,14456,14448,8160,3840,0,0,0,0] #0
+#img_list = [0,0,0,896,984,3680,7216,6204,14456,14448,8160,3840,0,0,0,0] #0
+img_list = []
+
+infile = open(os.path.expanduser("~/Documents/analyzerdata/fulltest1_bits_xt.csv"), "r+")
+
+with infile as csvfile:
+    spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+    tmp = ''
+    count = 0
+    for row in spamreader:
+        img_list.append(int(', '.join(row), 0))
+
+print(img_list)
 
 bmp = []
 for n in img_list:
@@ -16,8 +30,8 @@ transformed = np.flip(np.rot90(arr), 1)
 
 # display original array
 print(arr)
-# plt.imshow(arr, cmap=cm.gray)
-# plt.show()
+plt.imshow(arr, cmap=cm.gray)
+plt.show()
 
 # convert other form
 new_list = []

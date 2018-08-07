@@ -3,7 +3,7 @@ import mantle
 from arducam import ArduCAM
 from process import Process
 from pipeline import Pipeline
-#from rescale import Rescale
+from rescale import Rescale
 from loam.boards.hx8kboard import HX8KBoard
 
 hx8kboard = HX8KBoard()
@@ -12,9 +12,16 @@ hx8kboard.Clock.on()
 hx8kboard.J2[3].output().on()
 hx8kboard.J2[4].output().on()
 hx8kboard.J2[5].output().on()
+
 hx8kboard.J2[9].output().on()
 hx8kboard.J2[10].output().on()
-#hx8kboard.J2[11].output().on()
+hx8kboard.J2[11].output().on()
+hx8kboard.J2[12].output().on()
+
+hx8kboard.J2[16].output().on()
+hx8kboard.J2[17].output().on()
+hx8kboard.J2[18].output().on()
+hx8kboard.J2[19].output().on()
 
 hx8kboard.J2[8].input().on()
 
@@ -28,31 +35,34 @@ sclk = clk_counter.O[4]
 
 # ArduCAM
 cam = ArduCAM()
-
 m.wire(main.CLKIN,  cam.CLK)
 m.wire(sclk,        cam.SCK)
 m.wire(main.J2_8,     cam.MISO)
 
 # Pre-processing
 process = Process()
-
 m.wire(main.CLKIN,  process.CLK)
 m.wire(sclk,        process.SCK)
 m.wire(cam.DATA,    process.DATA)
 m.wire(cam.VALID,   process.VALID)
 
-# rescale = Rescale()
-
-# inputs
-# m.wire(main.CLKIN, rescale.CLK)
-# m.wire(process.PXV, rescale.DATA)
-# m.wire(sclk, rescale.SCK)
-# m.wire(process.LOAD, rescale.LOAD)
+# Rescaling image
+rescale = Rescale()
+m.wire(main.CLKIN, rescale.CLK)
+m.wire(process.PXV, rescale.DATA)
+m.wire(sclk, rescale.SCK)
+m.wire(process.LOAD, rescale.LOAD)
 
 # Wire up GPIOs for debugging
 m.wire(sclk,          main.J2_3)
 m.wire(cam.EN,        main.J2_4)
 m.wire(cam.MOSI,      main.J2_5)
+
 m.wire(cam.UART,      main.J2_9)
 m.wire(process.UART,  main.J2_10)
-# m.wire(cam.DONE,      main.J2_11)
+m.wire(rescale.UART,      main.J2_11)
+m.wire(rescale.DONE,      main.J2_12)
+m.wire(cam.DONE,      main.J2_16)
+m.wire(rescale.T0,      main.J2_17)
+m.wire(rescale.T1,      main.J2_18)
+m.wire(rescale.T2,      main.J2_19)

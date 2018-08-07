@@ -5,13 +5,14 @@ import numpy as np
 import cv2
 from PIL import Image
 from PyQt5 import QtGui
+import pandas as pd
 
 # Takes a csv containing RGB565 BMP data and creates a PNG image
 
 data = []
 
 # File should be 2x(320x240) = 153600 bytes long
-infile = open(os.path.expanduser("~/Documents/analyzerdata/greyscale_test_img.csv"), "r+")
+infile = open(os.path.expanduser("~/Documents/analyzerdata/fulltest1_cam_xt.csv"), "r+")
 
 with infile as csvfile:
 	spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
@@ -19,6 +20,8 @@ with infile as csvfile:
 	count = 0
 	for row in spamreader:
 	    data.append(int(', '.join(row), 0))
+
+df = pd.read_csv("~/Documents/analyzerdata/greyscale_test_img.csv")
 
 bmp = bytearray(data)
 

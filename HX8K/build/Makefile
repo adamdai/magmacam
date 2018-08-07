@@ -1,5 +1,5 @@
 NAME = main
-#NAME = test
+#NAME = magmatest
 #NAME = stencil
 #NAME = downscale_mod_test
 #NAME = RAM_test

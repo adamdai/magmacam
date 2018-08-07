@@ -26,7 +26,6 @@ class Process(m.Circuit):
 
         # pixels come 16 bits (high and low byte) at a time
         bit_counter = mantle.Counter(4, has_ce=True, has_reset=True)
-        print(type(bit_counter))
         m.wire(edge_r, bit_counter.CE)
 
         # find when the high and low byte are valid
@@ -44,12 +43,12 @@ class Process(m.Circuit):
         m.wire(high, high_byte.CE)
 
         # assemble the 16-bit RGB565 value
-        px_bits = (m.uint(mantle.LSL(16)(m.uint(m.concat(high_byte.O, zeros))), m.bits(8, 4))
+        px_bits = (m.uint(mantle.LSL(16)((m.uint(m.concat(high_byte.O, zeros))), m.bits(8, 4)))
                    + m.uint(m.concat(low_byte.O, zeros)))
 
         # extract the values for each color
-        r_val = m.uint(mantle.LSR(16)(px_bits & RMASK), m.bits(11, 4))
-        g_val = m.uint(mantle.LSR(16)(px_bits & GMASK), m.bits(5, 4))
+        r_val = m.uint(mantle.LSR(16)((px_bits & RMASK), m.bits(11, 4)))
+        g_val = m.uint(mantle.LSR(16)((px_bits & GMASK), m.bits(5, 4)))
         b_val = m.uint(px_bits & BMASK)
 
         # sum them to get grayscale (0 to 125)

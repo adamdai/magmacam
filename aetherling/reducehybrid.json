@@ -27,7 +27,7 @@
           },
           "inst2":{
             "genref":"aetherlinglib.reduceSequential",
-            "genargs":{"numInputs":["Int",2], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
+            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
           }
         },
         "connections":[

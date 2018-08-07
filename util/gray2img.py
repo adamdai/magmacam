@@ -8,7 +8,7 @@ from matplotlib import cm
 data = []
 
 # File should be (320x240) = 76800 bytes long
-infile = open(os.path.expanduser("~/Documents/analyzerdata/numtest_3_xt.csv"), "r+")
+infile = open(os.path.expanduser("~/Documents/analyzerdata/fulltest1_process_xt.csv"), "r+")
 
 with infile as csvfile:
 	spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
