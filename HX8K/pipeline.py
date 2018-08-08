@@ -64,7 +64,6 @@ imgs = checkpoint['imgs_int16']
 imgs_f = imgs.flatten()
 # imgs_list is list of size 160, every 16 entries standing for one image
 imgs_list = imgs_f.tolist()
-#print(imgs)
 
 
 # generate address for weight and image block
@@ -158,9 +157,10 @@ class ReadRom(Circuit):
 
 # Read RAM unit
 class MEM(Circuit):
-    N = 16
+    assert N == 16
     name = "MEM"
-    IO = ['IDX', In(Bits(b)), 'CYCLE', In(Bits(n)), 'CLK', In(Clock), 'DATA', In(Bits(N)), 'WADDR', In(Bits(n)), 'WE', In(Bit),
+    IO = ['IDX', In(Bits(b)), 'CYCLE', In(Bits(n)), 'CLK', In(Clock), 
+          'DATA', In(Bits(N)), 'WADDR', In(Bits(n)), 'WE', In(Bit),
           'WEIGHT', Out(Bits(N)), 'IMAGE', Out(Bits(N))]
     @classmethod
     def definition(io):

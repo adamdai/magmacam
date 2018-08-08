@@ -12,21 +12,17 @@ import pandas as pd
 data = []
 
 # File should be 2x(320x240) = 153600 bytes long
-infile = open(os.path.expanduser("~/Documents/analyzerdata/fulltest1_cam_xt.csv"), "r+")
+# expects raw analyzer data from cam.UART channel
 
-with infile as csvfile:
-	spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-	tmp = ''
-	count = 0
-	for row in spamreader:
-	    data.append(int(', '.join(row), 0))
 
-df = pd.read_csv("~/Documents/analyzerdata/greyscale_test_img.csv")
+df = pd.read_csv(r"~/Documents/analyzerdata/numtest3_cam.csv", usecols=[1])
+for val in df.values[3:153603]:
+    data.append(int(', '.join(val), 0))
 
 bmp = bytearray(data)
 
-print(len(data))
+print(len(bmp))
 
 Image = QtGui.QImage(bmp, 320, 240, QtGui.QImage.Format_RGB16)
 
-Image.save("test.png","PNG",-1)
+Image.save("../images/test.png","PNG",-1)

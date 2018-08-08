@@ -8,6 +8,12 @@ from loam.boards.hx8kboard import HX8KBoard
 
 hx8kboard = HX8KBoard()
 hx8kboard.Clock.on()
+hx8kboard.TX.on()
+hx8kboard.D1.on()
+hx8kboard.D2.on()
+hx8kboard.D3.on()
+hx8kboard.D4.on()
+hx8kboard.D5.on()
 
 hx8kboard.J2[3].output().on()
 hx8kboard.J2[4].output().on()
@@ -20,8 +26,8 @@ hx8kboard.J2[12].output().on()
 
 hx8kboard.J2[16].output().on()
 hx8kboard.J2[17].output().on()
-hx8kboard.J2[18].output().on()
-hx8kboard.J2[19].output().on()
+# hx8kboard.J2[18].output().on()
+# hx8kboard.J2[19].output().on()
 
 hx8kboard.J2[8].input().on()
 
@@ -53,16 +59,28 @@ m.wire(process.PXV, rescale.DATA)
 m.wire(sclk, rescale.SCK)
 m.wire(process.LOAD, rescale.LOAD)
 
-# Wire up GPIOs for debugging
+# Feed image to BNN pipeline
+pipeline = Pipeline()
+m.wire(sclk, pipeline.CLK)
+m.wire(rescale.O, pipeline.DATA)
+m.wire(rescale.WADDR, pipeline.WADDR)
+m.wire(rescale.VALID, pipeline.WE)
+m.wire(rescale.DONE, pipeline.RUN)
+m.wire(pipeline.O[:4], m.bits([main.D1, main.D2, main.D3, main.D4]))
+m.wire(pipeline.D, main.D5)
+
+# Wire up camera SPI bus
 m.wire(sclk,          main.J2_3)
 m.wire(cam.EN,        main.J2_4)
 m.wire(cam.MOSI,      main.J2_5)
 
+# Wire up GPIOs for debugging
 m.wire(cam.UART,      main.J2_9)
 m.wire(process.UART,  main.J2_10)
 m.wire(rescale.UART,      main.J2_11)
 m.wire(rescale.DONE,      main.J2_12)
-m.wire(cam.DONE,      main.J2_16)
-m.wire(rescale.T0,      main.J2_17)
-m.wire(rescale.T1,      main.J2_18)
-m.wire(rescale.T2,      main.J2_19)
+
+m.wire(sclk,      main.J2_16)
+m.wire(rescale.VALID,      main.J2_17)
+
+m.wire(rescale.UART,      main.TX)

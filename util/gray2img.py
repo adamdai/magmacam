@@ -4,18 +4,16 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
+import pandas as pd
 
 data = []
 
 # File should be (320x240) = 76800 bytes long
-infile = open(os.path.expanduser("~/Documents/analyzerdata/fulltest1_process_xt.csv"), "r+")
+# expects raw analyzer data from process.UART channel
 
-with infile as csvfile:
-	spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-	tmp = ''
-	count = 0
-	for row in spamreader:
-	    data.append(int(', '.join(row), 0))
+df = pd.read_csv(r"~/Documents/analyzerdata/numtest3_process.csv", usecols=[1])
+for val in df.values[3:76803]:
+    data.append(int(', '.join(val), 0))
 
 
 arr = np.asarray(data).reshape(240, 320)

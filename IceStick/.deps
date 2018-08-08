@@ -3,8 +3,7 @@
     "magma -b icestick -d build RAM_test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "RAM_test.py": "input-b92b31e8751c321a62331d69c26e64eb",
-        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/RAM_test.cpython-36.pyc": "output-d67df230e759f21a2ce4cad6f6849644",
+        "__pycache__/RAM_test.cpython-36.pyc": "input-d67df230e759f21a2ce4cad6f6849644",
         "__pycache__/pipeline.cpython-36.pyc": "input-6513b8a579463a9e41be32dd3adf8b08",
         "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
         "build/RAM_test.pcf": "output-8e1761d18f26e35606ef5ac4cb362579",
