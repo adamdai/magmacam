@@ -2,8 +2,8 @@ This repo contains applications and demos for embedded FPGA systems developed us
 
 Here is a breakdown of the various directories.
 
-## IceStick
-This directory contains Magma programs written for the Lattice ICE40 IceStick architecture.
+## IceStick/HX8K
+This directory contains Magma programs written for the Lattice ICE40 IceStick architecture (either the IceStick or the HX8KBoard). They consist of modules (high-level circuits) that perform a specific function and link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits, and unit tests for some of these modules to test their functionality standalone.
 
 ### arducam.py
 A magma module which exposes the SPI interface of an ArduCAM Mini 2MP  peripheral for initiating a capture and receiving image data. 
@@ -31,7 +31,7 @@ Currently the I2C registers of the ArduCAM are configured for a 320x240 BMP capt
 A magma module which processes RGB pixel data converting it to grayscale values. It is designed to accept 2 bytes of pixel data at a time from the arducam module output, then interprets it as an 16-bit RGB565 pixel and extracts the red, green, and blue color values and sums them obtain a grayscale value for that pixel. These grayscale values range from 0 to a maximum of 31 + 63 + 31 = 125. 
 
 ### rescale.py
-
+This magma module takes grayscale image data output from the process module, and resizes the image to scale it down, while also converting it to binary. It first makes use of the `downscale` aetherling module (more details below), to map over the 320x240 image with a 20x15 sliding window, summing the pixel values in each window to downscale to a 16x16 image. Then a binary threshold is applied so that pixels below a certain value are binarized to 0 and one above at set to 1. This produced a 16x16 binary version of the original 320x240 RGB image captured by the ArduCAM.
 
 ### pipeline.py
 BNN digit classifier adapted from https://github.com/MIT-HAN-LAB/BNN_IceStick.
@@ -46,7 +46,6 @@ an ArduCAM Mini 2MP peripheral for initiating a capture and receiving image
 data, and the Process circuit (defined in `process.py`), which processes RGB
 pixel data converting it to grayscale values.
 
-
 **TODO:** It would be good to document how to run these tests (using the logic
 analyzer?) Also, maybe these should be moved to a `tests` directory. We could
 also consider writing some tests for these using the Python or CoreIR
@@ -60,7 +59,7 @@ Downscale aetherling module. Currently too large to run on the IceStick.
 
 ### RAM_test.py
 Test program which feeds an image stored in ROM to the RAM in the `pipeline.py`
-circuit and runs the BNN classifier.
+circuit and runs the BNN classifier. Can be used to test the BNN on a custom image. 
 
 ## aetherling
 This folder contains high level magma circuits defined using the [aetherling
