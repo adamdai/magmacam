@@ -1,6 +1,7 @@
 import magma as m
 import mantle
 from rom import ROM8, ROM16
+from uart import UART
 from pipeline import Pipeline, MEM, ReadRom
 from mantle.lattice.ice40 import ROMB, SB_LUT4
 from mantle.util.edge import falling, rising
@@ -24,8 +25,8 @@ hx8kboard.D8.on()
 
 hx8kboard.J2[9].output().on()
 hx8kboard.J2[10].output().on()
-# hx8kboard.J2[11].output().on()
-# hx8kboard.J2[12].output().on()
+hx8kboard.J2[11].output().on()
+hx8kboard.J2[12].output().on()
 
 main = hx8kboard.main()
 
@@ -43,7 +44,12 @@ main = hx8kboard.main()
 9.) [0, 0, 0, 0, 960, 2016, 1632, 1632, 2016, 960, 224, 224, 224, 224, 64, 0]
 '''
 
-img_list = [0, 64, 192, 384, 384, 768, 768, 512, 992, 864, 864, 960, 256, 0, 0, 0]
+# all black
+'''
+[65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]
+'''
+
+img_list = [65534, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535]
 
 # from arducam
 #img_list = [0, 0, 0, 0, 64, 57440, 50720, 50976, 50592, 64576, 28672, 0, 0, 0, 0, 32768] # 3, last col->first col
@@ -52,26 +58,36 @@ img_list = [0, 64, 192, 384, 384, 768, 768, 512, 992, 864, 864, 960, 256, 0, 0, 
 num_data = [m.uint(img_list[i], 16) for i in range(16)]
 
 # decrease the frequency to avoid timing violation
-counter = mantle.Counter(4)
-sclk = counter.O[-1]
-rom_idx = mantle.Counter(4, has_ce=True)
+counter = mantle.Counter(5)
+sclk = counter.O[4]
+baud = mantle.FF()(rising(sclk) | falling(sclk))
 
+rom_idx = mantle.CounterModM(16, 4, has_ce=True)
+
+bit_counter = mantle.Counter(5, has_ce=True)
+m.wire(rising(sclk), bit_counter.CE)
+
+we = mantle.Decode(0, 5)(bit_counter.O)
+load = rising(we)
 
 full = mantle.SRFF(has_ce=True)
 check = mantle.EQ(4)(rom_idx.O, m.bits(15, 4))
 full(check, 0)
 m.wire(falling(sclk), full.CE)
-rom_ce = rising(sclk) & ~full.O
+rom_ce = load & ~full.O
 m.wire(rom_ce, rom_idx.CE)
 
 rom = ROM16(4, num_data, rom_idx.O)
+
+uart = UART(4)
+uart(CLK=main.CLKIN, BAUD=baud, DATA=rom_idx.O, LOAD=load)
 
 pipeline = Pipeline()
 
 m.wire(sclk, pipeline.CLK)
 m.wire(rom.O, pipeline.DATA)
 m.wire(rom_idx.O, pipeline.WADDR)
-m.wire(~full.O, pipeline.WE)
+m.wire(we, pipeline.WE)
 m.wire(full.O, pipeline.RUN)
 m.wire(pipeline.O[:4], m.bits([main.D1, main.D2, main.D3, main.D4]))
 # light 5 indicates the end of prediction
@@ -81,7 +97,7 @@ m.wire(0, main.D6)
 m.wire(0, main.D7)
 m.wire(0, main.D8)
 
-m.wire(sclk,      main.J2_9)
-m.wire(rom_ce,  main.J2_10) # valid
-# m.wire(rescale.UART,      main.J2_11)
-# m.wire(rescale.DONE,      main.J2_12)
+m.wire(sclk,   main.J2_9)
+m.wire(full.O,  main.J2_10) # valid
+m.wire(uart,      main.J2_11)
+m.wire(we,      main.J2_12)

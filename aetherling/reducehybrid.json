@@ -1,4 +1,4 @@
-{"top":"global.ReduceHybrid",
+{"top":"global.Reduce_n8_p2_oprenamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___",
 "namespaces":{
   "global":{
     "modules":{
@@ -9,62 +9,31 @@
           ["O",["Array",16,"Bit"]]
         ]]
       },
-      "ReduceHybrid":{
+      "Reduce_n8_p2_oprenamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___":{
         "type":["Record",[
           ["I",["Array",2,["Array",16,"BitIn"]]],
           ["O",["Array",16,"Bit"]],
           ["WE","BitIn"],
+          ["C",["Array",16,"BitIn"]],
           ["V","Bit"],
           ["CLK",["Named","coreir.clkIn"]]
         ]],
         "instances":{
           "inst0":{
             "genref":"aetherlinglib.reduceParallel",
-            "genargs":{"numInputs":["Int",2], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
+            "genargs":{"numInputs":["Int",2], "operator":["Module","global.renamedForReduce_oprenamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16____in0_In_Bits_16___in1_In_Bits_16___out_Out_Bits_16___"]}
           },
           "inst1":{
-            "modref":"global.coreir_const160"
-          },
-          "inst2":{
             "genref":"aetherlinglib.reduceSequential",
-            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
+            "genargs":{"numInputs":["Int",4], "operator":["Module","global.renamedForReduce_oprenamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16____in0_In_Bits_16___in1_In_Bits_16___out_Out_Bits_16___"]}
           }
         },
         "connections":[
           ["self.I","inst0.in.data"],
-          ["inst1.out","inst0.in.identity"],
-          ["inst2.in","inst0.out"],
-          ["self.O","inst2.out"],
-          ["self.V","inst2.valid"]
-        ]
-      },
-      "coreir_const160":{
-        "type":["Record",[
-          ["out",["Array",16,"Bit"]]
-        ]],
-        "instances":{
-          "bit_const_GND":{
-            "modref":"corebit.const",
-            "modargs":{"value":["Bool",false]}
-          }
-        },
-        "connections":[
-          ["self.out.0","bit_const_GND.out"],
-          ["self.out.10","bit_const_GND.out"],
-          ["self.out.11","bit_const_GND.out"],
-          ["self.out.12","bit_const_GND.out"],
-          ["self.out.13","bit_const_GND.out"],
-          ["self.out.14","bit_const_GND.out"],
-          ["self.out.15","bit_const_GND.out"],
-          ["self.out.1","bit_const_GND.out"],
-          ["self.out.2","bit_const_GND.out"],
-          ["self.out.3","bit_const_GND.out"],
-          ["self.out.4","bit_const_GND.out"],
-          ["self.out.5","bit_const_GND.out"],
-          ["self.out.6","bit_const_GND.out"],
-          ["self.out.7","bit_const_GND.out"],
-          ["self.out.8","bit_const_GND.out"],
-          ["self.out.9","bit_const_GND.out"]
+          ["self.C","inst0.in.identity"],
+          ["inst1.in","inst0.out"],
+          ["self.O","inst1.out"],
+          ["self.V","inst1.valid"]
         ]
       },
       "renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___":{
@@ -82,6 +51,23 @@
           ["self.in0","inst0.I0"],
           ["self.in1","inst0.I1"],
           ["self.out","inst0.O"]
+        ]
+      },
+      "renamedForReduce_oprenamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16____in0_In_Bits_16___in1_In_Bits_16___out_Out_Bits_16___":{
+        "type":["Record",[
+          ["in0",["Array",16,"BitIn"]],
+          ["in1",["Array",16,"BitIn"]],
+          ["out",["Array",16,"Bit"]]
+        ]],
+        "instances":{
+          "inst0":{
+            "modref":"global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"
+          }
+        },
+        "connections":[
+          ["self.in0","inst0.in0"],
+          ["self.in1","inst0.in1"],
+          ["self.out","inst0.out"]
         ]
       }
     }

@@ -2,7 +2,7 @@ import magma as m
 from magma.bitutils import int2seq
 import mantle
 from rom import ROM8, ROM16
-from loam.boards.icestick import IceStick
+from loam.boards.hx8kboard import HX8KBoard
 from uart import UART
 
 
@@ -13,14 +13,16 @@ width = 16
 TIN = m.Array(width, m.BitIn)
 TOUT = m.Array(width, m.Out(m.Bit))
 
+hx8kboard = HX8KBoard()
+hx8kboard.Clock.on()
+hx8kboard.D1.on()
 
-icestick = IceStick()
-icestick.Clock.on()
-icestick.D1.on()
-for i in range(4):
-    icestick.J3[i].output().on()
+hx8kboard.J2[9].output().on()
+hx8kboard.J2[10].output().on()
+hx8kboard.J2[11].output().on()
+hx8kboard.J2[12].output().on()
 
-main = icestick.main()
+main = hx8kboard.main()
 
 # baud for uart output
 clock = mantle.CounterModM(103, 8)
@@ -41,19 +43,19 @@ m.wire(load & baud, printf.CE)
 #---------------------------STENCILING-----------------------------#
 
 ReduceHybrid = m.DeclareCircuit(
-            'ReduceHybrid', 
-            'I_0', m.In(m.Array(a, TIN)), 'I_1', m.In(m.Array(a, TIN)),
-            'O', TOUT, 'WE', m.BitIn, 'V', m.Out(m.Bit), 'CLK', m.In(m.Clock))
+            'Reduce_n8_p2_oprenamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___', 
+            'CLK', m.In(m.Clock), 'I_0', TIN, 'I_1', TIN, 'WE', m.BitIn,
+            'O', TOUT, 'V', m.Out(m.Bit))
 
 redHybrid = ReduceHybrid()
 
-m.wire(rom.O, redHybrid.I_0[0])
-m.wire(rom.O, redHybrid.I_1[0])
+m.wire(m.bits(1,16), redHybrid.I_0)
+m.wire(m.bits(1,16), redHybrid.I_1)
 
 m.wire(1, redHybrid.WE)
 m.wire(load, redHybrid.CLK)
 
-add16 = mantle.Add(16)  # needed for Add16 definition
+#add16 = mantle.Add(16)  # needed for Add16 definition
 
 
 # ---------------------------UART OUTPUT----------------------------- #
@@ -64,9 +66,9 @@ uart_red(CLK=main.CLKIN, BAUD=baud, DATA=redHybrid.O, LOAD=load)
 uart_in = UART(16)
 uart_in(CLK=main.CLKIN, BAUD=baud, DATA=rom.O, LOAD=load)
 
-m.wire(redHybrid.V, main.J3[0])
-m.wire(load, main.J3[1])
-m.wire(uart_red.O, main.J3[2])
-m.wire(uart_in.O, main.J3[3])
+m.wire(redHybrid.V, main.J2_9)
+m.wire(load, main.J2_10)
+m.wire(uart_red.O, main.J2_11)
+m.wire(uart_in.O, main.J2_12)
 
 m.wire(m.VCC, main.D1)

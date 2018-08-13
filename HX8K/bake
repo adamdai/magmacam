@@ -7,7 +7,7 @@ BOARD = 'hx8kboard'
 BUILD = 'build'
 GOLD = 'gold' 
 
-tests = ['main.py', 'RAM_test.py']
+tests = ['main.py', 'RAM_test.py', 'reduce_test.py']
 
 def build():
     for test in tests:

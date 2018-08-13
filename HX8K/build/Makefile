@@ -1,5 +1,6 @@
 NAME = main
 #NAME = RAM_test
+#NAME = reduce_test
 
 PCF = $(NAME).pcf
 

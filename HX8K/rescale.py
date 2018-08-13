@@ -1,6 +1,7 @@
 import magma as m
 import mantle
 from mantle.util.edge import falling, rising
+from mantle import I0, I1
 from uart import UART
 
 
@@ -39,7 +40,8 @@ class Rescale(m.Circuit):
     IO = ['CLK', m.In(m.Clock), 'LOAD', m.In(m.Bit), 'DATA', m.In(m.Bits(16)),
           'SCK', m.In(m.Bit),
           'WADDR', m.Out(m.Bits(4)), 'O', m.Out(m.Bits(16)), 
-          'VALID', m.Out(m.Bit), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit)]
+          'VALID', m.Out(m.Bit), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit),
+          'T0', m.Out(m.Bit), 'T1', m.Out(m.Bit), 'T2', m.Out(m.Bit)]
 
     @classmethod
     def definition(io):
@@ -85,7 +87,7 @@ class Rescale(m.Circuit):
         m.wire(col_ce, col.CE)
 
         # shift each bit in one at a time until we get an entire row
-        px_bit = mantle.ULE(16)(dscale.O, m.uint(THRESH, 16)) & valid #1000
+        px_bit = mantle.ULE(16)(dscale.O, m.uint(THRESH, 16)) & valid
         row_reg = mantle.SIPO(16, has_ce=True)
         row_reg(px_bit)
         m.wire(col_ce, row_reg.CE)
@@ -93,15 +95,25 @@ class Rescale(m.Circuit):
         # reverse the row bits since the image is flipped
         row = reverse(row_reg.O)
 
-        rowaddr = mantle.Counter(5, has_ce=True)
+        #rowaddr = mantle.Counter(5, has_ce=True)
+        rowaddr = mantle.CounterModM(16, 4, has_ce=True)
 
         img_full = mantle.SRFF(has_ce=True)
-        img_full(mantle.EQ(5)(rowaddr.O, m.bits(16, 5)), 0)
+        img_full(mantle.EQ(4)(rowaddr.O, m.bits(15, 4)), 0)
         m.wire(falling(col.COUT), img_full.CE)
         row_ce = rising(col.COUT) & ~img_full.O
         m.wire(row_ce, rowaddr.CE)
 
-        waddr = rowaddr.O[0:4]
+        #waddr = rowaddr.O[0:4]
+        waddr = rowaddr.O
+
+        we_counter = mantle.Counter(4, has_ce=True)
+        m.wire(rising(valid), we_counter.CE)
+
+        ff = mantle.FF(has_ce=True)
+        m.wire(falling(io.SCK), ff.CE)
+        rdy = mantle.Decode(0, 4)(we_counter.O)
+        we = mantle.LUT2(I0 & ~I1)(rdy, ff(rdy))
 
         # ---------------------------UART OUTPUT----------------------------- #
 
@@ -110,6 +122,9 @@ class Rescale(m.Circuit):
         uart_row = UART(16)
         uart_row(CLK=io.CLK, BAUD=row_baud, DATA=row, LOAD=row_load)
 
+        uart_addr = UART(4)
+        uart_addr(CLK=io.CLK, BAUD=row_baud, DATA=waddr, LOAD=row_load)
+
         # uart_low = UART(8)
         # uart_high = UART(8)
 
@@ -117,6 +132,9 @@ class Rescale(m.Circuit):
         m.wire(img_full, io.DONE) #img_full
         m.wire(uart_row, io.UART) #uart_st
         m.wire(row, io.O)
-        m.wire(col.COUT, io.VALID)
+        m.wire(we, io.VALID)
+
+        m.wire(valid, io.T0)
+        m.wire(uart_addr, io.T1)
 
 
