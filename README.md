@@ -2,8 +2,8 @@ This repo contains applications and demos for embedded FPGA systems developed us
 
 Here is a breakdown of the various directories.
 
-## Modules
-This directory contains Magma modules (high-level circuits) written for the Lattice ICE40 IceStick architecture. These modules all link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits. 
+## IceStick/HX8K
+This directory contains Magma programs written for the Lattice ICE40 IceStick architecture (either the IceStick or the HX8KBoard). They consist of modules (high-level circuits) that perform a specific function and link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits, and unit tests for some of these modules to test their functionality standalone.
 
 ### arducam.py
 A magma module which exposes the SPI interface of an ArduCAM Mini 2MP  peripheral for initiating a capture and receiving image data. 
@@ -46,7 +46,6 @@ an ArduCAM Mini 2MP peripheral for initiating a capture and receiving image
 data, and the Process circuit (defined in `process.py`), which processes RGB
 pixel data converting it to grayscale values.
 
-
 **TODO:** It would be good to document how to run these tests (using the logic
 analyzer?) Also, maybe these should be moved to a `tests` directory. We could
 also consider writing some tests for these using the Python or CoreIR
@@ -60,7 +59,7 @@ Downscale aetherling module. Currently too large to run on the IceStick.
 
 ### RAM_test.py
 Test program which feeds an image stored in ROM to the RAM in the `pipeline.py`
-circuit and runs the BNN classifier.
+circuit and runs the BNN classifier. Can be used to test the BNN on a custom image. 
 
 ## aetherling
 This folder contains high level magma circuits defined using the [aetherling
