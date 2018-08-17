@@ -15,7 +15,7 @@ data = []
 # expects raw analyzer data from cam.UART channel
 
 
-df = pd.read_csv(r"~/Documents/analyzerdata/blacktest_cam.csv", usecols=[1])
+df = pd.read_csv(r"~/Documents/analyzerdata/2_cam.csv", usecols=[1])
 for val in df.values[3:153603]:
     data.append(int(', '.join(val), 0))
 

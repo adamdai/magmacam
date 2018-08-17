@@ -112,15 +112,9 @@ class ArduCAM(m.Circuit):
         u_reset = mantle.LUT2(I0 & ~I1)(burst, ff(burst))
 
         # UART data out every 8 bits
-        u_counter = mantle.CounterModM(8, 3, has_ce=True, has_reset=True)
+        u_counter = mantle.CounterModM(8, 4, has_ce=True, has_reset=True)
         u_counter(CE=edge_r, RESET=u_reset)
         load = burst & rising(u_counter.COUT)
-
-        uart = UART(8)
-        uart(CLK=cam.CLK, BAUD=baud, DATA=miso, LOAD=load)
-
-        # wire output
-        m.wire(uart, cam.UART)
 
         # generate signal for when transfer is done
         data_count = mantle.Counter(18, has_ce=True)
@@ -132,3 +126,10 @@ class ArduCAM(m.Circuit):
 
         # wire output
         m.wire(tx_done, cam.DONE)
+
+        uart = UART(8)
+        uart_load = mantle.LUT2(I0 & ~I1)(load, tx_done)
+        uart(CLK=cam.CLK, BAUD=baud, DATA=miso, LOAD=uart_load)
+
+        # wire output
+        m.wire(uart, cam.UART)

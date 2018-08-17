@@ -21,13 +21,13 @@ b = hi//ho
 buf_size = wi * b  # 4800 
 
 #threshold for determining black/white 
-THRESH = 800  # (max = 2000)
+THRESH = 750  # (max = 2000)
 
 # mask for high byte of row data
-HIGH_MASK = m.bits(0x00FF, 16)
+HIGH_MASK = m.bits(0xFF00, 16)
 
 # mask for low byte of row data
-LOW_MASK = m.bits(0xFF00, 16)
+LOW_MASK = m.bits(0x00FF, 16)
 
 
 def reverse(bits):
@@ -82,7 +82,7 @@ class Rescale(m.Circuit):
         # --------------------------FILL IMG RAM--------------------------- #
         # each valid output of dscale represents an entry of 16x16 binary image
         # accumulate each group of 16 entries into a 16-bit value representing a row
-        col = mantle.CounterModM(16, 4, has_ce=True) 
+        col = mantle.CounterModM(16, 5, has_ce=True) 
         col_ce = rising(valid) 
         m.wire(col_ce, col.CE)
 
@@ -95,25 +95,23 @@ class Rescale(m.Circuit):
         # reverse the row bits since the image is flipped
         row = reverse(row_reg.O)
 
-        #rowaddr = mantle.Counter(5, has_ce=True)
-        rowaddr = mantle.CounterModM(16, 4, has_ce=True)
+        rowaddr = mantle.Counter(5, has_ce=True)
 
         img_full = mantle.SRFF(has_ce=True)
-        img_full(mantle.EQ(4)(rowaddr.O, m.bits(15, 4)), 0)
+        img_full(mantle.EQ(5)(rowaddr.O, m.bits(16, 5)), 0)
         m.wire(falling(col.COUT), img_full.CE)
         row_ce = rising(col.COUT) & ~img_full.O
         m.wire(row_ce, rowaddr.CE)
 
-        #waddr = rowaddr.O[0:4]
-        waddr = rowaddr.O
+        waddr = rowaddr.O[:4]
 
-        we_counter = mantle.Counter(4, has_ce=True)
-        m.wire(rising(valid), we_counter.CE)
+        # we_counter = mantle.CounterModM(16, 5, has_ce=True)
+        # m.wire(rising(valid), we_counter.CE)
 
-        ff = mantle.FF(has_ce=True)
-        m.wire(falling(io.SCK), ff.CE)
-        rdy = mantle.Decode(0, 4)(we_counter.O)
-        we = mantle.LUT2(I0 & ~I1)(rdy, ff(rdy))
+        rdy = col.COUT & ~img_full.O
+        pulse_count = mantle.Counter(5, has_ce=True)
+        we = mantle.UGE(5)(pulse_count.O, m.uint(1, 5))
+        pulse_count(CE=(we|rdy))
 
         # ---------------------------UART OUTPUT----------------------------- #
 
@@ -125,8 +123,11 @@ class Rescale(m.Circuit):
         uart_addr = UART(4)
         uart_addr(CLK=io.CLK, BAUD=row_baud, DATA=waddr, LOAD=row_load)
 
-        # uart_low = UART(8)
-        # uart_high = UART(8)
+        # split 16-bit row data into 8-bit packets so it can be parsed 
+        low_byte = row & LOW_MASK
+        high_byte = row & HIGH_MASK
+        uart_counter = mantle.CounterModM(8, 4, has_ce=True)
+        m.wire(rising(valid), uart_counter.CE)
 
         m.wire(waddr, io.WADDR)
         m.wire(img_full, io.DONE) #img_full

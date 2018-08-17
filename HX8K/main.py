@@ -35,7 +35,7 @@ main = hx8kboard.main()
 
 # Generate the SCLK signal (12 MHz/32 = 375 kHz)
 clk_counter = mantle.Counter(5)
-sclk = clk_counter.O[4]
+sclk = clk_counter.O[-1]
 
 # Initialize Modules
 

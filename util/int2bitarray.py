@@ -60,7 +60,7 @@ import pandas as pd
 
 img_list = []
 
-df = pd.read_csv(r"~/Documents/analyzerdata/blacktest_bits.csv", usecols=[1])
+df = pd.read_csv(r"~/Documents/analyzerdata/test_bits.csv", usecols=[1])
 for val in df.values[1:17]:
     img_list.append(int(val))
 
