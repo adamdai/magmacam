@@ -31,7 +31,7 @@ Currently the I2C registers of the ArduCAM are configured for a 320x240 BMP capt
 A magma module which processes RGB pixel data converting it to grayscale values. It is designed to accept 2 bytes of pixel data at a time from the arducam module output, then interprets it as an 16-bit RGB565 pixel and extracts the red, green, and blue color values and sums them obtain a grayscale value for that pixel. These grayscale values range from 0 to a maximum of 31 + 63 + 31 = 125. 
 
 ### rescale.py
-This magma module takes grayscale image data output from the process module, and resizes the image to scale it down, while also converting it to binary. It first makes use of the `downscale` aetherling module (more details below), to map over the 320x240 image with a 20x15 sliding window, summing the pixel values in each window to downscale to a 16x16 image. Then a binary threshold is applied so that pixels below a certain value are binarized to 0 and one above at set to 1. This produced a 16x16 binary version of the original 320x240 RGB image captured by the ArduCAM.
+This magma module takes grayscale image data output from the process module, and resizes the image to scale it down, while also converting it to binary. It first makes use of the `downscale` aetherling module (more details below), to map over the 320x240 image with a 20x15 sliding window, summing the pixel values in each window to downscale to a 16x16 image. Then a binary threshold is applied so that pixels below a certain value are binarized to 0 and one above at set to 1. This produces a 16x16 binary version of the original 320x240 RGB image captured by the ArduCAM.
 
 ### pipeline.py
 BNN digit classifier adapted from https://github.com/MIT-HAN-LAB/BNN_IceStick.
@@ -39,12 +39,14 @@ Instead of the loading the image into ROM at initialization time, the circuit
 has a RAM for storing image bits so that the input of the BNN may be wired to
 another circuit (e.g. the output of the ArduCAM).
 
+The network consists only of a single fully connected layer. It flattens the 16x16 image into a size 256 vector and dots it with 10 (number of classes) size 256 weight vectors. The multiply-accumulate operation of the dot product is computed using an XNOR followed by a popcount in order to take advantage of the binary nature of the data. The results of the veector product are succesively compared to each other in order to determine the maximum, which is then chosen as the output of the classifer.
+
 ### main.py
 The main program which defines a top level module (`main`).  It uses the
 ArduCAM circuit (defined in `arducam.py`), which exposes the SPI interface of
 an ArduCAM Mini 2MP peripheral for initiating a capture and receiving image
 data, and the Process circuit (defined in `process.py`), which processes RGB
-pixel data converting it to grayscale values.
+pixel data converting it to grayscale values. 
 
 **TODO:** It would be good to document how to run these tests (using the logic
 analyzer?) Also, maybe these should be moved to a `tests` directory. We could
