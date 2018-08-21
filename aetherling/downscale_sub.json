@@ -20,14 +20,16 @@
         "instances":{
           "inst0":{
             "genref":"commonlib.linebuffer",
-            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",240,["Array",320,["Array",16,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",16,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",16,["Array",20,["Array",16,"Bit"]]]]}
+            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",240,["Array",320,["Array",16,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",16,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",15,["Array",20,["Array",16,"Bit"]]]]}
           },
           "inst1":{
             "genref":"aetherlinglib.reduceParallel",
             "genargs":{"numInputs":["Int",16], "operator":["Module","global.renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___"]}
           },
           "inst2":{
-            "modref":"global.coreir_const160"
+            "genref":"coreir.const",
+            "genargs":{"width":["Int",16]},
+            "modargs":{"value":[["BitVector",16],"16'h0000"]}
           }
         },
         "connections":[
@@ -52,35 +54,6 @@
           ["self.WE","inst0.wen"],
           ["inst2.out","inst1.in.identity"],
           ["self.O","inst1.out"]
-        ]
-      },
-      "coreir_const160":{
-        "type":["Record",[
-          ["out",["Array",16,"Bit"]]
-        ]],
-        "instances":{
-          "bit_const_GND":{
-            "modref":"corebit.const",
-            "modargs":{"value":["Bool",false]}
-          }
-        },
-        "connections":[
-          ["self.out.0","bit_const_GND.out"],
-          ["self.out.10","bit_const_GND.out"],
-          ["self.out.11","bit_const_GND.out"],
-          ["self.out.12","bit_const_GND.out"],
-          ["self.out.13","bit_const_GND.out"],
-          ["self.out.14","bit_const_GND.out"],
-          ["self.out.15","bit_const_GND.out"],
-          ["self.out.1","bit_const_GND.out"],
-          ["self.out.2","bit_const_GND.out"],
-          ["self.out.3","bit_const_GND.out"],
-          ["self.out.4","bit_const_GND.out"],
-          ["self.out.5","bit_const_GND.out"],
-          ["self.out.6","bit_const_GND.out"],
-          ["self.out.7","bit_const_GND.out"],
-          ["self.out.8","bit_const_GND.out"],
-          ["self.out.9","bit_const_GND.out"]
         ]
       },
       "renamedForReduce_opAdd16_I0_In_Bits_16___I1_In_Bits_16___O_Out_Bits_16___":{

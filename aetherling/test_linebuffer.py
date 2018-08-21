@@ -49,7 +49,7 @@ m.wire(reducePar.I.data[0], lb.out[0][0])
 m.wire(reducePar.I.data[1], lb.out[0][1])
 m.wire(reducePar.I.data[2], lb.out[1][0])
 m.wire(reducePar.I.data[3], lb.out[1][1])
-m.wire(reducePar.I.identity, coreirConst.out)
+m.wire(reducePar.I.identity, coreirConst.O)
 m.wire(testcircuit.O, reducePar.out)
 m.wire(testcircuit.V, lb.valid)
 

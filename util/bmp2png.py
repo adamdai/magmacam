@@ -14,15 +14,18 @@ data = []
 # File should be 2x(320x240) = 153600 bytes long
 # expects raw analyzer data from cam.UART channel
 
+w = 352
+h = 288
 
-df = pd.read_csv(r"~/Documents/analyzerdata/2_cam.csv", usecols=[1])
-for val in df.values[3:153603]:
+
+df = pd.read_csv(r"~/Documents/analyzerdata/test_352x288.csv", usecols=[1])
+for val in df.values[3:(2*w*h+3)]:
     data.append(int(', '.join(val), 0))
 
 bmp = bytearray(data)
 
 print(len(bmp))
 
-Image = QtGui.QImage(bmp, 320, 240, QtGui.QImage.Format_RGB16)
+Image = QtGui.QImage(bmp, w, h, QtGui.QImage.Format_RGB16)
 
 Image.save("../images/test.png","PNG",-1)

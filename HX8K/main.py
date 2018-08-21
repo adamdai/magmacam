@@ -3,17 +3,17 @@ import mantle
 from arducam import ArduCAM
 from process import Process
 from pipeline import Pipeline
-from rescale import Rescale
+from rescale32 import Rescale
 from loam.boards.hx8kboard import HX8KBoard
 
 hx8kboard = HX8KBoard()
 hx8kboard.Clock.on()
 hx8kboard.TX.on()
-hx8kboard.D1.on()
-hx8kboard.D2.on()
-hx8kboard.D3.on()
-hx8kboard.D4.on()
-hx8kboard.D5.on()
+# hx8kboard.D1.on()
+# hx8kboard.D2.on()
+# hx8kboard.D3.on()
+# hx8kboard.D4.on()
+# hx8kboard.D5.on()
 
 hx8kboard.J2[3].output().on()
 hx8kboard.J2[4].output().on()
@@ -34,7 +34,7 @@ hx8kboard.J2[8].input().on()
 main = hx8kboard.main()
 
 # Generate the SCLK signal (12 MHz/32 = 375 kHz)
-clk_counter = mantle.Counter(5)
+clk_counter = mantle.Counter(2)
 sclk = clk_counter.O[-1]
 
 # Initialize Modules
@@ -60,14 +60,14 @@ m.wire(sclk, rescale.SCK)
 m.wire(process.LOAD, rescale.LOAD)
 
 # Feed image to BNN pipeline
-pipeline = Pipeline()
-m.wire(sclk, pipeline.CLK)
-m.wire(rescale.O, pipeline.DATA)
-m.wire(rescale.WADDR, pipeline.WADDR)
-m.wire(rescale.VALID, pipeline.WE)
-m.wire(rescale.DONE, pipeline.RUN)
-m.wire(pipeline.O[:4], m.bits([main.D1, main.D2, main.D3, main.D4]))
-m.wire(pipeline.D, main.D5)
+# pipeline = Pipeline()
+# m.wire(sclk, pipeline.CLK)
+# m.wire(rescale.O, pipeline.DATA)
+# m.wire(rescale.WADDR, pipeline.WADDR)
+# m.wire(rescale.VALID, pipeline.WE)
+# m.wire(rescale.DONE, pipeline.RUN)
+# m.wire(pipeline.O[:4], m.bits([main.D1, main.D2, main.D3, main.D4]))
+# m.wire(pipeline.D, main.D5)
 
 # Wire up camera SPI bus
 m.wire(sclk,          main.J2_3)

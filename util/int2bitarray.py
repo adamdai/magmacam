@@ -58,10 +58,12 @@ import pandas as pd
 
 # --------------------------- LOAD FROM FILE ---------------------------- #
 
+img_size = 32
+
 img_list = []
 
-df = pd.read_csv(r"~/Documents/analyzerdata/test_bits.csv", usecols=[1])
-for val in df.values[1:17]:
+df = pd.read_csv(r"~/Documents/analyzerdata/test_32x32.csv", usecols=[1])
+for val in df.values[1:img_size+1]:
     img_list.append(int(val))
 
 print(img_list)
@@ -69,8 +71,9 @@ print(img_list)
 # --------------------------- CREATE BIT ARRAY---------------------------- #
 
 bmp = []
+f = '{0:0'+str(img_size)+'b}'
 for n in img_list:
-    row = [1 if digit=='1' else 0 for digit in '{0:016b}'.format(n)]
+    row = [1 if digit=='1' else 0 for digit in f.format(n)]
     bmp.append(row)
 
 arr = np.asarray(bmp)

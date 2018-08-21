@@ -8,6 +8,9 @@ from uart import UART
 
 trigger = m.VCC  # maybe tie to GPIO later
 
+tf_size = 202752
+#tf_size = 153600
+
 # ArduCAM start capture sequence
 init = [
     # Change MCU mode
@@ -120,7 +123,7 @@ class ArduCAM(m.Circuit):
         data_count = mantle.Counter(18, has_ce=True)
         tx_done = mantle.SRFF(has_ce=True)
         # transfer has size 153600 bytes, first 2 bytes are ignored
-        tx_done(mantle.EQ(18)(data_count.O, m.bits(153602, 18)), 0)
+        tx_done(mantle.EQ(18)(data_count.O, m.bits(tf_size + 2, 18)), 0)
         m.wire(load, tx_done.CE)
         m.wire(load, data_count.CE)
 

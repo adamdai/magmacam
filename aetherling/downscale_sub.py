@@ -34,7 +34,7 @@ TOUT = m.Array(width, m.Out(Bit))
 
 # Line Buffer interface
 inType = m.Array(1, m.Array(1, TIN))  # one pixel in per clock
-outType = m.Array(width, m.Array(a, TOUT))  # downscale window
+outType = m.Array(b, m.Array(a, TOUT))  # downscale window
 imgType = m.Array(im_h, m.Array(im_w, TIN))  # image dimensions
 
 # Reduce interface
@@ -60,11 +60,10 @@ coreirConst = DefineCoreirConst(width, 0)()
 k = 0
 for i in [0, 4, 10, 14]:
     for j in [0, 6, 13, 19]:
-        print(i,j,k)
         m.wire(red.I.data[k], lb.out[i][j])
         k += 1
 
-m.wire(red.I.identity, coreirConst.out)
+m.wire(red.I.identity, coreirConst.O)
 m.wire(top.O, red.out)
 m.wire(top.V, lb.valid)
 

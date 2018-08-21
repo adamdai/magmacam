@@ -33,7 +33,7 @@ TOUT = m.Array(width, m.Out(Bit))
 
 # Line Buffer interface
 inType = m.Array(1, m.Array(1, TIN))  # one pixel in per clock
-outType = m.Array(width, m.Array(a, TOUT))  # downscale window
+outType = m.Array(b, m.Array(a, TOUT))  # downscale window
 imgType = m.Array(im_h, m.Array(im_w, TIN))  # image dimensions
 
 # Reduce interface
@@ -61,7 +61,7 @@ for i in range(b):
         k = a * i + j
         m.wire(red.I.data[k], lb.out[i][j])
 
-m.wire(red.I.identity, coreirConst.out)
+m.wire(red.I.identity, coreirConst.O)
 m.wire(top.O, red.out)
 m.wire(top.V, lb.valid)
 
