@@ -30,7 +30,7 @@ scope = Scope()
 # 8-bit values but extend to 16-bit to avoid carryover in addition
 width = 16
 TIN = m.Array(width, m.BitIn)
-TOUT = m.Array(width, m.Out(Bit))
+TOUT = m.Array(width, m.Out(m.Bit))
 
 # Line Buffer interface
 inType = m.Array(1, m.Array(1, TIN))  # one pixel in per clock

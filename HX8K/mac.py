@@ -17,7 +17,6 @@ def DefineMAC(n):
         logn = log2(n) + 1
         IO = ['CLK', m.In(m.Clock), 'I0', m.In(m.Bits(n)), 
               'I1', m.In(m.Bits(n)), 'P', m.Out(m.Bits(logn)),
-              'T0', m.Out(m.Bits(logn+1)), 'T1', m.Out(m.Bits(logn+1)),
               'O', m.Out(m.Bit)]
 
         @classmethod
@@ -34,14 +33,8 @@ def DefineMAC(n):
 
             width = log2(n)+2
             sign = mantle.UGE(width)
-            m.wire(m.bits(n, width), sign.I0)
-            m.wire(m.zext(pop.O, 1), sign.I1)
-
-            m.wire(m.zext(pop.O, 1), io.T0)
-            m.wire(m.bits(n, width), io.T1)
-
-            # m.wire(io.I0, sign.I0)
-            # m.wire(io.I1, sign.I1)
+            m.wire(m.zext(pop.O, 1), sign.I0)
+            m.wire(m.bits(n, width), sign.I1)
 
             m.wire(sign.O, io.O)
 

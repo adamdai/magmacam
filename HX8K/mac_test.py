@@ -17,8 +17,8 @@ from magma.simulator import PythonSimulator
 
 # main = hx8kboard.main()
 
-u = m.bits(int('1010', 2), 4)
-v = m.bits(int('1110', 2), 4)
+u = m.bits(int('0000', 2), 4)
+v = m.bits(int('1111', 2), 4)
 
 mac = DefineMAC(4)
 
