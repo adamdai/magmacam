@@ -40,8 +40,7 @@ class Rescale(m.Circuit):
     IO = ['CLK', m.In(m.Clock), 'LOAD', m.In(m.Bit), 'DATA', m.In(m.Bits(16)),
           'SCK', m.In(m.Bit),
           'WADDR', m.Out(m.Bits(4)), 'O', m.Out(m.Bits(16)), 
-          'VALID', m.Out(m.Bit), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit),
-          'T0', m.Out(m.Bit), 'T1', m.Out(m.Bit), 'T2', m.Out(m.Bit)]
+          'VALID', m.Out(m.Bit), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit)]
 
     @classmethod
     def definition(io):
@@ -134,8 +133,3 @@ class Rescale(m.Circuit):
         m.wire(uart_row, io.UART) #uart_st
         m.wire(row, io.O)
         m.wire(we, io.VALID)
-
-        m.wire(valid, io.T0)
-        m.wire(uart_addr, io.T1)
-
-

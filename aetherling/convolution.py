@@ -43,8 +43,11 @@ imgType = m.Array(im_h, m.Array(im_w, TIN))  # image dimensions
 in_MAC = m.Array(x*y, m.BitIn)
 out_MAC = m.Out(m.Bit)
 
+# weight input interface
+in_W = m.Array(y, m.Array(x, TIN))
+
 # Top level module: line buffer input, MAC output
-args = ['I0', in_LB, 'I1', in_MAC, 'O', out_MAC, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
+args = ['I0', in_LB, 'I1', in_W, 'O', out_MAC, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
         m.ClockInterface(False, False)
 top = m.DefineCircuit('Convolution', *args)
 
@@ -56,17 +59,13 @@ m.wire(top.WE, lb.wen)
 # MAC declaration
 mac = MAC(x*y)
 
-print("wiring lb")
-# connect up linebuffer to MAC img input
+# connect up linebuffer and weights to MAC input
 k = 0
 for i in range(x):
     for j in range(y):
         m.wire(lb.out[i][j][0], mac.I0[k])
+        m.wire(top.I1[i][j][0], mac.I1[k])
         k += 1
-
-print("wiring weights")
-# wire weights to second MAC input
-m.wire(top.I1, mac.I1)
 
 m.wire(top.O, mac.O)
 m.wire(top.V, lb.valid)

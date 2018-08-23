@@ -26,8 +26,8 @@ hx8kboard.J2[12].output().on()
 
 hx8kboard.J2[16].output().on()
 hx8kboard.J2[17].output().on()
-hx8kboard.J2[18].output().on()
-hx8kboard.J2[19].output().on()
+# hx8kboard.J2[18].output().on()
+# hx8kboard.J2[19].output().on()
 
 hx8kboard.J2[8].input().on()
 
@@ -82,7 +82,5 @@ m.wire(rescale.DONE,      main.J2_12)
 
 m.wire(sclk,      main.J2_16)
 m.wire(rescale.VALID,      main.J2_17)
-m.wire(rescale.T0,    main.J2_18)
-m.wire(rescale.T1,      main.J2_19)
 
 m.wire(rescale.UART,      main.TX)
