@@ -5,7 +5,7 @@
       "Convolution":{
         "type":["Record",[
           ["I0",["Array",1,["Array",1,["Array",1,"BitIn"]]]],
-          ["I1",["Array",4,["Array",4,["Array",1,"BitIn"]]]],
+          ["I1",["Array",5,["Array",4,["Array",1,"BitIn"]]]],
           ["O","Bit"],
           ["WE","BitIn"],
           ["V","Bit"],
@@ -14,10 +14,10 @@
         "instances":{
           "inst0":{
             "genref":"commonlib.linebuffer",
-            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",16,["Array",16,["Array",1,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",1,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",4,["Array",4,["Array",1,"Bit"]]]]}
+            "genargs":{"has_valid":["Bool",true], "image_type":["CoreIRType",["Array",16,["Array",16,["Array",1,"BitIn"]]]], "input_type":["CoreIRType",["Array",1,["Array",1,["Array",1,"BitIn"]]]], "is_last_lb":["Bool",true], "output_type":["CoreIRType",["Array",5,["Array",4,["Array",1,"Bit"]]]]}
           },
           "inst1":{
-            "modref":"global.MAC16"
+            "modref":"global.MAC20"
           }
         },
         "connections":[
@@ -38,6 +38,10 @@
           ["inst1.I0.13","inst0.out.3.1.0"],
           ["inst1.I0.14","inst0.out.3.2.0"],
           ["inst1.I0.15","inst0.out.3.3.0"],
+          ["inst1.I0.16","inst0.out.4.0.0"],
+          ["inst1.I0.17","inst0.out.4.1.0"],
+          ["inst1.I0.18","inst0.out.4.2.0"],
+          ["inst1.I0.19","inst0.out.4.3.0"],
           ["self.V","inst0.valid"],
           ["self.WE","inst0.wen"],
           ["self.CLK","inst1.CLK"],
@@ -48,6 +52,10 @@
           ["self.I1.3.1.0","inst1.I1.13"],
           ["self.I1.3.2.0","inst1.I1.14"],
           ["self.I1.3.3.0","inst1.I1.15"],
+          ["self.I1.4.0.0","inst1.I1.16"],
+          ["self.I1.4.1.0","inst1.I1.17"],
+          ["self.I1.4.2.0","inst1.I1.18"],
+          ["self.I1.4.3.0","inst1.I1.19"],
           ["self.I1.0.1.0","inst1.I1.1"],
           ["self.I1.0.2.0","inst1.I1.2"],
           ["self.I1.0.3.0","inst1.I1.3"],
@@ -60,11 +68,11 @@
           ["self.O","inst1.O"]
         ]
       },
-      "MAC16":{
+      "MAC20":{
         "type":["Record",[
           ["CLK",["Named","coreir.clkIn"]],
-          ["I0",["Array",16,"BitIn"]],
-          ["I1",["Array",16,"BitIn"]],
+          ["I0",["Array",20,"BitIn"]],
+          ["I1",["Array",20,"BitIn"]],
           ["P",["Array",5,"Bit"]],
           ["O","Bit"]
         ]],
@@ -73,16 +81,16 @@
             "modref":"corebit.const",
             "modargs":{"value":["Bool",false]}
           },
-          "const_16_6":{
+          "const_20_6":{
             "genref":"coreir.const",
             "genargs":{"width":["Int",6]},
-            "modargs":{"value":[["BitVector",6],"6'h10"]}
+            "modargs":{"value":[["BitVector",6],"6'h14"]}
           },
           "inst0":{
-            "modref":"global.NXOr216"
+            "modref":"global.NXOr220"
           },
           "inst1":{
-            "modref":"global.PopCount16"
+            "modref":"global.PopCount20"
           },
           "inst2":{
             "genref":"coreir.uge",
@@ -91,7 +99,7 @@
         },
         "connections":[
           ["inst2.in0.0","bit_const_0_None.out"],
-          ["inst2.in1","const_16_6.out"],
+          ["inst2.in1","const_20_6.out"],
           ["self.I0","inst0.I0"],
           ["self.I1","inst0.I1"],
           ["inst1.I","inst0.O"],
@@ -104,20 +112,20 @@
           ["self.O","inst2.out"]
         ]
       },
-      "NXOr216":{
+      "NXOr220":{
         "type":["Record",[
-          ["I0",["Array",16,"BitIn"]],
-          ["I1",["Array",16,"BitIn"]],
-          ["O",["Array",16,"Bit"]]
+          ["I0",["Array",20,"BitIn"]],
+          ["I1",["Array",20,"BitIn"]],
+          ["O",["Array",20,"Bit"]]
         ]],
         "instances":{
           "inst0":{
             "genref":"coreir.not",
-            "genargs":{"width":["Int",16]}
+            "genargs":{"width":["Int",20]}
           },
           "inst1":{
             "genref":"coreir.xor",
-            "genargs":{"width":["Int",16]}
+            "genargs":{"width":["Int",20]}
           }
         },
         "connections":[
@@ -181,9 +189,9 @@
           ["self.O","inst0.out"]
         ]
       },
-      "PopCount16":{
+      "PopCount20":{
         "type":["Record",[
-          ["I",["Array",16,"BitIn"]],
+          ["I",["Array",20,"BitIn"]],
           ["O",["Array",5,"Bit"]]
         ]],
         "instances":{
@@ -263,6 +271,24 @@
           "inst3":{
             "modref":"global.Op"
           },
+          "inst30":{
+            "modref":"global.fold_xor3None"
+          },
+          "inst31":{
+            "modref":"global.Op"
+          },
+          "inst32":{
+            "modref":"global.fold_xor3None"
+          },
+          "inst33":{
+            "modref":"global.Op"
+          },
+          "inst34":{
+            "modref":"global.fold_xor3None"
+          },
+          "inst35":{
+            "modref":"global.Op"
+          },
           "inst4":{
             "modref":"global.fold_xor3None"
           },
@@ -283,83 +309,101 @@
           }
         },
         "connections":[
-          ["inst22.I2","bit_const_0_None.out"],
-          ["inst23.I2","bit_const_0_None.out"],
-          ["inst24.I2","bit_const_0_None.out"],
-          ["inst25.I2","bit_const_0_None.out"],
-          ["inst26.I2","bit_const_0_None.out"],
-          ["inst27.I2","bit_const_0_None.out"],
           ["inst28.I2","bit_const_0_None.out"],
           ["inst29.I2","bit_const_0_None.out"],
+          ["inst30.I2","bit_const_0_None.out"],
+          ["inst31.I2","bit_const_0_None.out"],
+          ["inst34.I2","bit_const_0_None.out"],
+          ["inst35.I2","bit_const_0_None.out"],
           ["self.I.0","inst0.I0"],
           ["self.I.1","inst0.I1"],
           ["self.I.2","inst0.I2"],
-          ["inst10.I0","inst0.O"],
-          ["inst11.I0","inst0.O"],
+          ["inst12.I0","inst0.O"],
+          ["inst13.I0","inst0.O"],
           ["self.I.0","inst1.I0"],
           ["self.I.1","inst1.I1"],
           ["self.I.2","inst1.I2"],
-          ["inst14.I0","inst1.O"],
-          ["inst15.I0","inst1.O"],
-          ["inst2.O","inst10.I1"],
-          ["inst4.O","inst10.I2"],
-          ["inst22.I0","inst10.O"],
-          ["inst23.I0","inst10.O"],
-          ["inst2.O","inst11.I1"],
-          ["inst4.O","inst11.I2"],
-          ["inst18.I1","inst11.O"],
-          ["inst19.I1","inst11.O"],
-          ["inst6.O","inst12.I0"],
-          ["inst8.O","inst12.I1"],
-          ["self.I.15","inst12.I2"],
-          ["inst22.I1","inst12.O"],
-          ["inst23.I1","inst12.O"],
-          ["inst6.O","inst13.I0"],
-          ["inst8.O","inst13.I1"],
-          ["self.I.15","inst13.I2"],
-          ["inst18.I2","inst13.O"],
-          ["inst19.I2","inst13.O"],
-          ["inst3.O","inst14.I1"],
-          ["inst5.O","inst14.I2"],
-          ["inst16.I0","inst14.O"],
-          ["inst17.I0","inst14.O"],
-          ["inst3.O","inst15.I1"],
-          ["inst5.O","inst15.I2"],
-          ["inst20.I0","inst15.O"],
-          ["inst21.I0","inst15.O"],
-          ["inst7.O","inst16.I1"],
-          ["inst9.O","inst16.I2"],
-          ["inst18.I0","inst16.O"],
-          ["inst19.I0","inst16.O"],
-          ["inst7.O","inst17.I1"],
-          ["inst9.O","inst17.I2"],
-          ["inst20.I1","inst17.O"],
-          ["inst21.I1","inst17.O"],
-          ["inst24.I0","inst18.O"],
-          ["inst25.I0","inst18.O"],
-          ["inst20.I2","inst19.O"],
-          ["inst21.I2","inst19.O"],
+          ["inst16.I0","inst1.O"],
+          ["inst17.I0","inst1.O"],
+          ["self.I.15","inst10.I0"],
+          ["self.I.16","inst10.I1"],
+          ["self.I.17","inst10.I2"],
+          ["inst14.I2","inst10.O"],
+          ["inst15.I2","inst10.O"],
+          ["self.I.15","inst11.I0"],
+          ["self.I.16","inst11.I1"],
+          ["self.I.17","inst11.I2"],
+          ["inst18.I2","inst11.O"],
+          ["inst19.I2","inst11.O"],
+          ["inst2.O","inst12.I1"],
+          ["inst4.O","inst12.I2"],
+          ["inst20.I0","inst12.O"],
+          ["inst21.I0","inst12.O"],
+          ["inst2.O","inst13.I1"],
+          ["inst4.O","inst13.I2"],
+          ["inst22.I2","inst13.O"],
+          ["inst23.I2","inst13.O"],
+          ["inst6.O","inst14.I0"],
+          ["inst8.O","inst14.I1"],
+          ["inst20.I1","inst14.O"],
+          ["inst21.I1","inst14.O"],
+          ["inst6.O","inst15.I0"],
+          ["inst8.O","inst15.I1"],
+          ["inst24.I1","inst15.O"],
+          ["inst25.I1","inst15.O"],
+          ["inst3.O","inst16.I1"],
+          ["inst5.O","inst16.I2"],
+          ["inst22.I0","inst16.O"],
+          ["inst23.I0","inst16.O"],
+          ["inst3.O","inst17.I1"],
+          ["inst5.O","inst17.I2"],
+          ["inst26.I0","inst17.O"],
+          ["inst27.I0","inst17.O"],
+          ["inst7.O","inst18.I0"],
+          ["inst9.O","inst18.I1"],
+          ["inst22.I1","inst18.O"],
+          ["inst23.I1","inst18.O"],
+          ["inst7.O","inst19.I0"],
+          ["inst9.O","inst19.I1"],
+          ["inst26.I1","inst19.O"],
+          ["inst27.I1","inst19.O"],
           ["self.I.3","inst2.I0"],
           ["self.I.4","inst2.I1"],
           ["self.I.5","inst2.I2"],
-          ["inst26.I0","inst20.O"],
-          ["inst27.I0","inst20.O"],
-          ["inst28.I0","inst21.O"],
-          ["inst29.I0","inst21.O"],
-          ["self.O.0","inst22.O"],
-          ["inst24.I1","inst23.O"],
-          ["inst25.I1","inst23.O"],
-          ["self.O.1","inst24.O"],
-          ["inst26.I1","inst25.O"],
-          ["inst27.I1","inst25.O"],
-          ["self.O.2","inst26.O"],
-          ["inst28.I1","inst27.O"],
-          ["inst29.I1","inst27.O"],
-          ["self.O.3","inst28.O"],
-          ["self.O.4","inst29.O"],
+          ["self.I.18","inst20.I2"],
+          ["inst28.I0","inst20.O"],
+          ["inst29.I0","inst20.O"],
+          ["self.I.18","inst21.I2"],
+          ["inst24.I2","inst21.O"],
+          ["inst25.I2","inst21.O"],
+          ["inst24.I0","inst22.O"],
+          ["inst25.I0","inst22.O"],
+          ["inst26.I2","inst23.O"],
+          ["inst27.I2","inst23.O"],
+          ["inst30.I0","inst24.O"],
+          ["inst31.I0","inst24.O"],
+          ["inst32.I1","inst25.O"],
+          ["inst33.I1","inst25.O"],
+          ["inst32.I0","inst26.O"],
+          ["inst33.I0","inst26.O"],
+          ["inst34.I0","inst27.O"],
+          ["inst35.I0","inst27.O"],
+          ["self.I.19","inst28.I1"],
+          ["self.O.0","inst28.O"],
+          ["self.I.19","inst29.I1"],
+          ["inst30.I1","inst29.O"],
+          ["inst31.I1","inst29.O"],
           ["self.I.3","inst3.I0"],
           ["self.I.4","inst3.I1"],
           ["self.I.5","inst3.I2"],
+          ["self.O.1","inst30.O"],
+          ["inst32.I2","inst31.O"],
+          ["inst33.I2","inst31.O"],
+          ["self.O.2","inst32.O"],
+          ["inst34.I1","inst33.O"],
+          ["inst35.I1","inst33.O"],
+          ["self.O.3","inst34.O"],
+          ["self.O.4","inst35.O"],
           ["self.I.6","inst4.I0"],
           ["self.I.7","inst4.I1"],
           ["self.I.8","inst4.I2"],

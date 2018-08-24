@@ -20,7 +20,7 @@ from mac import MAC
 
 # convolution window size
 x = 4
-y = 4
+y = 5
 
 # image size (height and width)
 im_w = 16
@@ -61,8 +61,8 @@ mac = MAC(x*y)
 
 # connect up linebuffer and weights to MAC input
 k = 0
-for i in range(x):
-    for j in range(y):
+for i in range(y):
+    for j in range(x):
         m.wire(lb.out[i][j][0], mac.I0[k])
         m.wire(top.I1[i][j][0], mac.I1[k])
         k += 1
@@ -76,3 +76,4 @@ module = GetCoreIRModule(cirb, top)
 module.save_to_file("convolution.json")
 
 print("done")
+

@@ -26,14 +26,19 @@
     "magma -b hx8kboard -d build conv_test": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
         "__pycache__": "input-236455cc90628414652cd3b476180a5d",
-        "__pycache__/conv_test.cpython-36.pyc": "output-fa0f5494b1b8fcbaa8725efec43549ee",
+        "__pycache__/conv_test.cpython-36.pyc": "output-a9815f43613caaaf585d09dc47da0a9b",
+        "__pycache__/parsetab.cpython-36.pyc": "input-d31c61ddfc2471064947b8011c646612",
         "__pycache__/rom.cpython-36.pyc": "input-e5303c82907d0f5321f6825a8628198b",
         "__pycache__/uart.cpython-36.pyc": "input-da22f5e07132d91117c6d22be9f8e9a8",
+        "__pycache__/unflatten.cpython-36.pyc": "input-087fb1320a5697b5f4bfcb636a87ff3a",
         "build/conv_test.pcf": "output-9796d63f071cb81e95f51faabae4a48c",
-        "build/conv_test.v": "output-ac08f23ce3a23527ad5283a48fe3b596",
-        "conv_test.py": "input-1731933477c1297774b50e1e7f17f600",
+        "build/conv_test.v": "output-dee41175019f68cbf05b63cf3cd21e48",
+        "build/convolution.v": "input-e661439b37748f972dfa63e228c383e8",
+        "conv_test.py": "input-4e8c673d01bbac6563eef463cc0fd11c",
+        "parsetab.py": "input-dfb62c4785de6ecf3a08855ccaa6f78d",
         "rom.py": "input-250c0f63e7eb0f68826c90c7480cfc5d",
-        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699"
+        "uart.py": "input-24410a8e82298fbc044ffe2db3bcb699",
+        "unflatten.py": "input-22fb7550085a45810791978392ed8968"
     },
     "magma -b hx8kboard -d build main": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
