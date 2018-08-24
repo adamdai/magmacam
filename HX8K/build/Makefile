@@ -1,7 +1,7 @@
-NAME = main
+#NAME = main
 #NAME = RAM_test
 #NAME = reduce_test
-#NAME = conv_test
+NAME = conv_test
 
 PCF = $(NAME).pcf
 

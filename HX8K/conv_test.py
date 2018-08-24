@@ -1,9 +1,10 @@
 import magma as m
+m.set_mantle_target("coreir")
 import mantle
-from rom import ROM8, ROM16
-from uart import UART
-from mantle.lattice.ice40 import ROMB, SB_LUT4
-from mantle.util.edge import falling, rising
+# from rom import ROM8, ROM16
+# from uart import UART
+# from mantle.lattice.ice40 import ROMB, SB_LUT4
+# from mantle.util.edge import falling, rising
 from loam.boards.hx8kboard import HX8KBoard
 
 from wrapdecl import WrapDeclaration
@@ -40,23 +41,23 @@ weights = m.array([m.array([m.array([0]), m.array([1]), m.array([0]), m.array([1
 # decrease the frequency to avoid timing violation
 counter = mantle.Counter(5)
 sclk = counter.O[4]
-baud = mantle.FF()(rising(sclk) | falling(sclk))
+# baud = mantle.FF()(rising(sclk) | falling(sclk))
 
-idx = mantle.Counter(9, has_ce=True)
-# addr = rom_idx.O[:4]
+# idx = mantle.Counter(9, has_ce=True)
+# # addr = rom_idx.O[:4]
 
-bit_counter = mantle.Counter(5, has_ce=True)
-m.wire(rising(sclk), bit_counter.CE)
+# bit_counter = mantle.Counter(5, has_ce=True)
+# m.wire(rising(sclk), bit_counter.CE)
 
-we = mantle.Decode(0, 5)(bit_counter.O)
-load = rising(we)
+# we = mantle.Decode(0, 5)(bit_counter.O)
+# load = rising(we)
 
-full = mantle.SRFF(has_ce=True)
-check = mantle.EQ(9)(idx.O, m.bits(256, 9))
-full(check, 0)
-m.wire(falling(sclk), full.CE)
-rom_ce = load & ~full.O
-m.wire(rom_ce, idx.CE)
+# full = mantle.SRFF(has_ce=True)
+# check = mantle.EQ(9)(idx.O, m.bits(256, 9))
+# full(check, 0)
+# m.wire(falling(sclk), full.CE)
+# rom_ce = load & ~full.O
+# m.wire(rom_ce, idx.CE)
 
 # rom = ROM16(4, num_data, addr)
 
@@ -84,9 +85,9 @@ conv = module()
 m.wire(sclk, conv.CLK)
 m.wire(data, conv.I0[0][0])
 m.wire(weights, conv.I1)
-m.wire(we, conv.WE)
+m.wire(1, conv.WE)
 
 m.wire(sclk,   main.J2_9)
-m.wire(full.O,  main.J2_10) # valid
+m.wire(1,  main.J2_10) # valid
 m.wire(conv.V,      main.J2_11)
 m.wire(conv.O,      main.J2_12)

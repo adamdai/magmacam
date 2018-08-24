@@ -42,9 +42,8 @@
     },
     "magma -b hx8kboard -d build main": {
         ".": "input-5058f1af8388633f609cadb75a75dc9d",
-        "__pycache__": "input-236455cc90628414652cd3b476180a5d",
         "__pycache__/arducam.cpython-36.pyc": "input-91397db9d2478c37f61f704e4c1f0ad6",
-        "__pycache__/main.cpython-36.pyc": "output-848155afc68fa7ffd62be4b4fa095360",
+        "__pycache__/main.cpython-36.pyc": "input-848155afc68fa7ffd62be4b4fa095360",
         "__pycache__/pipeline.cpython-36.pyc": "input-c64e3797309ffe640a59107f87216984",
         "__pycache__/process.cpython-36.pyc": "input-dfcf6c7e519b8bef0ec1600e8c5f6dc6",
         "__pycache__/rescale.cpython-36.pyc": "input-320ffc5c776c72b5d50b2f33d61a9fd8",
