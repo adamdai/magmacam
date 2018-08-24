@@ -2,6 +2,12 @@ This repo contains applications and demos for embedded FPGA systems developed us
 
 Here is a breakdown of the various directories.
 
+(32x32 vs 16x16)
+-tf_size (arducam)
+-rescale vs rescale32
+-I2C regs
+
+
 ## IceStick/HX8K
 This directory contains Magma programs written for the Lattice ICE40 IceStick architecture (either the IceStick or the HX8KBoard). They consist of modules (high-level circuits) that perform a specific function and link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits, and unit tests for some of these modules to test their functionality standalone.
 
