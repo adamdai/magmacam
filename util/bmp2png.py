@@ -14,11 +14,11 @@ data = []
 # File should be 2x(320x240) = 153600 bytes long
 # expects raw analyzer data from cam.UART channel
 
-w = 352
-h = 288
+w = 320
+h = 240
 
 
-df = pd.read_csv(r"~/Documents/analyzerdata/test_352x288.csv", usecols=[1])
+df = pd.read_csv(r"~/Documents/analyzerdata/test_cam.csv", usecols=[1])
 for val in df.values[3:(2*w*h+3)]:
     data.append(int(', '.join(val), 0))
 

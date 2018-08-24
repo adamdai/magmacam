@@ -33,8 +33,8 @@ def WrapDeclaration(decl):
         print(arg, port)
 
     # wire original circuit to wrapped version
-    circuit = decl()
     new_circuit = m.DefineCircuit(name, *args)
+    circuit = decl()
     for io in circuit.IO:
         argtype = decl.IO.__getitem__(decl.IO, io)
         if '_' in io:

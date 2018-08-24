@@ -58,11 +58,11 @@ import pandas as pd
 
 # --------------------------- LOAD FROM FILE ---------------------------- #
 
-img_size = 32
+img_size = 16
 
 img_list = []
 
-df = pd.read_csv(r"~/Documents/analyzerdata/test_32x32.csv", usecols=[1])
+df = pd.read_csv(r"~/Documents/analyzerdata/test_bits.csv", usecols=[1])
 for val in df.values[1:img_size+1]:
     img_list.append(int(val))
 
