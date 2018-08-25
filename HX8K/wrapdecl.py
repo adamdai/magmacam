@@ -4,16 +4,16 @@ import magma as m
 # Wrap a circuit declaration with a new interface
 # - unflattens all array arguments back into array structure
 #
-def WrapDeclaration(decl):
+def WrapInst(inst):
     # assert?
     # add support tuples
-    name = decl.name+'Wrapped'
+    name = inst.name+'Wrapped'
     args = []
     wrapped = {}
 
     # find all array index arguments (i.e. I0_1_0)
-    for io in decl.IO:
-        argtype = decl.IO.__getitem__(decl.IO, io)
+    for io in inst.IO:
+        argtype = inst.IO.__getitem__(inst.IO, io)
         if '_' in io:
             arg = io[:io.find('_')]
             indices = list(map(int, io[io.find('_')+1:].split('_')))
@@ -32,19 +32,26 @@ def WrapDeclaration(decl):
         args += [arg, port]
         print(arg, port)
 
+    print(args)
+
+    new_circuit = {}
+    for i in range(0, len(args), 2):
+        new_circuit[args[i]] = m.Flip(args[i + 1])()
+
+
     # wire original circuit to wrapped version
-    new_circuit = m.DefineCircuit(name, *args)
-    circuit = decl()
-    for io in circuit.IO:
-        argtype = decl.IO.__getitem__(decl.IO, io)
+    for io in inst.IO:
+        argtype = inst.IO.__getitem__(inst.IO, io)
         if '_' in io:
             arg = io[:io.find('_')]
             indices = list(map(int, io[io.find('_')+1:].split('_')))
-            m.wire(getattr(circuit, io), nest(getattr(new_circuit, arg), indices))
+            m.wire(getattr(inst, io), nest(new_circuit[arg], indices))
         else:
-            m.wire(getattr(circuit, io), getattr(new_circuit, io))
-    m.EndDefine()
-    return new_circuit
+            m.wire(getattr(inst, io), new_circuit[io])
+    IO = []
+    for key, value in new_circuit.items():
+        IO.extend([key, value])
+    return m.AnonymousCircuit(*IO)
 
 def wrap(index_list, argtype):
     if len(index_list) == 1:

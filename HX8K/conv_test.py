@@ -6,7 +6,7 @@ from mantle.lattice.ice40 import ROMB, SB_LUT4
 from mantle.util.edge import falling, rising
 from loam.boards.hx8kboard import HX8KBoard
 
-from wrapdecl import WrapDeclaration
+from wrapdecl import WrapInst
 
 
 hx8kboard = HX8KBoard()
@@ -69,12 +69,9 @@ data = m.array(m.bit(sclk))
 
 Convolution = m.DeclareFromVerilogFile('build/convolution.v', module="Convolution")
 
-module = WrapDeclaration(Convolution)
+conv = WrapInst(Convolution())
 
-print(Convolution)
-print(module)
-
-conv = module()
+print(conv)
 
 m.wire(sclk, conv.CLK)
 m.wire(data, conv.I0[0][0])

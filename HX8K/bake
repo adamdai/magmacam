@@ -20,7 +20,7 @@ def compile(base):
     regress(base)
 
 def magma(base):
-    run('magma', '-b', BOARD, '-d', BUILD, '-o', 'coreir-verilog', base)
+    run('magma', '-b', BOARD, '-d', BUILD, '-o', 'verilog', base)
 
 def regress(base):
     u = base+'.pcf'
