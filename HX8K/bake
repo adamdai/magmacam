@@ -7,7 +7,7 @@ BOARD = 'hx8kboard'
 BUILD = 'build'
 GOLD = 'gold' 
 
-tests = ['main.py', 'conv_test.py']
+tests = ['conv_test.py']
 
 def build():
     for test in tests:
@@ -20,7 +20,7 @@ def compile(base):
     regress(base)
 
 def magma(base):
-    run('magma', '-b', BOARD, '-d', BUILD, '-o', 'coreir_verilog', base)
+    run('magma', '-b', BOARD, '-d', BUILD, '-o', 'coreir-verilog', base)
 
 def regress(base):
     u = base+'.pcf'

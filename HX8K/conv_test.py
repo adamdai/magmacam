@@ -58,11 +58,6 @@ m.wire(falling(sclk), full.CE)
 rom_ce = load & ~full.O
 m.wire(rom_ce, idx.CE)
 
-# rom = ROM16(4, num_data, addr)
-
-# uart = UART(4)
-# uart(CLK=main.CLKIN, BAUD=baud, DATA=addr, LOAD=load)
-
 data = m.array(m.bit(sclk))
 
 # Convolution = m.DeclareCircuit(
@@ -84,7 +79,7 @@ conv = module()
 m.wire(sclk, conv.CLK)
 m.wire(data, conv.I0[0][0])
 m.wire(weights, conv.I1)
-m.wire(1, conv.WE)
+m.wire(we, conv.WE)
 
 m.wire(sclk,   main.J2_9)
 m.wire(1,  main.J2_10) # valid
