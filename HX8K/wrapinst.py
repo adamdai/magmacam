@@ -4,6 +4,8 @@ import magma as m
 # Wrap a circuit declaration with a new interface
 # - unflattens all array arguments back into array structure
 #
+
+
 def WrapInst(inst):
     # assert?
     # add support tuples
@@ -30,14 +32,10 @@ def WrapInst(inst):
     for arg in wrapped.keys():
         port = wrap(wrapped[arg][0], wrapped[arg][1])
         args += [arg, port]
-        print(arg, port)
-
-    print(args)
 
     new_circuit = {}
     for i in range(0, len(args), 2):
         new_circuit[args[i]] = m.Flip(args[i + 1])()
-
 
     # wire original circuit to wrapped version
     for io in inst.IO:
@@ -53,6 +51,7 @@ def WrapInst(inst):
         IO.extend([key, value])
     return m.AnonymousCircuit(*IO)
 
+
 def wrap(index_list, argtype):
     if len(index_list) == 1:
         index = index_list[0] + 1
@@ -61,6 +60,7 @@ def wrap(index_list, argtype):
         index = index_list.pop(0) + 1
         return m.Array(index, wrap(index_list, argtype))
 
+
 def nest(array, index_list):
     if len(index_list) == 1:
         index = index_list[0]
@@ -68,16 +68,3 @@ def nest(array, index_list):
     else:
         index = index_list.pop(0)
         return nest(array[index], index_list)
-
-# cur_arg = ''
-#     for io in circuit.IO:
-#         if '_' in io:
-#             next_arg = io[:io.find('_')]
-#             indices = list(map(int, io[io.find('_')+1:].split('_')))
-#             if cur_arg == '':
-#                 cur_arg = next_arg
-#             if next_arg != cur_arg:
-#                 port = wrap(indices, circuit.IO.__getitem__(circuit.IO, io))
-#                 args += [cur_arg, port]
-#                 print(cur_arg, port)
-#                 cur_arg = next_arg

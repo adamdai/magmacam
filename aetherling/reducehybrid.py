@@ -20,10 +20,9 @@ scope = Scope()
 
 width = 16
 
-#***************************************************************************#
-
 addID = DefineCoreirConst(width, 0)()
-rpp = ReducePartiallyParallel(cirb, 8, 2, renameCircuitForReduce(DeclareAdd(width)))
+rpp = ReducePartiallyParallel(cirb, 8, 2,
+                              renameCircuitForReduce(DeclareAdd(width)))
 
 m.wire(addID.out, rpp.C)
 
@@ -31,4 +30,3 @@ m.EndCircuit()
 
 module = GetCoreIRModule(cirb, rpp)
 module.save_to_file("reducehybrid.json")
-

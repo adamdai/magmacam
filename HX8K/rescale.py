@@ -18,9 +18,9 @@ a = wi//wo
 b = hi//ho
 
 # size of buffer for storing image n rows at a time
-buf_size = wi * b  # 4800 
+buf_size = wi * b  # 4800
 
-#threshold for determining black/white 
+# threshold for determining black/white pixel
 THRESH = 750  # (max = 2000)
 
 # mask for high byte of row data
@@ -39,7 +39,7 @@ class Rescale(m.Circuit):
     name = "Rescale"
     IO = ['CLK', m.In(m.Clock), 'LOAD', m.In(m.Bit), 'DATA', m.In(m.Bits(16)),
           'SCK', m.In(m.Bit),
-          'WADDR', m.Out(m.Bits(4)), 'O', m.Out(m.Bits(16)), 
+          'WADDR', m.Out(m.Bits(4)), 'O', m.Out(m.Bits(16)),
           'VALID', m.Out(m.Bit), 'DONE', m.Out(m.Bit), 'UART', m.Out(m.Bit)]
 
     @classmethod
@@ -50,7 +50,7 @@ class Rescale(m.Circuit):
         valid_counter = mantle.CounterModM(buf_size, 13, has_ce=True)
         m.wire(load & baud, valid_counter.CE)
 
-        valid_list = [wi * (b - 1) + i * a - 1 for i in range(1, wo + 1)]  # len = 16
+        valid_list = [wi * (b - 1) + i * a - 1 for i in range(1, wo + 1)]
 
         valid = m.GND
 
@@ -79,10 +79,11 @@ class Rescale(m.Circuit):
         add16 = mantle.Add(16)  # needed for Add16 definition
 
         # --------------------------FILL IMG RAM--------------------------- #
-        # each valid output of dscale represents an entry of 16x16 binary image
-        # accumulate each group of 16 entries into a 16-bit value representing a row
-        col = mantle.CounterModM(16, 5, has_ce=True) 
-        col_ce = rising(valid) 
+        # each valid output of dscale represents a pixel in 16x16 binary image
+        # accumulate each group of 16 pixels into a 16-bit value representing
+        # a row in the image
+        col = mantle.CounterModM(16, 5, has_ce=True)
+        col_ce = rising(valid)
         m.wire(col_ce, col.CE)
 
         # shift each bit in one at a time until we get an entire row
@@ -110,7 +111,7 @@ class Rescale(m.Circuit):
         rdy = col.COUT & ~img_full.O
         pulse_count = mantle.Counter(5, has_ce=True)
         we = mantle.UGE(5)(pulse_count.O, m.uint(1, 5))
-        pulse_count(CE=(we|rdy))
+        pulse_count(CE=(we | rdy))
 
         # ---------------------------UART OUTPUT----------------------------- #
 
@@ -122,14 +123,14 @@ class Rescale(m.Circuit):
         uart_addr = UART(4)
         uart_addr(CLK=io.CLK, BAUD=row_baud, DATA=waddr, LOAD=row_load)
 
-        # split 16-bit row data into 8-bit packets so it can be parsed 
+        # split 16-bit row data into 8-bit packets so it can be parsed
         low_byte = row & LOW_MASK
         high_byte = row & HIGH_MASK
         uart_counter = mantle.CounterModM(8, 4, has_ce=True)
         m.wire(rising(valid), uart_counter.CE)
 
         m.wire(waddr, io.WADDR)
-        m.wire(img_full, io.DONE) #img_full
-        m.wire(uart_row, io.UART) #uart_st
+        m.wire(img_full, io.DONE)
+        m.wire(uart_row, io.UART)
         m.wire(row, io.O)
         m.wire(we, io.VALID)

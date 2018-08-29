@@ -13,5 +13,5 @@
 cat build/main.v build/downscale_32.v > build/temp.v
 cat build/temp.v > build/main.v
 
-cat build/conv_test.v build/convolution.v > build/temp.v
+cat build/conv_test.v build/downscale_32.v > build/temp.v
 cat build/temp.v > build/conv_test.v

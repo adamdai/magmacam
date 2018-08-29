@@ -13,14 +13,11 @@ from mantle import CounterModM, Decode, SIPO
 from magma.frontend.coreir_ import GetCoreIRModule
 from mantle.coreir.arith import *
 from mantle.primitives import DeclareAdd
-
-import sys
-sys.path.insert(0, '../HX8K')
 from mac import MAC
 
 # convolution window size
-x = 4
-y = 5
+x = 3
+y = 3
 
 # image size (height and width)
 im_w = 16
@@ -47,14 +44,15 @@ out_MAC = m.Out(m.Bit)
 in_W = m.Array(y, m.Array(x, TIN))
 
 # Top level module: line buffer input, MAC output
-args = ['I0', in_LB, 'I1', in_W, 'O', out_MAC, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
+args = ['I0', in_LB, 'I1', in_W, 'WE', m.BitIn,
+        'O', out_MAC, 'V', m.Out(m.Bit)] + \
         m.ClockInterface(False, False)
-top = m.DefineCircuit('Convolution', *args)
+conv = m.DefineCircuit('Convolution', *args)
 
 # Line buffer declaration
 lb = Linebuffer(cirb, in_LB, out_LB, imgType, True)
-m.wire(top.I0, lb.I)
-m.wire(top.WE, lb.wen)
+m.wire(conv.I0, lb.I)
+m.wire(conv.WE, lb.wen)
 
 # MAC declaration
 mac = MAC(x*y)
@@ -64,16 +62,15 @@ k = 0
 for i in range(y):
     for j in range(x):
         m.wire(lb.out[i][j][0], mac.I0[k])
-        m.wire(top.I1[i][j][0], mac.I1[k])
+        m.wire(conv.I1[i][j][0], mac.I1[k])
         k += 1
 
-m.wire(top.O, mac.O)
-m.wire(top.V, lb.valid)
+m.wire(conv.O, mac.O)
+m.wire(conv.V, lb.valid)
 
 m.EndCircuit()
 
-module = GetCoreIRModule(cirb, top)
-module.save_to_file("convolution.json")
+# module = GetCoreIRModule(cirb, conv)
+# module.save_to_file("convolution.json")
 
 print("done")
-

@@ -5,17 +5,19 @@ from mantle.util.compressor import PopCount
 from magma.bitutils import log2
 
 # n-bit binary multiply-accumulate circuit
-# given two n-bit values, first computes the XNOR 
+# given two n-bit values, first computes the XNOR
 # then computes the popcount of the n-bit result, giving a logn-bit value p
 # final binary output value is computed as sign(2*p - n), i.e.
 # - 1 if 2*p >= n
 # - 0 if 2*p < n
 # also outputs the logn-bit result of the popcount used by the final FC layer
+
+
 def DefineMAC(n):
     class _MAC(m.Circuit):
         name = "MAC" + str(n)
         logn = log2(n) + 1
-        IO = ['CLK', m.In(m.Clock), 'I0', m.In(m.Bits(n)), 
+        IO = ['CLK', m.In(m.Clock), 'I0', m.In(m.Bits(n)),
               'I1', m.In(m.Bits(n)), 'P', m.Out(m.Bits(logn)),
               'O', m.Out(m.Bit)]
 

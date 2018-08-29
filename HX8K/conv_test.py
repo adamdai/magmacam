@@ -1,84 +1,90 @@
 import magma as m
 import mantle
-from rom import ROM8, ROM16
 from uart import UART
-from mantle.lattice.ice40 import ROMB, SB_LUT4
-from mantle.util.edge import falling, rising
+from arducam import ArduCAM
+from process import Process
+from pipeline import Pipeline
+from rescale1bit import Rescale
 from loam.boards.hx8kboard import HX8KBoard
 
-from wrapdecl import WrapInst
+from wrapinst import WrapInst
 
 
 hx8kboard = HX8KBoard()
 hx8kboard.Clock.on()
+
+hx8kboard.J2[3].output().on()
+hx8kboard.J2[4].output().on()
+hx8kboard.J2[5].output().on()
 
 hx8kboard.J2[9].output().on()
 hx8kboard.J2[10].output().on()
 hx8kboard.J2[11].output().on()
 hx8kboard.J2[12].output().on()
 
+hx8kboard.J2[8].input().on()
+
 main = hx8kboard.main()
 
-img_size = 16
+# convolution window size
+x = 3
+y = 3
 
-img_list = [0, 0, 0, 0, 960, 4064, 48, 32, 96, 192, 192, 384, 768, 512, 1536, 0]
+# image size (height and width)
+dim = 16
 
-bmp = []
-f = '{0:0'+str(img_size)+'b}'
-for n in img_list:
-    row = [1 if digit=='1' else 0 for digit in f.format(n)]
-    bmp.extend(row)
+weights = m.array([m.array([m.array([1]), m.array([1]), m.array([1])]),
+                   m.array([m.array([1]), m.array([1]), m.array([1])]),
+                   m.array([m.array([0]), m.array([0]), m.array([0])])])
 
-num_data = m.array(bmp)
+# Generate the SCLK signal (12 MHz/32 = 375 kHz)
+clk_counter = mantle.Counter(2)
+sclk = clk_counter.O[-1]
 
-weights = m.array([m.array([m.array([0]), m.array([1]), m.array([0]), m.array([1])]),
-                   m.array([m.array([1]), m.array([0]), m.array([1]), m.array([0])]),
-                   m.array([m.array([0]), m.array([0]), m.array([0]), m.array([0])]),
-                   m.array([m.array([0]), m.array([1]), m.array([0]), m.array([1])]),
-                   m.array([m.array([1]), m.array([0]), m.array([1]), m.array([0])])])   
+# Initialize Modules
 
-# decrease the frequency to avoid timing violation
-counter = mantle.Counter(5)
-sclk = counter.O[4]
-baud = mantle.FF()(rising(sclk) | falling(sclk))
+# ArduCAM
+cam = ArduCAM()
+m.wire(main.CLKIN,  cam.CLK)
+m.wire(sclk,        cam.SCK)
+m.wire(main.J2_8,     cam.MISO)
 
-idx = mantle.Counter(9, has_ce=True)
-# addr = rom_idx.O[:4]
+# Pre-processing
+process = Process()
+m.wire(main.CLKIN,  process.CLK)
+m.wire(sclk,        process.SCK)
+m.wire(cam.DATA,    process.DATA)
+m.wire(cam.VALID,   process.VALID)
 
-bit_counter = mantle.Counter(5, has_ce=True)
-m.wire(rising(sclk), bit_counter.CE)
+# Rescaling image
+rescale = Rescale()
+m.wire(main.CLKIN, rescale.CLK)
+m.wire(process.PXV, rescale.DATA)
+m.wire(sclk, rescale.SCK)
+m.wire(process.LOAD, rescale.LOAD)
 
-we = mantle.Decode(0, 5)(bit_counter.O)
-load = rising(we)
+# # register on input
+# bitin = mantle.Register(1, has_ce=True)
+# bitin(m.array(rescale.O))
+# m.wire(process.LOAD, bitin.CE)
 
-full = mantle.SRFF(has_ce=True)
-check = mantle.EQ(9)(idx.O, m.bits(256, 9))
-full(check, 0)
-m.wire(falling(sclk), full.CE)
-rom_ce = load & ~full.O
-m.wire(rom_ce, idx.CE)
+# Convolution = m.DeclareFromVerilogFile('build/convolution.v',
+#                                        module="Convolution")
 
-data = m.array(m.bit(sclk))
+# conv = WrapInst(Convolution())
 
-# Convolution = m.DeclareCircuit(
-#         'Convolution',
-#         "I0_0_0", m.Array(1, m.Array(1, m.In(m.Bit))),
-#         "I1", m.Array(4, m.Array(4, m.In(m.Bit))),
-#         "WE", m.In(m.Bit), "CLK", m.In(m.Clock),
-#         "O", m.Out(m.Bit), "V", m.Out(m.Bit))
+# m.wire(~sclk, conv.CLK)
+# m.wire(bitin, conv.I0[0][0])
+# m.wire(weights, conv.I1)
+# m.wire(rescale.VALID, conv.WE)
 
-Convolution = m.DeclareFromVerilogFile('build/convolution.v', module="Convolution")
+# Wire up camera SPI bus
+m.wire(sclk,          main.J2_3)
+m.wire(cam.EN,        main.J2_4)
+m.wire(cam.MOSI,      main.J2_5)
 
-conv = WrapInst(Convolution())
-
-print(conv)
-
-m.wire(sclk, conv.CLK)
-m.wire(data, conv.I0[0][0])
-m.wire(weights, conv.I1)
-m.wire(we, conv.WE)
-
-m.wire(sclk,   main.J2_9)
-m.wire(1,  main.J2_10) # valid
-m.wire(conv.V,      main.J2_11)
-m.wire(conv.O,      main.J2_12)
+# Wire up GPIOs for debugging
+m.wire(cam.UART,      main.J2_9)
+m.wire(process.UART,  main.J2_10)
+m.wire(rescale.O,      main.J2_11)
+m.wire(rescale.VALID,      main.J2_12)

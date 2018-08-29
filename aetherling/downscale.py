@@ -7,7 +7,6 @@ from magma.bitutils import *
 from coreir.context import *
 from magma.simulator.coreir_simulator import CoreIRSimulator
 import coreir
-from magma.scope import Scope
 from mantle.coreir import DefineCoreirConst
 from mantle import CounterModM, Decode, SIPO
 from magma.frontend.coreir_ import GetCoreIRModule
@@ -21,10 +20,6 @@ b = 15
 # image dimensions (height and width)
 im_w = 320
 im_h = 240
-
-c = coreir.Context()
-cirb = CoreIRBackend(c)
-scope = Scope()
 
 # 8-bit values but extend to 16-bit to avoid carryover in addition
 width = 16
@@ -40,34 +35,39 @@ imgType = m.Array(im_h, m.Array(im_w, TIN))  # image dimensions
 inType2 = m.In(m.Array(a*b, TIN))
 outType2 = TOUT
 
-# Top level module: line buffer input, reduce output
-args = ['I', inType, 'O', outType2, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
-        m.ClockInterface(False, False)
-top = m.DefineCircuit('Downscale', *args)
+# n-bit UART transmitter
+def DefineDownscale(c):
+    class _Downscale(m.Circuit):
+        name = "Downscale"
+        IO = ['CLK', m.In(m.Clock), 'I', inType, 'O', outType2, 'WE', m.BitIn, 'V', m.Out(m.Bit)]
 
-# Line buffer declaration
-lb = Linebuffer(cirb, inType, outType, imgType, True)
-m.wire(lb.I, top.I)
-m.wire(lb.wen, top.WE)
+        @classmethod
+        def definition(io):
+            cirb = CoreIRBackend(c)
 
-# Reduce declaration
-red = ReduceParallel(cirb, a*b, renameCircuitForReduce(DeclareAdd(width)))
-# additive identity
-coreirConst = DefineCoreirConst(width, 0)()
+            # Line buffer declaration
+            lb = Linebuffer(cirb, inType, outType, imgType, True)
+            m.wire(lb.I, io.I)
+            m.wire(lb.wen, io.WE)
 
-# flatten linebuffer output and wire to reduce parallel input
-for i in range(b):
-    for j in range(a):
-        k = a * i + j
-        m.wire(red.I.data[k], lb.out[i][j])
+            # Reduce declaration
+            red = ReduceParallel(cirb, a*b, renameCircuitForReduce(DeclareAdd(width)))
+            # additive identity
+            coreirConst = DefineCoreirConst(width, 0)()
 
-m.wire(red.I.identity, coreirConst.O)
-m.wire(top.O, red.out)
-m.wire(top.V, lb.valid)
+            # flatten linebuffer output and wire to reduce parallel input
+            for i in range(b):
+                for j in range(a):
+                    k = a * i + j
+                    m.wire(red.I.data[k], lb.out[i][j])
 
-m.EndCircuit()
+            m.wire(red.I.identity, coreirConst.O)
+            m.wire(io.O, red.out)
+            m.wire(io.V, lb.valid)
 
-module = GetCoreIRModule(cirb, top)
-module.save_to_file("downscale.json")
+    return _Downscale
 
-print("done")
+
+def Downscale(c, **kwargs):
+    return DefineDownscale(c)(**kwargs)
+

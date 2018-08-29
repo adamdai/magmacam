@@ -7,7 +7,6 @@ from magma.bitutils import *
 from coreir.context import *
 from magma.simulator.coreir_simulator import CoreIRSimulator
 import coreir
-from magma.scope import Scope
 from mantle.coreir import DefineCoreirConst
 from mantle import CounterModM, Decode, SIPO
 from magma.frontend.coreir_ import GetCoreIRModule
@@ -25,7 +24,6 @@ im_h = 240
 
 c = coreir.Context()
 cirb = CoreIRBackend(c)
-scope = Scope()
 
 # 8-bit values but extend to 16-bit to avoid carryover in addition
 width = 16
@@ -44,12 +42,12 @@ outType2 = TOUT
 # Top level module: line buffer input, reduce output
 args = ['I', inType, 'O', outType2, 'WE', m.BitIn, 'V', m.Out(m.Bit)] + \
         m.ClockInterface(False, False)
-top = m.DefineCircuit('Downscale', *args)
+dscale = m.DefineCircuit('Downscale', *args)
 
 # Line buffer declaration
 lb = Linebuffer(cirb, inType, outType, imgType, True)
-m.wire(lb.I, top.I)
-m.wire(lb.wen, top.WE)
+m.wire(lb.I, dscale.I)
+m.wire(lb.wen, dscale.WE)
 
 # Reduce declaration
 red = ReduceParallel(cirb, samples, renameCircuitForReduce(DeclareAdd(width)))
@@ -64,12 +62,12 @@ for i in [0, 3, 5, 8]:
         k += 1
 
 m.wire(red.I.identity, coreirConst.O)
-m.wire(top.O, red.out)
-m.wire(top.V, lb.valid)
+m.wire(dscale.O, red.out)
+m.wire(dscale.V, lb.valid)
 
 m.EndCircuit()
 
-module = GetCoreIRModule(cirb, top)
-module.save_to_file("downscale_32.json")
+# module = GetCoreIRModule(cirb, dscale)
+# module.save_to_file("downscale_32.json")
 
 print("done")
