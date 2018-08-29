@@ -105,9 +105,11 @@ csv or list of int values representing rows of a binary image .
 `monitor.py` is a simple program to receive UART data from the IceStick.
 `bmp2png.py`, `gray2img.py`, and `int2bitarray.py` are designed to be used with the logic analyzer to debug/check 
 the output of the `arducam`, `process`, and `rescale` modules respectively.  In the Saleae Logic software, 
+
 <p align="center">
   <img width="320" height="240" src="images/test.jpg">
 </p>
+
 ```
 [1920, 4032, 3264, 3264, 3136, 3200, 1792, 1920, 3520, 3264, 6336, 7360, 4032, 1984, 0, 0]
 
@@ -128,6 +130,3 @@ the output of the `arducam`, `process`, and `rescale` modules respectively.  In 
  [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]
 ```
-(**TODO:** Would be good to note what these are used for, such as example use
-case. E.g. the bmp2png can be used with the logic analyzer)
-
