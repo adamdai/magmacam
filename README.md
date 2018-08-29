@@ -107,7 +107,7 @@ csv or list of int values representing rows of a binary image .
 the output of the `arducam`, `process`, and `rescale` modules respectively.  In the Saleae Logic software, 
 
 <p align="center">
-  <img width="320" height="240" src="images/test.jpg">
+  <img width="320" height="240" src="images/test.png">
 </p>
 
 ```
