@@ -14,6 +14,9 @@ hx8kboard.D2.on()
 hx8kboard.D3.on()
 hx8kboard.D4.on()
 hx8kboard.D5.on()
+hx8kboard.D6.on()
+hx8kboard.D7.on()
+hx8kboard.D8.on()
 
 hx8kboard.J2[3].output().on()
 hx8kboard.J2[4].output().on()
@@ -76,3 +79,7 @@ m.wire(rescale.UART,      main.J2_11)
 m.wire(rescale.DONE,      main.J2_12)
 
 m.wire(rescale.UART,      main.TX)
+
+m.wire(0, main.D6)
+m.wire(0, main.D7)
+m.wire(0, main.D8)

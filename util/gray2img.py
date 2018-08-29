@@ -11,7 +11,7 @@ data = []
 # File should be (320x240) = 76800 bytes long
 # expects raw analyzer data from process.UART channel
 
-df = pd.read_csv(r"~/Documents/analyzerdata/numtest3_process.csv", usecols=[1])
+df = pd.read_csv(r"~/Documents/analyzerdata/test_gray.csv", usecols=[1])
 for val in df.values[3:76803]:
     data.append(int(', '.join(val), 0))
 

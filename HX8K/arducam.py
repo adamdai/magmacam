@@ -8,8 +8,8 @@ from uart import UART
 
 trigger = m.VCC  # maybe tie to GPIO later
 
-tf_size = 202752
-# tf_size = 153600
+#tf_size = 202752
+tf_size = 153600
 
 # ArduCAM start capture sequence
 init = [

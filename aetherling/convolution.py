@@ -7,7 +7,6 @@ from magma.bitutils import *
 from coreir.context import *
 from magma.simulator.coreir_simulator import CoreIRSimulator
 import coreir
-from magma.scope import Scope
 from mantle.coreir import DefineCoreirConst
 from mantle import CounterModM, Decode, SIPO
 from magma.frontend.coreir_ import GetCoreIRModule
@@ -29,7 +28,6 @@ TOUT = m.Array(width, m.Out(m.Bit))
 
 c = coreir.Context()
 cirb = CoreIRBackend(c)
-scope = Scope()
 
 # Line Buffer interface
 in_LB = m.Array(1, m.Array(1, TIN))  # one image row per clock
