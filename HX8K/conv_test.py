@@ -22,6 +22,8 @@ hx8kboard.J2[10].output().on()
 hx8kboard.J2[11].output().on()
 hx8kboard.J2[12].output().on()
 
+hx8kboard.J2[16].output().on()
+
 hx8kboard.J2[8].input().on()
 
 main = hx8kboard.main()
@@ -63,20 +65,20 @@ m.wire(process.PXV, rescale.DATA)
 m.wire(sclk, rescale.SCK)
 m.wire(process.LOAD, rescale.LOAD)
 
-# # register on input
-# bitin = mantle.Register(1, has_ce=True)
-# bitin(m.array(rescale.O))
-# m.wire(process.LOAD, bitin.CE)
+# register on input
+bitin = mantle.Register(1, has_ce=True)
+bitin(m.array(rescale.O))
+m.wire(process.LOAD, bitin.CE)
 
-# Convolution = m.DeclareFromVerilogFile('build/convolution.v',
-#                                        module="Convolution")
+Convolution = m.DeclareFromVerilogFile('build/convolution.v',
+                                       module="Convolution")
 
-# conv = WrapInst(Convolution())
+conv = WrapInst(Convolution())
 
-# m.wire(~sclk, conv.CLK)
-# m.wire(bitin, conv.I0[0][0])
-# m.wire(weights, conv.I1)
-# m.wire(rescale.VALID, conv.WE)
+m.wire(~sclk, conv.CLK)
+m.wire(bitin, conv.I0[0][0])
+m.wire(weights, conv.I1)
+m.wire(rescale.VALID, conv.WE)
 
 # Wire up camera SPI bus
 m.wire(sclk,          main.J2_3)
@@ -86,5 +88,6 @@ m.wire(cam.MOSI,      main.J2_5)
 # Wire up GPIOs for debugging
 m.wire(cam.UART,      main.J2_9)
 m.wire(process.UART,  main.J2_10)
-m.wire(rescale.O,      main.J2_11)
-m.wire(rescale.VALID,      main.J2_12)
+m.wire(rescale.O & rescale.VALID,      main.J2_11)
+m.wire(conv.O,      main.J2_12)
+m.wire(conv.V,      main.J2_16)

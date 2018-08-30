@@ -36,14 +36,14 @@ inType2 = m.In(m.Array(a*b, TIN))
 outType2 = TOUT
 
 # n-bit UART transmitter
-def DefineDownscale(c):
+def DefineDownscale(cirb):
     class _Downscale(m.Circuit):
         name = "Downscale"
         IO = ['CLK', m.In(m.Clock), 'I', inType, 'O', outType2, 'WE', m.BitIn, 'V', m.Out(m.Bit)]
 
         @classmethod
         def definition(io):
-            cirb = CoreIRBackend(c)
+            # cirb = CoreIRBackend(c)
 
             # Line buffer declaration
             lb = Linebuffer(cirb, inType, outType, imgType, True)

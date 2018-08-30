@@ -67,7 +67,7 @@ m.wire(dscale.V, lb.valid)
 
 m.EndCircuit()
 
-# module = GetCoreIRModule(cirb, dscale)
-# module.save_to_file("downscale_32.json")
+module = GetCoreIRModule(cirb, dscale)
+module.save_to_file("downscale_32.json")
 
 print("done")

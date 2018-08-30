@@ -68,7 +68,7 @@ m.wire(conv.V, lb.valid)
 
 m.EndCircuit()
 
-# module = GetCoreIRModule(cirb, conv)
-# module.save_to_file("convolution.json")
+module = GetCoreIRModule(cirb, conv)
+module.save_to_file("convolution.json")
 
 print("done")
