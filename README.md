@@ -122,13 +122,7 @@ the output of the `arducam`, `process`, and `rescale` modules respectively.  All
 <p align="left">
   <img width="280" height="210" src="images/8_test.png">
   <img width="320" height="240" src="images/8_gray.png">
-  <img width="320" height="240" src="images/8_bits.png">
-</p>
-<p align="center">
-  <img width="640" height="480" src="images/8_gray.png">
-</p>
-<p align="right">
-  <img width="640" height="480" src="images/8_bits.png">
+  <img width="260" height="260" src="images/8_bits.png">
 </p>
 
 ```
