@@ -119,8 +119,8 @@ csv or list of int values representing rows of a binary image .
 `bmp2png.py`, `gray2img.py`, and `int2bitarray.py` are designed to be used with the logic analyzer to debug/check 
 the output of the `arducam`, `process`, and `rescale` modules respectively.  All of these modules include a "UART" output port, which transmits output data from the module at twice the SPI clock (SCLK) speed. These UART ports can be wired to GPIOs on the FPGA, which in turn may be connected to a logic analyzer. In the Saleae Logic software, there is an option to add an analyzer to a channel, 
 
-<p align="center">
-  <img width="320" height="240" src="images/test.png">
+<p align="left">
+  <img width="320" height="240" src="images/8_test.png">
 </p>
 
 ```
