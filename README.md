@@ -47,10 +47,14 @@ Instead of the loading the image into ROM at initialization time, the circuit
 has a RAM for storing image bits so that the input of the BNN may be wired to
 another circuit (e.g. the output of the ArduCAM).
 
-The network consists only of a single fully connected layer. It flattens the 16x16 image into a size 256 vector and dots it with 10 (number of classes) size 256 weight vectors. The multiply-accumulate operation of the dot product is computed using an XNOR followed by a popcount in order to take advantage of the binary nature of the data. The results of the veector product are succesively compared to each other in order to determine the maximum, which is then chosen as the output of the classifer.
+The network itself consists only of a single fully connected layer. It flattens the 16x16 image into a size 256 vector and dots it with 10 (number of classes) size 256 weight vectors. The multiply-accumulate operation of the dot product is computed using an XNOR followed by a popcount in order to take advantage of the binary nature of the data. The results of the veector product are succesively compared to each other in order to determine the maximum, which is then chosen as the output of the classifer.
 
 ### main.py
-The main program which defines a top level module (`main`).  It first uses the `arducam` module to capture a raw image and feeds it the `process` module, which converts it to grayscale. The grayscale version is passed to the `rescale` module, which scales it down to All processing up to `pipeline` is done in a streaming fashion, i.e. 
+The main program which defines a top level module (`main`).  It first uses the `arducam` module to capture a raw image and feeds it the `process` module, which converts it to grayscale. The grayscale version is passed to the `rescale` module, which scales it down to a 16x16 binary image which is then fed to the `pipeline` module and classified as a decimal digit, with the result being shown on the LEDs of the FPGA in binary. All processing up to `pipeline` is done in a streaming fashion, i.e. each pixel coming in from the camera is processed before the next one comes in. Currently, the SPI clock speed for the ArduCAM is set to 3 MHz, which determines the processing rate for the `process` and `rescale` modules. The output of the `rescale` module is collected in a RAM in the `pipeline` module, while the rest of the pipeline set inactive by disabling the clock. When the SPI image transfer is done, and the RAM contains a full image, a flag is set to enable the clock and run the BNN classifier. 
+
+<p align="center">
+  <img width="831" height="62" src="images/diagrams/pipeline.png">
+</p>
 
 Pin mappings for the ArduCAM / HX8K board interface
 ```
@@ -70,6 +74,10 @@ J2 pin 10         1                         process output
 J2 pin 11         2                         rescale output
 J2 pin 12         3                         transfer done 
 ```
+
+### uart.py
+
+### wrapinst.py
 
 **TODO:** It would be good to document how to run these tests (using the logic
 analyzer?) Also, maybe these should be moved to a `tests` directory. We could
@@ -109,7 +117,7 @@ png image from a csv file of 16-bit RGB pixel values (as bytes),
 csv or list of int values representing rows of a binary image .
 `monitor.py` is a simple program to receive UART data from the IceStick.
 `bmp2png.py`, `gray2img.py`, and `int2bitarray.py` are designed to be used with the logic analyzer to debug/check 
-the output of the `arducam`, `process`, and `rescale` modules respectively.  In the Saleae Logic software, 
+the output of the `arducam`, `process`, and `rescale` modules respectively.  All of these modules include a "UART" output port, which transmits output data from the module at twice the SPI clock (SCLK) speed. These UART ports can be wired to GPIOs on the FPGA, which in turn may be connected to a logic analyzer. In the Saleae Logic software, there is an option to add an analyzer to a channel, 
 
 <p align="center">
   <img width="320" height="240" src="images/test.png">
