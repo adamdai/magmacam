@@ -11,6 +11,8 @@ Here is a breakdown of the various directories.
 ## IceStick/HX8K
 This directory contains Magma programs written for the Lattice ICE40 IceStick architecture (either the IceStick or the HX8KBoard). They consist of modules (high-level circuits) that perform a specific function and link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits, and unit tests for some of these modules to test their functionality standalone.
 
+To build and run the tests/examples, first edit the `bake` file to include the name of the program to compile in the `tests` list, then run `./bake` to generate verilog and pcf files. Next, run `./cat_verilog` if necessary (more explanation on this in the aetherling section below), then navigate to the build directory and edit the `Makefile` so that the `NAME` field equals the name of the program to run, then call `make` followed `make upload`.
+
 ### arducam.py
 A magma module which exposes the SPI interface of an ArduCAM Mini 2MP  peripheral for initiating a capture and receiving image data. 
 
@@ -90,7 +92,10 @@ library](https://github.com/David-Durst/aetherling). Because these circuits must
 compiled using the magma coreir backend and coreir mantle target, they cannot be used directly
 with the ice40 magma circuits in the IceStick/HX8K folders, and instead must be compiled to 
 verilog separately then combined with any programs that use them at the verilog level. For example, 
-the `rescale` ice40 module uses the aetherling module `downscale_sub`, so in `rescale.py` 
+the `rescale` ice40 module uses the aetherling module `downscale_sub`, so in `rescale.py`, the downscale circuit
+is declared and wired up, and the verilog for the program (sat `rescale_test.v`) is generated, but the definition and implementation of the downscale circuit exists in `downscale_sub.py`, so the verilog `downscale_sub.v` must be generated separately by first calling `python downscale_sub.py` to create a json file then runnning `./coreir_compile downscale_sub HX8K` 
+
+
 (**TODO:** Should this average the pixels? Are they grayscale?)
 and the Downscale module (in`downscale.py`) which
 is designed to downscale a 320x240 image (taken by the ArduCAM) to a 16x16 (to
