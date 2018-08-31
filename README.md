@@ -69,27 +69,6 @@ J2 pin 11         2                         rescale output
 J2 pin 12         3                         transfer done 
 ```
 
-### uart.py
-Simple module which takes n-bit data and outputs serialized UART data which can then be read on a logic analyzer.
-
-### wrapinst.py
-Utility function to 
-
-**TODO:** It would be good to document how to run these tests (using the logic
-analyzer?) Also, maybe these should be moved to a `tests` directory. We could
-also consider writing some tests for these using the Python or CoreIR
-simulator, so we could run them on Travis.
-### stencil.py
-Test program for the STEN aetherling module (see below).
-
-### downscale_test.py
-Test program to downscale a 320x240 ArduCAM image to a 16x16 using the
-Downscale aetherling module. Currently too large to run on the IceStick.
-
-### RAM_test.py
-Test program which feeds an image stored in ROM to the RAM in the `pipeline.py`
-circuit and runs the BNN classifier. Can be used to test the BNN on a custom image. 
-
 ## aetherling
 This folder contains a "library" of high level magma circuits defined using the [aetherling
 library](https://github.com/David-Durst/aetherling). Because these circuits must be 
@@ -99,11 +78,8 @@ verilog separately then combined with any programs that use them at the verilog 
 the `rescale` ice40 module uses the aetherling module `downscale_sub`, so in `rescale.py`, the downscale circuit
 is declared and wired up, and the verilog for the program (sat `rescale_test.v`) is generated, but the definition and implementation of the downscale circuit exists in `downscale_sub.py`, so the verilog `downscale_sub.v` must be generated separately by first calling `python downscale_sub.py` to create a json file then runnning `./coreir_compile downscale_sub HX8K` 
 
-
-(**TODO:** Should this average the pixels? Are they grayscale?)
-and the Downscale module (in`downscale.py`) which
-is designed to downscale a 320x240 image (taken by the ArduCAM) to a 16x16 (to
-feed into the BNN classifier) using a window size of 20x15. 
+### downscale
+The `downscale.py` modules takes a grayscale image as a stream of pixels (1 pixel per clock) and produces a downscaled version by summing together neighboring blocks of pixel values. It uses a linebuffer which stores sections of the image and outputs a sliding window of pixels and a parallel add module to sum these groups of pixels when they become valid. 
 
 ## util
 This folder contains some miscellaneous python scripts. `bmp2png.py` creates a
