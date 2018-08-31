@@ -79,14 +79,16 @@ the `rescale` ice40 module uses the aetherling module `downscale_sub`, so in `re
 is declared and wired up, and the verilog for the program (sat `rescale_test.v`) is generated, but the definition and implementation of the downscale circuit exists in `downscale_sub.py`, so the verilog `downscale_sub.v` must be generated separately by first calling `python downscale_sub.py` to create a json file then runnning `./coreir_compile downscale_sub HX8K` 
 
 ### downscale
-The `downscale.py` modules takes a grayscale image as a stream of pixels (1 pixel per clock) and produces a downscaled version by summing together neighboring blocks of pixel values. It uses a linebuffer which stores sections of the image and outputs a sliding window of pixels and a parallel add module to sum these groups of pixels when they become valid. 
+The `downscale.py` module takes a grayscale image as a stream of pixels (1 pixel per clock) and produces a downscaled version by summing together neighboring blocks of pixel values. It uses a linebuffer which stores sections of the image and outputs a sliding window of pixels and a parallel add module to sum these groups of pixels when they become valid. This module is used in the arducam pipeline to scale the 320x240 image to 16x16 using a 20x15 window. 
+
+However, summing over the entire 20x15 window requires a 2^8 = 512 size parallel add module, which is impractical due to size contraints of the IceStick and HX8K board. Thus, the `downscale_sub.py` module performs the same function as the `downscale.py` module, using the same linebuffer to output 20x15 windows of pixels, but only sums 16 of the 300 pixels in the window to calculate the new pixel value. 
 
 ## util
 This folder contains some miscellaneous python scripts. `bmp2png.py` creates a
 png image from a csv file of 16-bit RGB pixel values (as bytes),
 `bytes2jpeg.py` creates a jpg image from a a csv of raw JPEG bytes,
 `gray2img.py` displays a grayscale image from a csv file of grayscale values, and `int2bitarray.py` takes either a 
-csv or list of int values representing rows of a binary image .
+csv or list of int values representing rows of a binary image and displays it as a grid of black and white pixels.
 `monitor.py` is a simple program to receive UART data from the IceStick.
 `bmp2png.py`, `gray2img.py`, and `int2bitarray.py` are designed to be used with the logic analyzer to debug/check 
 the output of the `arducam`, `process`, and `rescale` modules respectively.  All of these modules include a "UART" output port, which transmits output data from the module at twice the SPI clock (SCLK) speed. These UART ports can be wired to GPIOs on the FPGA, which in turn may be connected to a logic analyzer. In the Saleae Logic software, there is an option to add an analyzer to a channel, so we can add an "Async Serial" analyzer to the channels connected to the UART ports and set the bit rate and data width appropriately in order to extract output data from these modules.
