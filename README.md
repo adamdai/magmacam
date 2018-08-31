@@ -3,12 +3,12 @@ This repo contains applications and demos for embedded FPGA systems developed us
 Here is a breakdown of the various directories.
 
 ## IceStick/HX8K
-This directory contains Magma programs written for the Lattice ICE40 IceStick architecture (either the IceStick or the HX8KBoard). They consist of modules (high-level circuits) that perform a specific function and link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits, and unit tests for some of these modules to test their functionality standalone.
+These directories contains magma programs written for the Lattice ICE40 IceStick architecture (either the IceStick or the HX8KBoard). They consist of modules (high-level circuits) that perform a specific function and link together to form a contiguous pipeline for capturing, processing, and classifying handwritten digits, and unit tests for some of these modules to test their functionality standalone.
 
 To build and run the tests/examples, first edit the `bake` file to include the name of the program to compile in the `tests` list, then run `./bake` to generate verilog and pcf files. Next, run `./cat_verilog` if necessary (more explanation on this in the aetherling section below), then navigate to the build directory and edit the `Makefile` so that the `NAME` field equals the name of the program to run, then call `make` followed by `make upload`.
 
 ### arducam.py
-A magma module which exposes the SPI interface of an ArduCAM Mini 2MP  peripheral for initiating a capture and receiving image data. 
+A magma module which exposes the SPI interface of an ArduCAM Mini 2MP peripheral for initiating a capture and receiving image data. 
 
 The module has three phases or states: a capture command phase, a wait phase, and a burst read phase. During the capture command phase, the programs steps through a set of 2-byte commands consisting of a register and value, which are pre-loaded in ROM during initialization, and sends them to the ArduCAM over the MOSI line. When the ArduCAM slave received these commands, it initiates a capture, and the program goes into the wait phase, continually checking the MISO line for the capture completion flag to be set. Once the flag is read as set, the program sends the burst read command to the ArduCAM, then proceeds to contiually read image data from the MISO line.
 
@@ -88,6 +88,7 @@ This module performs binary image convolution with a streaming input image and f
 <p align="center">
   <img width="1024" height="348" src="images/AGhannoum-SlidingWindow-1024x388.png">
 </p>
+
 > Diagram showing linebuffer used to output a 3x3 sliding window in the convolution of an image (taken from http://blog.teledynedalsa.com/2012/05/image-filtering-in-fpgas/) 
 
 ## util
