@@ -1,5 +1,7 @@
 This repo contains applications and demos for embedded FPGA systems developed using the [magma HDL](https://github.com/phanrahan/magma).
 
+Please refer to the [magmathon](https://github.com/phanrahan/magmathon) repo for how to setup magma with the IceStick/HX8K.
+
 Here is a breakdown of the various directories.
 
 ## IceStick/HX8K
@@ -76,7 +78,7 @@ compiled using the magma coreir backend and coreir mantle target, they cannot be
 with the ice40 magma circuits in the IceStick/HX8K folders, and instead must be compiled to 
 verilog separately then combined with any programs that use them at the verilog level. For example, 
 the `rescale` ice40 module uses the aetherling module `downscale_sub`, so in `rescale.py`, the downscale circuit
-is declared and wired up, and the verilog for the program (sat `rescale_test.v`) is generated, but the definition and implementation of the downscale circuit exists in `downscale_sub.py`, so the verilog `downscale_sub.v` must be generated separately by first calling `python downscale_sub.py` to create a json file then runnning `./coreir_compile downscale_sub HX8K` 
+is declared and wired up, and the verilog for the program (say `rescale_test.v`) is generated, but the definition and implementation of the downscale circuit exists in `downscale_sub.py`, so the verilog `downscale_sub.v` must be generated separately by first calling `python downscale_sub.py` to create a json file then runnning `./coreir_compile downscale_sub HX8K` which places the output verilog in the build folder of the the HX8K directory, where it can be concatenated to `rescale_test.v` and the resulting file synthesized and uploaded to the FPGA.
 
 ### downscale
 The `downscale.py` module takes a grayscale image as a stream of pixels (1 pixel per clock) and produces a downscaled version by summing together neighboring blocks of pixel values. It uses a linebuffer which stores sections of the image and outputs a sliding window of pixels and a parallel add module to sum these groups of pixels when they become valid. This module is used in the arducam pipeline to scale the 320x240 image to 16x16 using a 20x15 window. 
