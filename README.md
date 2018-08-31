@@ -70,8 +70,10 @@ J2 pin 12         3                         transfer done
 ```
 
 ### uart.py
+Simple module which takes n-bit data and outputs serialized UART data which can then be read on a logic analyzer.
 
 ### wrapinst.py
+Utility function to 
 
 **TODO:** It would be good to document how to run these tests (using the logic
 analyzer?) Also, maybe these should be moved to a `tests` directory. We could
@@ -132,8 +134,8 @@ rescale        6000000                    16
 The data from each of these analyzers can also be exported to a csv file, which can then be fed as input to the appropriate python script to visualize the output data. 
 
 <p align="left">
-  <img width="280" height="210" src="images/8_test.png">
-  <img width="320" height="240" src="images/8_gray.png">
+  <img width="240" height="200" src="images/8_test.png">
+  <img width="300" height="240" src="images/8_gray.png">
   <img width="320" height="240" src="images/8_bits.png">
 </p>
 
